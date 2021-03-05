@@ -5,7 +5,7 @@
       effects="parallax-background blend-background"
       box-image="/images/photodune-4161018-group-of-students-m.jpg"
       class="mdk-box--bg-primary bg-dark mb-0">
-      
+
       <student-home-hero
         v-bind="headerContentComponentProps" />
     </fmv-box>
@@ -50,7 +50,7 @@
         <page-separator>From the blog</page-separator>
 
         <div class="row card-group-row">
-          <div 
+          <div
             v-for="item in blogPosts1"
             :key="item.id"
             class="col-md-6 col-lg-4 card-group-row__col">
@@ -78,11 +78,11 @@
         <div class="row card-group-row">
           <div
             v-for="item in paths1"
-            :key="item.id" 
+            :key="item.id"
             class="col-sm-4 card-group-row__col">
             <account-path-card
-              class="card-group-row__card" 
-              :title="item.title" 
+              class="card-group-row__card"
+              :title="item.title"
               :image="item.image"
               :open="item.open"
               :favorite="item.favorite"
@@ -94,11 +94,11 @@
         <div class="row card-group-row mb-lg-8pt">
           <div
             v-for="item in paths2"
-            :key="item.id" 
+            :key="item.id"
             class="col-sm-4 card-group-row__col">
             <account-path-card
-              class="card-group-row__card mb-lg-0" 
-              :title="item.title" 
+              class="card-group-row__card mb-lg-0"
+              :title="item.title"
               :image="item.image"
               :open="item.open"
               :favorite="item.favorite"
@@ -107,7 +107,7 @@
           </div>
         </div>
 
-      </div>  
+      </div>
     </div>
 
     <div class="page-section border-bottom-2">
@@ -115,13 +115,13 @@
         <page-separator>Design Courses</page-separator>
 
         <div class="row card-group-row">
-          <div 
+          <div
             v-for="item in courses"
             :key="item.id"
             class="col-md-6 col-lg-4 col-xl-3 card-group-row__col">
             <course-card
               :account="false"
-              :title="item.title" 
+              :title="item.title"
               :image="item.image"
               :avatar="(item.avatar || item.image)"
               :free="item.free"
@@ -142,7 +142,7 @@
 </template>
 
 <script>
-  // import { 
+  // import {
   //   Page,
   //   BlogPostFeaturedCard as PostFeaturedCard,
   //   BlogPostCard as PostCard,
@@ -153,7 +153,7 @@
   //   MdIcon,
   //   PageSeparator
   // } from 'vue-luma'
-  
+
   import Page from '~/components/Page'
   import PostFeaturedCard from '~/components/Blog/PostFeaturedCard'
   import PostCard from '~/components/Blog/PostCard'
@@ -198,7 +198,7 @@
         default: () => []
       },
       blogPosts2: {
-        type: Array, 
+        type: Array,
         default: () => []
       },
       paths1: {
@@ -239,7 +239,7 @@
           title: 'Learn Photoshop',
           image: 'photoshop'
         }, {
-          title: 'Learn Figma', 
+          title: 'Learn Figma',
           image: 'figma'
         }]
       }

@@ -1,6 +1,6 @@
 export const state = () => ({
-  brand: 'Luma',
-  docsHostname: 'www.lumalms.com'
+  brand: 'Vincurate',
+  docsHostname: 'www.vincurate.com'
 })
 
 export const getters = {

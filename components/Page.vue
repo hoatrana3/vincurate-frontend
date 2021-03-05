@@ -6,7 +6,7 @@
     mixins: [
       layoutConfigMixin,
       routeToMixin
-    ], 
+    ],
     layout({store, route}) {
       return route.params.layout ? route.params.layout : store.getters.settings.layout.layout
     },
@@ -98,7 +98,7 @@
     },
     head() {
       return {
-        title: `${this.$t(this.title)} - ${this.$store.state.brand}`
+        title: `${this.$t(this.title)} | ${this.$store.state.brand}`
       }
     }
   }

@@ -38,7 +38,7 @@
     <!-- Replace Sidebar Content -->
     <!-- <template v-slot:sidebar-content="{sidebar}">
       <div class="sidebar-heading">Replace Sidebar Content</div>
-      <pre 
+      <pre
         class="sidebar-text"
         v-text="sidebar.menu" />
     </template> -->
@@ -49,11 +49,11 @@
     <!-- Footer Content -->
     <!-- <template v-slot:footer-content="footerProps">
       <p class="text-70 brand mb-24pt">
-        <img 
-          class="brand-icon" 
-          :src="footerProps.footerLogo" 
-          width="30" 
-          :alt="footerProps.footerBrand"> 
+        <img
+          class="brand-icon"
+          :src="footerProps.footerLogo"
+          width="30"
+          :alt="footerProps.footerBrand">
         {{ footerProps.footerBrand }}
       </p>
 
@@ -99,7 +99,7 @@
 <script>
   import {StickyLayout} from 'vue-luma'
   import AppSettings from '~/components/Settings'
-  
+
   import mainDrawerMixin from '~/mixins/main-drawer'
   import navbarConfigMixin from '~/mixins/navbar-config'
   import sidebarConfigMixin from '~/mixins/sidebar-config'

@@ -1,7 +1,7 @@
 const _ = require('lodash')
 
 export const state = () => ({
-  ui: true,
+  ui: false,
   state: {
     layout: {
       layout: 'app',
@@ -58,27 +58,27 @@ export const getters = {
     const layout = getters.layout
     return {
       billingHistory: {
-        name: 'layout-billing-history', 
+        name: 'layout-billing-history',
         params: {layout}
       },
       billingInvoice: {
-        name: 'layout-billing-invoice', 
+        name: 'layout-billing-invoice',
         params: {layout}
       },
       billingPayment: {
-        name: 'layout-billing-payment', 
+        name: 'layout-billing-payment',
         params: {layout}
       },
       billingUpgrade: {
-        name: 'layout-billing-upgrade', 
+        name: 'layout-billing-upgrade',
         params: {layout}
       },
       billing: {
-        name: 'layout-billing', 
+        name: 'layout-billing',
         params: {layout}
       },
       blogPost: {
-        name: 'layout-blog-post', 
+        name: 'layout-blog-post',
         params: {layout}
       },
       blog: {
@@ -86,7 +86,7 @@ export const getters = {
         params: {layout}
       },
       changePassword: {
-        name: 'layout-change-password', 
+        name: 'layout-change-password',
         params: {layout}
       },
       discussion: {
@@ -94,7 +94,7 @@ export const getters = {
         params: {layout}
       },
       askQuestion: {
-        name: 'layout-discussions-ask', 
+        name: 'layout-discussions-ask',
         params: {layout}
       },
       discussions: {
@@ -110,7 +110,7 @@ export const getters = {
         params: {layout}
       },
       editAccount: {
-        name: 'layout-edit-account', 
+        name: 'layout-edit-account',
         params: {layout}
       },
       faq: {
@@ -122,7 +122,7 @@ export const getters = {
         params: {layout}
       },
       helpCenter: {
-        name: 'layout-help-center', 
+        name: 'layout-help-center',
         params: {layout}
       },
       home: {
@@ -130,15 +130,15 @@ export const getters = {
         params: {layout}
       },
       instructorCourses: {
-        name: 'layout-instructor-courses', 
+        name: 'layout-instructor-courses',
         params: {layout}
       },
       instructorDashboard: {
-        name: 'layout-instructor-dashboard', 
+        name: 'layout-instructor-dashboard',
         params: {layout}
       },
       instructorEarnings: {
-        name: 'layout-instructor-earnings', 
+        name: 'layout-instructor-earnings',
         params: {layout}
       },
       instructorEditCourse: {
@@ -150,15 +150,15 @@ export const getters = {
         params: {layout}
       },
       instructorProfile: {
-        name: 'layout-instructor-profile', 
+        name: 'layout-instructor-profile',
         params: {layout}
       },
       instructorQuizzes: {
-        name: 'layout-instructor-quizzes', 
+        name: 'layout-instructor-quizzes',
         params: {layout}
       },
       instructorStatement: {
-        name: 'layout-instructor-statement', 
+        name: 'layout-instructor-statement',
         params: {layout}
       },
       login: {
@@ -170,7 +170,7 @@ export const getters = {
         params: {layout}
       },
       pricing: {
-        name: 'layout-pricing', 
+        name: 'layout-pricing',
         params: {layout}
       },
       signup: {
@@ -178,19 +178,19 @@ export const getters = {
         params: {layout}
       },
       studentCourse: {
-        name: 'layout-student-course', 
+        name: 'layout-student-course',
         params: {layout}
       },
       studentCourses: {
-        name: 'layout-student-courses', 
+        name: 'layout-student-courses',
         params: {layout}
       },
       studentDashboard: {
-        name: 'layout-student-dashboard', 
+        name: 'layout-student-dashboard',
         params: {layout}
       },
       studentLesson: {
-        name: 'layout-student-lesson', 
+        name: 'layout-student-lesson',
         params: {layout}
       },
       studentMyCourses: {
@@ -206,15 +206,15 @@ export const getters = {
         params: {layout}
       },
       studentPath: {
-        name: 'layout-student-path', 
+        name: 'layout-student-path',
         params: {layout}
       },
       studentPaths: {
-        name: 'layout-student-paths', 
+        name: 'layout-student-paths',
         params: {layout}
       },
       studentProfile: {
-        name: 'layout-student-profile', 
+        name: 'layout-student-profile',
         params: {layout}
       },
       studentQuizResult: {
@@ -246,7 +246,7 @@ export const getters = {
         params: {layout}
       },
       uiAlerts: {
-        name: 'layout-ui-alerts', 
+        name: 'layout-ui-alerts',
         params: {layout}
       },
       uiAppLayout: {
@@ -254,11 +254,11 @@ export const getters = {
         params: {layout}
       },
       uiAvatar: {
-        name: 'layout-ui-avatar', 
+        name: 'layout-ui-avatar',
         params: {layout}
       },
       uiCards: {
-        name: 'layout-ui-cards', 
+        name: 'layout-ui-cards',
         params: {layout}
       },
       uiChartArea: {
@@ -286,7 +286,7 @@ export const getters = {
         params: {layout}
       },
       uiDrawer: {
-        name: 'layout-ui-drawer', 
+        name: 'layout-ui-drawer',
         params: {layout}
       },
       uiFixedLayout: {
@@ -298,7 +298,7 @@ export const getters = {
         params: {layout}
       },
       uiForms: {
-        name: 'layout-ui-forms', 
+        name: 'layout-ui-forms',
         params: {layout}
       },
       uiHeaderLayout: {
@@ -306,11 +306,11 @@ export const getters = {
         params: {layout}
       },
       uiHeader: {
-        name: 'layout-ui-header', 
+        name: 'layout-ui-header',
         params: {layout}
       },
       uiIcons: {
-        name: 'layout-ui-icons', 
+        name: 'layout-ui-icons',
         params: {layout}
       },
       uiInputGroupMerge: {
@@ -326,7 +326,7 @@ export const getters = {
         params: {layout}
       },
       uiSidebar: {
-        name: 'layout-ui-sidebar', 
+        name: 'layout-ui-sidebar',
         params: {layout}
       },
       uiSyntaxHighlight: {
@@ -334,7 +334,7 @@ export const getters = {
         params: {layout}
       },
       uiTabs: {
-        name: 'layout-ui-tabs', 
+        name: 'layout-ui-tabs',
         params: {layout}
       },
     }

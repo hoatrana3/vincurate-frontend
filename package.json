@@ -1,8 +1,8 @@
 {
-  "name": "luma-nuxt",
+  "name": "vincurate",
   "version": "2.2.0",
-  "description": "Luma Nuxt - Nuxt.js Learning Management System Admin Template",
-  "author": "FrontendMatter <contact@frontendmatter.com> (http://www.frontendmatter.com)",
+  "description": "Vincurate - Vietnam data curator support system",
+  "author": "Tran Ba Hoa",
   "license": "UNLICENSED",
   "private": true,
   "scripts": {
