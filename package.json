@@ -15,14 +15,19 @@
     "precommit": "npm run lint"
   },
   "dependencies": {
+    "@mdi/font": "^5.9.55",
     "@nuxtjs/axios": "^5.0.0",
     "core-js": "^3.6.5",
     "dot-object": "^1.9.0",
     "fm-app-settings": "^5.4.0",
+    "jwt-decode": "^3.1.2",
+    "lodash": "^4.17.21",
     "material-design-kit": "^2.2.0",
     "nuxt-i18n": "^6.15.1",
     "ui-huma": "file:vendor/ui-huma",
-    "vue-luma": "file:vendor/vue-luma"
+    "vue-fragment": "^1.5.2",
+    "vue-luma": "file:vendor/vue-luma",
+    "vuesax": "^4.0.1-alpha.25"
   },
   "devDependencies": {
     "@babel/plugin-syntax-export-default-from": "^7.10.4",

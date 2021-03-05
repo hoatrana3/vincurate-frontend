@@ -1,31 +1,31 @@
 <template>
   <div :class="footerClass">
     <div
-      :class="containerClass" 
+      :class="containerClass"
       class="page-section d-flex flex-column">
       <slot v-bind="slotProps">
-      
+
         <p
           v-if="localFooterLogo"
-          :class="{ 
+          :class="{
             'text-white-70': isDark,
             'text-70' : !isDark
-          }" 
+          }"
           class="brand mb-24pt">
-          <img 
-            class="brand-icon" 
-            :src="localFooterLogo" 
-            width="30" 
-            :alt="footerBrand"> 
+          <img
+            class="brand-icon"
+            :src="localFooterLogo"
+            width="30"
+            :alt="footerBrand">
           {{ footerBrand }}
         </p>
 
         <p
           v-if="localDescriptionText || $slots['description-text']"
-          :class="{ 
+          :class="{
             'text-white-50': isDark,
             'text-50' : !isDark
-          }"  
+          }"
           class="measure-lead-max small mr-8pt">
           <slot name="description-text">
             {{ localDescriptionText }}
@@ -34,29 +34,29 @@
 
         <slot name="links">
           <p class="mb-8pt d-flex">
-            <a 
+            <a
               href=""
-              :class="{ 
+              :class="{
                 'text-white-70': isDark,
                 'text-70' : !isDark
-              }"  
+              }"
               class="text-underline mr-8pt small">Terms</a>
-            <a 
-              href="" 
-              :class="{ 
+            <a
+              href=""
+              :class="{
                 'text-white-70': isDark,
                 'text-70' : !isDark
-              }" 
+              }"
               class="text-underline small">Privacy policy</a>
           </p>
         </slot>
 
         <p
           v-if="localCopyrightText || $slots['copyright-text']"
-          :class="{ 
+          :class="{
             'text-white-50': isDark,
             'text-50' : !isDark
-          }"  
+          }"
           class="small mt-n1 mb-0">
           <slot name="copyright-text">
             <span v-html="localCopyrightText" />
@@ -123,7 +123,7 @@
       },
       localDescriptionText() {
         return this.descriptionText === null
-          ? `${this.footerBrand} is a beautifully crafted user interface for modern Education Platforms, including Courses & Tutorials, Video Lessons, Student and Teacher Dashboard, Curriculum Management, Earnings and Reporting, ERP, HR, CMS, Tasks, Projects, eCommerce and more.`
+          ? `${this.footerBrand} is the first curatorial website in Vietnam, aiming to create a community of reduced professional and quality text data. The site offers lots of great tools and is easy to use for anyone. `
           : this.descriptionText
       },
       slotProps() {

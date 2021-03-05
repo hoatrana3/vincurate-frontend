@@ -44,24 +44,17 @@
         </div>
       </div>
     </div>
-
-    <feedback-page-section-carousel :container-class="containerClass" />
-
   </div>
 </template>
 
 <script>
 import Page from '~/components/Page'
 import { FmvBox } from 'fmv-layout'
-import {
-  FeedbackPageSectionCarousel
-} from 'vue-luma'
 import VincurateHomeHero from '~/components/Home/VincurateHomeHero'
 
 export default {
   components: {
     VincurateHomeHero,
-    FeedbackPageSectionCarousel,
     FmvBox
   },
   extends: Page,

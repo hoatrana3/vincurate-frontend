@@ -97,7 +97,6 @@
           v-if="$store.state.settings.ui && $route.params.layout" />
       </client-only>
     </template>
-
   </app-layout>
 </template>
 

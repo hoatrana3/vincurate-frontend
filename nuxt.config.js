@@ -11,6 +11,10 @@ const locales = i18nConfig.locales
 module.exports = {
   target: 'static',
 
+  server: {
+    port: 8000 // default: 3000
+  },
+
   /*
   ** Headers of the page
   */
@@ -51,6 +55,7 @@ module.exports = {
     '~/assets/scss/vendor/fontawesome.scss',
     '~/assets/scss/app.scss',
     '~/assets/scss/vendor/quill.scss',
+    '@mdi/font/css/materialdesignicons.min.css',
   ],
 
   /*
@@ -66,6 +71,12 @@ module.exports = {
     '~/plugins/fmv-input-group-merge',
     '~/plugins/bv-form-image-group',
     '~/plugins/vue-quill-editor.client',
+
+    '~/plugins/vue-fragment',
+    '~/plugins/axios',
+    { src: '~/plugins/utils', mode: 'client' },
+    { src: '~/plugins/services', mode: 'client' },
+    { src: '~/plugins/vuesax', mode: 'client' },
 
     // Settings client middleware (handles dynamic layout route settings client side)
     '~/plugins/settings.client',
