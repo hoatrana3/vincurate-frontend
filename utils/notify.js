@@ -4,7 +4,8 @@ export default () => ({
   $vs: Vue.prototype.$vs,
   BASE_OPTIONS: {
     position: 'top-right',
-    duration: 6000,
+    duration: 10000000,
+    classNotification: 'custom-vs-notification'
   },
   primary(title, text) {
     this.$vs.notification({
@@ -13,7 +14,7 @@ export default () => ({
       border: 'primary',
       title,
       text,
-      icon: "<i class='mdi mdi-message-processing'></i>",
+      icon: '<i class=\'mdi mdi-message-processing\'></i>'
     })
   },
   success(title, text) {
@@ -23,7 +24,7 @@ export default () => ({
       border: 'success',
       title,
       text,
-      icon: "<i class='mdi mdi-check'></i>",
+      icon: '<i class=\'mdi mdi-check\'></i>'
     })
   },
   error(title, text) {
@@ -33,7 +34,7 @@ export default () => ({
       border: 'danger',
       title,
       text,
-      icon: "<i class='mdi mdi-alert-octagon'></i>",
+      icon: '<i class=\'mdi mdi-alert-octagon\'></i>'
     })
   },
   warning(title, text) {
@@ -43,7 +44,7 @@ export default () => ({
       border: 'warn',
       title,
       text,
-      icon: "<i class='mdi mdi-alert'></i>",
+      icon: '<i class=\'mdi mdi-alert\'></i>'
     })
   },
   custom(title, text, options) {
@@ -51,7 +52,7 @@ export default () => ({
       ...this.BASE_OPTIONS,
       ...options,
       title,
-      text,
+      text
     })
-  },
+  }
 })

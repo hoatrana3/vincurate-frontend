@@ -5,7 +5,7 @@ import CustomError from '@/api/CustomError'
 export const state = () => ({
   currentUser: null,
   currentToken: '',
-  currentDecodedToken: null,
+  currentDecodedToken: null
 })
 
 export const getters = {
@@ -28,7 +28,7 @@ export const getters = {
       state.currentToken.length > 0 &&
       state.currentDecodedToken != null
     )
-  },
+  }
 }
 
 export const mutations = {
@@ -45,7 +45,7 @@ export const mutations = {
     } catch (e) {
       state.currentDecodedToken = null
     }
-  },
+  }
 }
 
 export const actions = {
@@ -60,7 +60,7 @@ export const actions = {
           response.getMessage()
         )
       } else {
-        dispatch('login', response.getData().data)
+        dispatch('login', response.getData())
       }
 
       return response
@@ -79,7 +79,7 @@ export const actions = {
           response.getMessage()
         )
       } else {
-        dispatch('login', response.getData().data)
+        dispatch('login', response.getData())
       }
 
       return response
@@ -120,7 +120,7 @@ export const actions = {
 
     return await handler.setOnRequest(onRequest).execute()
   },
-  login({ commit }, { token, user }) {
+  login({ commit }, { user, tokens: { access: { token } } }) {
     commit('setCurrentUser', user)
     commit('setCurrentToken', token)
     this.$router.push('/')
@@ -130,5 +130,5 @@ export const actions = {
     commit('setCurrentUser', null)
     this.$storage.forgetToken()
     this.$router.push('/')
-  },
+  }
 }

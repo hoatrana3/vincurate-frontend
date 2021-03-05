@@ -15,6 +15,7 @@
 @import './quiz';
 @import './avatar';
 @import './popover-rtl';
+@import './global';
 
 // @TODO: add to bv-form-image-group
 .bv-no-focus-ring :focus {
@@ -69,11 +70,11 @@ body:not(.sub-layout) .mdk-drawer-layout {
   box-shadow: none;
   padding: 0;
   background-color: transparent;
-  
+
   .b-rating-star:first-of-type {
     padding-left: 0;
   }
-  
+
   &.form-control-sm {
     height: 1rem;
   }
@@ -101,11 +102,13 @@ body:not(.sub-layout) .mdk-drawer-layout {
   .col {
     margin-left: 0 !important;
   }
+
   .col:nth-child(even) {
-    margin-left: .5rem !important; 
+    margin-left: .5rem !important;
   }
+
   .col:nth-child(1n+3) {
-    margin-top: .5rem !important; 
+    margin-top: .5rem !important;
   }
 
   .col {
@@ -113,10 +116,12 @@ body:not(.sub-layout) .mdk-drawer-layout {
     padding-right: .25rem;
     flex: 0 0 50%;
     max-width: 50%;
+
     &:nth-child(even) {
       margin-left: 0 !important;
     }
   }
+
   img {
     width: 100%;
   }

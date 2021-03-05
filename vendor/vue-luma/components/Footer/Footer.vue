@@ -123,7 +123,7 @@
       },
       localDescriptionText() {
         return this.descriptionText === null
-          ? `${this.footerBrand} is the first curatorial website in Vietnam, aiming to create a community of reduced professional and quality text data. The site offers lots of great tools and is easy to use for anyone. `
+          ? `${this.footerBrand} is the first curatorial website in Vietnam, aiming to create a community of reduced professional and quality text data. The site offers lots of great tools and is easy to use for anyone.`
           : this.descriptionText
       },
       slotProps() {

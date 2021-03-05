@@ -162,7 +162,7 @@ export const getters = {
         params: {layout}
       },
       login: {
-        name: 'layout-login',
+        name: 'auth-login',
         params: {layout}
       },
       messages: {
@@ -174,7 +174,7 @@ export const getters = {
         params: {layout}
       },
       signup: {
-        name: 'layout-signup',
+        name: 'auth-signup',
         params: {layout}
       },
       studentCourse: {

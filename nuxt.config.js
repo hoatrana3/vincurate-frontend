@@ -11,6 +11,8 @@ const locales = i18nConfig.locales
 module.exports = {
   target: 'static',
 
+  ssr: false,
+
   server: {
     port: 8000 // default: 3000
   },
