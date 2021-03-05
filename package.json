@@ -1,9 +1,9 @@
 {
-  "name": "vincurate-frontend",
+  "name": "luma-nuxt",
   "version": "2.2.0",
-  "description": "Vincurate Frontend side project",
-  "author": "Tran Ba Hoa",
-  "license": "MIT",
+  "description": "Luma Nuxt - Nuxt.js Learning Management System Admin Template",
+  "author": "FrontendMatter <contact@frontendmatter.com> (http://www.frontendmatter.com)",
+  "license": "UNLICENSED",
   "private": true,
   "scripts": {
     "dev": "nuxt",

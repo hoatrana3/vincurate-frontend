@@ -1,4 +1,4 @@
-# Vincurate Frontend
+# luma-nuxt
 
 > My shining Nuxt.js project
 

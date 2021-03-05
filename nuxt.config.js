@@ -16,14 +16,14 @@ module.exports = {
   */
   head() {
     return {
-      title: 'Luma',
+      title: 'Vincurate',
       htmlAttrs: {
         dir: `${this.$store && this.$store.getters.settings.layout.rtl ? 'rtl' : 'ltr'}`
       },
       meta: [
         { charset: 'utf-8' },
         { name: 'viewport', content: 'width=device-width, initial-scale=1' },
-        { hid: 'description', name: 'description', content: 'Luma Vue - Nuxt & Vue.js Learning Management System Admin Template' },
+        { hid: 'description', name: 'description', content: 'Vincurate - Vietnam data curator support system' },
         { hid: 'robots', name: 'robots', content: 'noindex' }
       ],
       link: [
@@ -36,7 +36,7 @@ module.exports = {
   /*
   ** Customize the progress-bar color
   */
-  loading: { 
+  loading: {
     color: '#5567FF',
     height: '3px',
     continuous: true,
