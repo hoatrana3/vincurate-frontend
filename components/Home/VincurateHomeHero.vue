@@ -11,8 +11,10 @@
       Explore the wide world of curated articles.
     </p>
     <form
-      class="search-form search-form--light w-100 d-lg-inline-flex mb-8pt mb-lg-0">
+      class="search-form search-form--light w-100 d-lg-inline-flex mb-8pt mb-lg-0"
+      @submit.prevent="searchByInput">
       <b-form-input
+        v-model="searchInput"
         placeholder="Search for somethings?"
         size="lg" />
       <b-btn
@@ -29,6 +31,16 @@
 import { HomeHero } from 'vue-luma'
 
 export default {
-  extends: HomeHero
+  extends: HomeHero,
+  data() {
+    return {
+      searchInput: ''
+    }
+  },
+  methods: {
+    searchByInput() {
+      this.$router.push(`/guest/search-articles?q=${this.searchInput}`)
+    }
+  }
 }
 </script>

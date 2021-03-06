@@ -121,12 +121,16 @@ export const getters = {
         name: 'layout-forgot-password',
         params: {layout}
       },
+      guestSearchArticles: {
+        name: 'guest-search-articles',
+        params: {layout}
+      },
       helpCenter: {
         name: 'layout-help-center',
         params: {layout}
       },
       home: {
-        name: 'layout-home',
+        name: 'home',
         params: {layout}
       },
       instructorCourses: {

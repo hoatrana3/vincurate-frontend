@@ -1,7 +1,7 @@
 <script>
-  import Index from '~/pages/_layout/home'
-  export default {
-    extends: Index,
-    layout: 'fixed'
-  }
+import Index from '~/pages/home'
+
+export default {
+  extends: Index
+}
 </script>

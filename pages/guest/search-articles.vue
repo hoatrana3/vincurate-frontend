@@ -1,0 +1,173 @@
+<template>
+  <div class="guest_search-articles">
+    <page-header
+      :title="title"
+      :breadcrumb="breadcrumb"
+      :container-class="containerClass" />
+    <div class="page-section">
+      <div :class="containerClass">
+
+        <form
+          class="flex search-form form-control-rounded search-form--light mb-16pt"
+          style="min-width: 200px;"
+          @submit.prevent="searchByInput">
+          <b-form-input
+            v-model="searchInput"
+            :placeholder="$t('Search articles')" />
+          <b-btn
+            class="pr-3"
+            type="submit"
+            variant="flush">
+            <md-icon v-text="'search'" />
+          </b-btn>
+        </form>
+        <div class="mb-32pt d-flex align-items-center">
+          <small
+            class="text-black-70 text-headings text-uppercase mr-3"
+            v-text="$t('results', { results: Math.min(perPage, totalCount), total: totalCount })" />
+          <b-dropdown
+            class="ml-auto"
+            text="All Categories"
+            variant="flush text-black-70"
+            right>
+            <b-dropdown-item active>All Categories</b-dropdown-item>
+            <b-dropdown-item>News</b-dropdown-item>
+            <b-dropdown-item>Researchs</b-dropdown-item>
+            <b-dropdown-item>Others</b-dropdown-item>
+          </b-dropdown>
+        </div>
+
+        <div class="row card-group-row">
+          <div
+            class="col-md-9 row article-cards-container"
+            :class="{ 'show-concepts': selectedConcepts.length > 0 }"
+            :data-concepts="selectedConcepts.join(', ')">
+            <div
+              v-for="article in articles"
+              :key="article.id"
+              class="col-12 card-group-row__col">
+              <mini-article-card
+                :article="article"
+                class="card-group-row__card" />
+            </div>
+          </div>
+          <div class="col-md-3">
+            <concepts-picker />
+          </div>
+        </div>
+
+        <pager
+          v-model="currentPage"
+          :items="articles"
+          :per-page="perPage" />
+
+      </div>
+    </div>
+  </div>
+</template>
+
+<i18n>
+{
+"en": {
+"results": "Displaying {results} out of {total} articles"
+},
+"ro": {
+"Search articles": "Căutare articole",
+"All Topics": "Toate Subiectele",
+"results": "Se afișează {results} din {total} articole"
+}
+}
+</i18n>
+
+<script>
+import { mapGetters, mapActions, mapMutations } from 'vuex'
+import Page from '~/components/Page.vue'
+import MiniArticleCard from '@/components/Guest/MiniArticleCard'
+import { MdIcon, PageHeader, Pager } from 'vue-luma'
+import ConceptsPicker from '@/components/General/ConceptsPicker'
+
+export default {
+  components: {
+    ConceptsPicker,
+    MiniArticleCard,
+    MdIcon,
+    PageHeader,
+    Pager
+  },
+  extends: Page,
+  layout: 'fixed',
+  data() {
+    return {
+      title: 'Search Articles',
+      articles: [],
+      totalCount: null,
+      currentPage: 1,
+      perPage: 10,
+      searchInput: ''
+    }
+  },
+  computed: {
+    ...mapGetters({
+      searchResults: 'articles/getSearchResults',
+      selectedConcepts: 'articles/getSelectedConcepts'
+    }),
+    searchQuery() {
+      return this.$route.query.q || ''
+    }
+  },
+  watch: {
+    searchQuery: {
+      immediate: true,
+      deep: true,
+      handler() {
+        this.searchInput = this.searchQuery
+        this.getSearchData()
+      }
+    },
+    currentPage() {
+      this.handlePageChange()
+    }
+  },
+  created() {
+    this.setSelectedConcepts(Object.keys(this.$helpers.getMainConcepts()))
+  },
+  methods: {
+    ...mapActions({
+      searchArticles: 'articles/searchArticles'
+    }),
+    ...mapMutations({
+      setSelectedConcepts: 'articles/setSelectedConcepts'
+    }),
+    async getSearchData(query) {
+      const q = query || this.searchQuery || '*'
+      const page = this.currentPage
+      const per = this.perPage
+
+      if (this.currentPage !== page) this.currentPage = page
+      if (this.perPage !== per) this.perPage = per
+
+      const handler = this.$apiHandler
+        .build()
+        .setData({
+          query: `q=${q}&page=${page}&per=${per}`
+        })
+
+      await this.searchArticles(handler)
+
+      this.articles = this.searchResults.articles
+      this.totalCount = this.searchResults.total
+
+      console.log(this.articles)
+      console.log(this.totalCount)
+    },
+    handlePageChange() {
+      this.$router.push(
+        `/guest/search-articles?q=${this.searchQuery}&page=${this.currentPage}&per=${this.perPage}`
+      )
+    },
+    searchByInput() {
+      this.$router.push(`/guest/search-articles?q=${this.searchInput}`)
+    }
+  }
+}
+</script>

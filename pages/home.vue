@@ -58,6 +58,12 @@ export default {
     FmvBox
   },
   extends: Page,
+  layout: 'fixed',
+  async asyncData({ app }) {
+    return {
+      title: app.i18n.t('Home')
+    }
+  },
   data() {
     return {
       title: this.$t('Home')
@@ -90,12 +96,7 @@ export default {
     },
     headerCondenses() {
       return this.$root.layoutName === 'fixed'
-    },
-  },
-  async asyncData({ app }) {
-    return {
-      title: app.i18n.t('Home')
     }
-  }
+  },
 }
 </script>

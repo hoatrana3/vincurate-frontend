@@ -34,8 +34,11 @@ module.exports = {
       ],
       link: [
         { rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' },
-        { href: 'https://fonts.googleapis.com/css?family=Lato:400,700%7CRoboto:400,500%7CExo+2:600&amp;display=swap', rel: 'stylesheet' }
-      ],
+        {
+          href: 'https://fonts.googleapis.com/css?family=Lato:400,700%7CRoboto:400,500%7CExo+2:600&amp;display=swap',
+          rel: 'stylesheet'
+        }
+      ]
     }
   },
 
@@ -57,7 +60,7 @@ module.exports = {
     '~/assets/scss/vendor/fontawesome.scss',
     '~/assets/scss/app.scss',
     '~/assets/scss/vendor/quill.scss',
-    '@mdi/font/css/materialdesignicons.min.css',
+    '@mdi/font/css/materialdesignicons.min.css'
   ],
 
   /*
@@ -81,13 +84,14 @@ module.exports = {
     { src: '~/plugins/vuesax', mode: 'client' },
 
     // Settings client middleware (handles dynamic layout route settings client side)
-    '~/plugins/settings.client',
+    '~/plugins/settings.client'
   ],
 
   // Modules for dev and build (recommended) (https://go.nuxtjs.dev/config-modules)
   buildModules: [
     // https://go.nuxtjs.dev/eslint
     '@nuxtjs/eslint-module',
+    '@nuxtjs/moment'
   ],
 
   /*

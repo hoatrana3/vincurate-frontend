@@ -13,7 +13,7 @@ export const UPDATE_USER = ApiUrl.build(`${BASE_API_V1_URL}/users/:id`)
 export const DELETE_USER = ApiUrl.build(`${BASE_API_V1_URL}/users/:id`)
 
 export const SEARCH_ARTICLES = ApiUrl.build(
-  `${BASE_API_V1_URL}/articles/search`
+  `${BASE_API_V1_URL}/articles/`
 )
 export const GET_ARTICLE = ApiUrl.build(`${BASE_API_V1_URL}/articles/:id`)
 export const GET_NEXT_OLDER_ARTICLE = ApiUrl.build(

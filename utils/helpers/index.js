@@ -1,9 +1,11 @@
 import timeHelpers from '@/utils/helpers/timeHelpers'
 import objectHelpers from '@/utils/helpers/objectHelpers'
-import tokenHelpers from '~/utils/helpers/unitHelpers'
+import unitHelpers from '~/utils/helpers/unitHelpers'
+import articleHelpers from '@/utils/helpers/articleHelpers'
 
 export default ($context) => ({
   ...timeHelpers($context),
   ...objectHelpers($context),
-  ...tokenHelpers($context),
+  ...unitHelpers($context),
+  ...articleHelpers($context)
 })
