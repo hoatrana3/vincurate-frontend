@@ -19,13 +19,12 @@ export default {
     breadcrumb() {
       let frags = this.$route.fullPath.split('/')
       frags = frags.slice(1, frags.length - 1)
-      console.log(frags)
 
       const routes = frags.map((route, index) => ({
         text: route.replaceAll('-', ' '),
         href: `/${frags.slice(0, index + 1).join('/')}`
       }))
-      console.log(routes)
+
       return [
         {
           text: this.$t('Home'),

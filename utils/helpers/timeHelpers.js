@@ -2,7 +2,6 @@ import capitalize from 'lodash/capitalize'
 
 export default ({ $moment }) => ({
   formatTimeAgo(time, format = '') {
-    console.log(time)
     const currentMoment = $moment()
     const timeMoment = $moment(time, format)
     const diffDays = currentMoment.diff(timeMoment, 'days')

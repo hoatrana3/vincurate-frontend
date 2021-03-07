@@ -135,7 +135,8 @@ module.exports = {
     linkExactActiveClass: 'active',
     middleware: [
       // DEMO: handles dynamic layout route settings server side
-      'settings'
+      'settings',
+      'auth'
     ]
   },
 

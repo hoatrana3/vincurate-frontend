@@ -29,14 +29,25 @@
     :footer-brand="$store.state.brand">
 
     <!-- Replace Navbar Component -->
-    <!-- <template v-slot:navbar>
-      <div class="navbar-height bg-white px-3">Replace Navbar Component</div>
-    </template> -->
+    <template v-slot:navbar>
+      <Navbar
+        data-primary
+        :navbar-type="navbarType"
+        :navbar-variant="navbarVariant"
+        :navbar-container-class="subLayout ? 'container-fluid' : navbarContainerClass"
+        :navbar-show-toggle="false"
+        navbar-full-sample-guest-mode
+        class="p-0" />
+    </template>
 
     <!-- Replace Navbar Content -->
-    <!-- <template v-slot:navbar-content>
-      Replace Navbar Content
-    </template> -->
+    <template v-slot:navbar-content>
+      <navbar-content
+        :navbar-type="navbarType"
+        :navbar-brand="$store.state.brand"
+        navbar-guest-mode
+        :navbar-content-container-class="navbarContainerClass" />
+    </template>
 
     <!-- Replace Sidebar Component -->
     <!-- <template v-slot:sidebar>
@@ -44,12 +55,9 @@
     </template> -->
 
     <!-- Replace Sidebar Content -->
-    <!-- <template v-slot:sidebar-content="{sidebar}">
-      <div class="sidebar-heading">Replace Sidebar Content</div>
-      <pre
-        class="sidebar-text"
-        v-text="sidebar.menu" />
-    </template> -->
+    <template v-slot:sidebar-content="{sidebar}">
+      <sidebar-content :sidebar="sidebar" />
+    </template>
 
     <!-- Page Content -->
     <nuxt />
@@ -105,59 +113,65 @@
 </template>
 
 <script>
-  import {FixedLayout} from 'vue-luma'
-  import AppSettings from '~/components/Settings'
+import { FixedLayout } from 'vue-luma'
+import AppSettings from '~/components/Settings'
 
-  import mainDrawerMixin from '~/mixins/main-drawer'
-  import sidebarConfigMixin from '~/mixins/sidebar-config'
-  import navbarConfigMixin from '~/mixins/navbar-config'
-  import layoutConfigMixin from '~/mixins/layout-config'
-  import subLayoutMixin from '~/mixins/sub-layout'
+import mainDrawerMixin from '~/mixins/main-drawer'
+import sidebarConfigMixin from '~/mixins/sidebar-config'
+import navbarConfigMixin from '~/mixins/navbar-config'
+import layoutConfigMixin from '~/mixins/layout-config'
+import subLayoutMixin from '~/mixins/sub-layout'
+import SidebarContent from '@/components/Sidebar/SidebarContent'
+import NavbarContent from '@/components/Navbar/NavbarContent'
+import Navbar from '@/components/Navbar/Navbar'
 
-  export default {
-    components: {
-      FixedLayout,
-      AppSettings,
-    },
-    mixins: [
-      mainDrawerMixin,
-      sidebarConfigMixin,
-      navbarConfigMixin,
-      layoutConfigMixin,
-      subLayoutMixin,
-    ],
-    data() {
-      return {
-        headerClass: null,
-        headerEffects: 'waterfall',
-        headerImage: null,
-        headerContentClass: null,
-        headerCondenses: false,
-        headerContentComponent: null,
-        headerContentComponentProps: null,
-        guest: false
-      }
-    },
-    computed: {
-      sidebarSearch() {
-        return true
-      },
-      sidebarBrandClass() {
-        return null
-      },
-      sidebarConfigKey() {
-        return this.mainDrawerSidebar
-      },
-    },
-    created() {
-      this.$root.$on('luma::guest', guest => this.guest = guest)
-      this.$root.$on('luma::headerClass', headerClass => this.headerClass = headerClass)
-      this.$root.$on('luma::headerEffects', headerEffects => this.headerEffects = headerEffects)
-      this.$root.$on('luma::headerImage', headerImage => this.headerImage = headerImage)
-      this.$root.$on('luma::headerContentClass', headerContentClass => this.headerContentClass = headerContentClass)
-      this.$root.$on('luma::headerCondenses', headerCondenses => this.headerCondenses = headerCondenses)
-      this.$root.$on('luma::headerContentComponent', headerContentComponent => this.headerContentComponent = headerContentComponent)
-      this.$root.$on('luma::headerContentComponentProps', headerContentComponentProps => this.headerContentComponentProps = headerContentComponentProps)
+export default {
+  components: {
+    Navbar,
+    NavbarContent,
+    SidebarContent,
+    FixedLayout,
+    AppSettings
+  },
+  mixins: [
+    mainDrawerMixin,
+    sidebarConfigMixin,
+    navbarConfigMixin,
+    layoutConfigMixin,
+    subLayoutMixin
+  ],
+  data() {
+    return {
+      headerClass: null,
+      headerEffects: 'waterfall',
+      headerImage: null,
+      headerContentClass: null,
+      headerCondenses: false,
+      headerContentComponent: null,
+      headerContentComponentProps: null,
+      guest: false
     }
+  },
+  computed: {
+    sidebarSearch() {
+      return false
+    },
+    sidebarBrandClass() {
+      return null
+    },
+    sidebarConfigKey() {
+      return this.mainDrawerSidebar
+    }
+  },
+  created() {
+    this.$root.$on('luma::guest', guest => this.guest = guest)
+    this.$root.$on('luma::headerClass', headerClass => this.headerClass = headerClass)
+    this.$root.$on('luma::headerEffects', headerEffects => this.headerEffects = headerEffects)
+    this.$root.$on('luma::headerImage', headerImage => this.headerImage = headerImage)
+    this.$root.$on('luma::headerContentClass', headerContentClass => this.headerContentClass = headerContentClass)
+    this.$root.$on('luma::headerCondenses', headerCondenses => this.headerCondenses = headerCondenses)
+    this.$root.$on('luma::headerContentComponent', headerContentComponent => this.headerContentComponent = headerContentComponent)
+    this.$root.$on('luma::headerContentComponentProps', headerContentComponentProps => this.headerContentComponentProps = headerContentComponentProps)
   }
+}
 </script>

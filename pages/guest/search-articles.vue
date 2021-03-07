@@ -13,7 +13,7 @@
           @submit.prevent="searchByInput">
           <b-form-input
             v-model="searchInput"
-            :placeholder="$t('Search articles')" />
+            placeholder="Search articles..." />
           <b-btn
             class="pr-3"
             type="submit"
@@ -24,7 +24,7 @@
         <div class="mb-32pt d-flex align-items-center">
           <small
             class="text-black-70 text-headings text-uppercase mr-3"
-            v-text="$t('results', { results: Math.min(perPage, totalCount), total: totalCount })" />
+            v-text="`Displaying ${Math.min(perPage, totalCount)} out of ${totalCount} articles`" />
           <b-dropdown
             class="ml-auto"
             text="All Categories"
@@ -65,19 +65,6 @@
     </div>
   </div>
 </template>
-
-<i18n>
-{
-"en": {
-"results": "Displaying {results} out of {total} articles"
-},
-"ro": {
-"Search articles": "Căutare articole",
-"All Topics": "Toate Subiectele",
-"results": "Se afișează {results} din {total} articole"
-}
-}
-</i18n>
 
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex'
@@ -156,9 +143,6 @@ export default {
 
       this.articles = this.searchResults.articles
       this.totalCount = this.searchResults.total
-
-      console.log(this.articles)
-      console.log(this.totalCount)
     },
     handlePageChange() {
       this.$router.push(
