@@ -56,9 +56,9 @@
           </div>
         </div>
 
-        <pager
+        <custom-pager
           v-model="currentPage"
-          :items="articles"
+          :rows="totalCount"
           :per-page="perPage" />
 
       </div>
@@ -69,17 +69,18 @@
 <script>
 import { mapGetters, mapActions, mapMutations } from 'vuex'
 import Page from '~/components/Page.vue'
-import MiniArticleCard from '@/components/Guest/MiniArticleCard'
-import { MdIcon, PageHeader, Pager } from 'vue-luma'
-import ConceptsPicker from '@/components/General/ConceptsPicker'
+import MiniArticleCard from '@/components/Articles/MiniArticleCard'
+import { MdIcon, PageHeader } from 'vue-luma'
+import ConceptsPicker from '@/components/Articles/ConceptsPicker'
+import CustomPager from '@/components/General/CustomPager'
 
 export default {
   components: {
+    CustomPager,
     ConceptsPicker,
     MiniArticleCard,
     MdIcon,
-    PageHeader,
-    Pager
+    PageHeader
   },
   extends: Page,
   layout: 'fixed',
@@ -113,7 +114,7 @@ export default {
     },
     currentPage() {
       this.handlePageChange()
-    }
+    },
   },
   created() {
     this.setSelectedConcepts(Object.keys(this.$helpers.getMainConcepts()))
