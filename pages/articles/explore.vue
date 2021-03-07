@@ -1,5 +1,5 @@
 <template>
-  <div class="articles_search">
+  <div class="articles_explore">
     <page-header
       :title="title"
       :breadcrumb="breadcrumb"
@@ -85,7 +85,7 @@ export default {
   layout: 'fixed',
   data() {
     return {
-      title: 'Search Articles',
+      title: 'Explore Articles',
       articles: [],
       totalCount: null,
       currentPage: 1,
@@ -146,11 +146,11 @@ export default {
     },
     handlePageChange() {
       this.$router.push(
-        `/guest/search-articles?q=${this.searchQuery}&page=${this.currentPage}&per=${this.perPage}`
+        `/articles/explore?q=${this.searchQuery}&page=${this.currentPage}&per=${this.perPage}`
       )
     },
     searchByInput() {
-      this.$router.push(`/guest/search-articles?q=${this.searchInput}`)
+      this.$router.push(`/articles/explore?q=${this.searchInput}`)
     }
   }
 }

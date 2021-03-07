@@ -8,9 +8,8 @@
 
       <!-- Toggle sidebar -->
       <button
-        v-if="navbarShowToggle"
         v-fmv-toggle.default-drawer
-        class="navbar-toggler w-auto mr-16pt d-block rounded-0"
+        class="navbar-toggler w-auto mr-16pt rounded-0"
         :class="navbarToggleClass"
         type="button">
         <md-icon>short_text</md-icon>
@@ -35,12 +34,6 @@ import NavbarContent from '@/components/Navbar/NavbarContent'
 
 export default {
   components: { NavbarContent },
-  extends: AppNavbar,
-  props: {
-    navbarShowToggle: {
-      type: Boolean,
-      default: true
-    }
-  }
+  extends: AppNavbar
 }
 </script>

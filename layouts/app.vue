@@ -31,22 +31,24 @@
     </template> -->
 
     <!-- Replace Navbar Content -->
-    <!-- <template v-slot:navbar-content>
-      Replace Navbar Content
-    </template> -->
-
+    <template v-slot:navbar-content>
+      <navbar-content
+        :navbar-type="navbarType"
+        :navbar-brand="$store.state.brand"
+        navbar-guest-mode
+        navbar-brand-class="d-lg-none"
+        navbar-toggle-class="d-lg-none"
+        :navbar-content-container-class="navbarContainerClass" />
+    </template>
     <!-- Replace Sidebar Component -->
     <!-- <template v-slot:sidebar>
       Replace Sidebar Component
     </template> -->
 
     <!-- Replace Sidebar Content -->
-    <!-- <template v-slot:sidebar-content="{sidebar}">
-      <div class="sidebar-heading">Replace Sidebar Content</div>
-      <pre
-        class="sidebar-text"
-        v-text="sidebar.menu" />
-    </template> -->
+    <template v-slot:sidebar-content="{sidebar}">
+      <sidebar-content :sidebar="sidebar" />
+    </template>
 
     <!-- Page Content -->
     <nuxt />
@@ -110,10 +112,15 @@
   import layoutConfigMixin from '~/mixins/layout-config'
   import subLayoutMixin from '~/mixins/sub-layout'
 
+  import SidebarContent from '@/components/Sidebar/SidebarContent'
+  import NavbarContent from '@/components/Navbar/NavbarContent'
+
   export default {
     components: {
       AppLayout,
       AppSettings,
+      SidebarContent,
+      NavbarContent
     },
     mixins: [
       mainDrawerMixin,

@@ -30,15 +30,15 @@
           Home
         </b-nav-item>
         <b-nav-item
-          :to="routeTo(routes.articlesSearch)"
+          :to="routeTo(routes.articlesExplore)"
           exact>
-          Search Articles
+          Explore
         </b-nav-item>
-        <b-nav-item
-          :to="routeTo(routes.guestSearchArticles)"
-          exact>
-          Search Articles
-        </b-nav-item>
+        <b-nav-item-dropdown
+          text="Manage"
+          no-caret>
+          <b-dropdown-item :to="routeTo(routes.articlesUpload)">Upload Articles</b-dropdown-item>
+        </b-nav-item-dropdown>
       </b-navbar-nav>
     </template>
 

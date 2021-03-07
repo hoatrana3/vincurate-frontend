@@ -3,8 +3,8 @@ import Vue from 'vue'
 export default () => ({
   $vs: Vue.prototype.$vs,
   BASE_OPTIONS: {
-    position: 'top-right',
-    duration: 10000000,
+    position: 'top-center',
+    duration: 6000,
     classNotification: 'custom-vs-notification'
   },
   primary(title, text) {

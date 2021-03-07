@@ -1,10 +1,17 @@
 <template>
   <fragment>
     <template
-      v-if="sidebar.menu.guest && sidebar.menu.guest.length">
-      <div class="sidebar-heading">Guest</div>
+      v-if="sidebar.menu.general && sidebar.menu.general.length">
+      <div class="sidebar-heading">General</div>
       <fmv-sidebar-menu
-        :menu="sidebar.i18nMenu.guest"
+        :menu="sidebar.i18nMenu.general"
+        class="mb-24pt" />
+    </template>
+    <template
+      v-if="sidebar.menu.articles && sidebar.menu.articles.length">
+      <div class="sidebar-heading">Articles</div>
+      <fmv-sidebar-menu
+        :menu="sidebar.i18nMenu.articles"
         class="mb-24pt" />
     </template>
   </fragment>

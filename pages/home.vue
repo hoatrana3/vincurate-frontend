@@ -5,7 +5,7 @@
       :box-image="headerImage"
       class="mdk-box--bg-dark bg-dark mb-0">
 
-      <vincurate-home-hero v-bind="headerContentComponentProps" />
+      <home-hero v-bind="headerContentComponentProps" />
     </fmv-box>
 
     <div class="bg-white border-bottom-2 py-16pt">
@@ -50,11 +50,11 @@
 <script>
 import Page from '~/components/Page'
 import { FmvBox } from 'fmv-layout'
-import VincurateHomeHero from '~/components/Home/VincurateHomeHero'
+import HomeHero from '@/components/Home/HomeHero'
 
 export default {
   components: {
-    VincurateHomeHero,
+    HomeHero,
     FmvBox
   },
   extends: Page,

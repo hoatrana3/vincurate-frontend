@@ -69,8 +69,12 @@ export const getters = {
         name: 'auth-signup',
         params: {layout}
       },
-      articlesSearch: {
-        name: 'articles-search',
+      articlesExplore: {
+        name: 'articles-explore',
+        params: {layout}
+      },
+      articlesUpload: {
+        name: 'articles-upload',
         params: {layout}
       },
     }

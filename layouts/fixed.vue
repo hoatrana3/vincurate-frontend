@@ -35,7 +35,7 @@
         :navbar-type="navbarType"
         :navbar-variant="navbarVariant"
         :navbar-container-class="subLayout ? 'container-fluid' : navbarContainerClass"
-        :navbar-show-toggle="false"
+        navbar-toggle-class="d-none"
         navbar-full-sample-guest-mode
         class="p-0" />
     </template>

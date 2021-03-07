@@ -1,13 +1,14 @@
 const guestPerms = [
   '/',
   '/home',
-  '/articles/search',
+  '/articles',
+  '/articles/explore',
   '/auth/login',
   '/auth/signup'
 ]
 const userPerms = [
   ...guestPerms,
-  '/user/upload-articles'
+  '/articles/upload'
 ]
 const adminPerms = [
   ...userPerms

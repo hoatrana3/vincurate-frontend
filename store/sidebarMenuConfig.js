@@ -1,16 +1,25 @@
-export const guestRoutes = ({ routes }) => [{
+export const generalRoutes = ({ routes }) => [{
   label: 'Home',
   route: routes.home,
   icon: {
     type: 'md-icon',
     id: 'home'
   }
-}, {
-  label: 'Browse Articles',
-  route: routes.guestSearchArticles,
+}]
+
+export const articleRoutes = ({ routes }) => [{
+  label: 'Explore Articles',
+  route: routes.articlesExplore,
   icon: {
     type: 'md-icon',
     id: 'local_library'
+  }
+}, {
+  label: 'Upload Articles',
+  route: routes.articlesUpload,
+  icon: {
+    type: 'md-icon',
+    id: 'cloud_upload'
   }
 }]
 
@@ -19,7 +28,8 @@ export const getters = {
     const routes = rootGetters['settings/routes']
 
     return {
-      guest: guestRoutes({ routes })
+      general: generalRoutes({ routes }),
+      articles: articleRoutes({ routes })
     }
   }
 }
