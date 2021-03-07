@@ -1,5 +1,5 @@
 <template>
-  <div class="guest_search-articles">
+  <div class="articles_search">
     <page-header
       :title="title"
       :breadcrumb="breadcrumb"

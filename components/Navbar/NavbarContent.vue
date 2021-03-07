@@ -30,6 +30,11 @@
           Home
         </b-nav-item>
         <b-nav-item
+          :to="routeTo(routes.articlesSearch)"
+          exact>
+          Search Articles
+        </b-nav-item>
+        <b-nav-item
           :to="routeTo(routes.guestSearchArticles)"
           exact>
           Search Articles
@@ -50,8 +55,9 @@
           class="nav-item">
           <b-btn
             :to="routeTo(routes.signup)"
-            :variant="ctaClass"
-            v-text="$t('Sign Up')" />
+            :variant="ctaClass">
+            Sign up
+          </b-btn>
         </li>
       </template>
       <template v-else>

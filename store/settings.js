@@ -69,8 +69,8 @@ export const getters = {
         name: 'auth-signup',
         params: {layout}
       },
-      guestSearchArticles: {
-        name: 'guest-search-articles',
+      articlesSearch: {
+        name: 'articles-search',
         params: {layout}
       },
     }
