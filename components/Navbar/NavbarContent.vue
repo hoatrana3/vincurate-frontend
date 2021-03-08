@@ -84,14 +84,7 @@
           <b-dropdown-item :to="routeTo(routes.editAccount)">
             Edit Account
           </b-dropdown-item>
-          <b-dropdown-item :to="routeTo(routes.editAccountProfile)">
-            Profile & Privacy
-          </b-dropdown-item>
           <b-dropdown-divider />
-          <b-dropdown-item :to="routeTo(routes.studentProfile)">
-            <md-icon>person</md-icon>
-            Public profile
-          </b-dropdown-item>
           <b-dropdown-item @click.prevent="userLogout">
             <md-icon>lock</md-icon>
             Logout

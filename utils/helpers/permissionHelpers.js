@@ -10,7 +10,8 @@ const guestPerms = [
 ]
 const userPerms = [
   ...guestPerms,
-  '/articles/upload'
+  '/articles/upload',
+  '/user/edit-account'
 ]
 const adminPerms = [
   ...userPerms

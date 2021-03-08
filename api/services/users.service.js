@@ -16,6 +16,6 @@ export default ($axios) => ({
     return $axios.get(GET_USER.get(params))
   },
   updateUser({ params, data }) {
-    return $axios.put(UPDATE_USER.get(params), data)
+    return $axios.patch(UPDATE_USER.get(params), data)
   },
 })
