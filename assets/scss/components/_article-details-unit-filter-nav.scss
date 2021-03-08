@@ -1,4 +1,6 @@
 .article-details-unit-filter-nav {
+  font-size: 1.1em;
+
   .concepts-filter-container {
     width: 100%;
     height: calc(100vh - (80px + 20rem));
@@ -42,7 +44,7 @@
         &:after {
           content: '';
           position: absolute;
-          top: 6.6px;
+          top: 8px;
           left: 8px;
 
           display: block;
