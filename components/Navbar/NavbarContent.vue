@@ -35,6 +35,7 @@
           Explore
         </b-nav-item>
         <b-nav-item-dropdown
+          v-if="isLoggedIn"
           text="Manage"
           no-caret>
           <b-dropdown-item :to="routeTo(routes.articlesUpload)">Upload Articles</b-dropdown-item>

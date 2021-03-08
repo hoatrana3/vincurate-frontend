@@ -7,7 +7,7 @@
       <div class="flex">
         <b-link
           class="card-title mb-8pt"
-          :to="routeTo(routes.faq)">
+          :to="`/articles/${article.id}`">
           No Title Article
         </b-link>
         <p class="text-70 mb-0" v-html="article.description" />

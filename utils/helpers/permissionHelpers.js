@@ -1,7 +1,9 @@
 const guestPerms = [
+  '',
   '/',
   '/home',
   '/articles',
+  '/articles/:id',
   '/articles/explore',
   '/auth/login',
   '/auth/signup'

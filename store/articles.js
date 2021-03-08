@@ -119,8 +119,13 @@ export const actions = {
       const rawData = await this.$articlesService.fetchNextOlderArticle(
         handler.data
       )
+      const response = new ResponseWrapper(rawData)
 
-      return new ResponseWrapper(rawData)
+      if (response.isError()) {
+        response.data = null
+      }
+
+      return response
     }
 
     await handler.setOnRequest(onRequest).execute()

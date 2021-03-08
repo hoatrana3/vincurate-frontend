@@ -112,7 +112,7 @@ export const actions = {
           response.getMessage()
         )
       } else {
-        commit('setCurrentUser', response.getData().data)
+        commit('setCurrentUser', response.getData())
       }
 
       return response

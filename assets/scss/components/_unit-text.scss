@@ -1,0 +1,20 @@
+.unit-text {
+  display: inline;
+  transition: $transition-base;
+  line-height: 1.65;
+  font-size: 1.25em;
+
+  &.is-active {
+    font-weight: 500;
+    color: rgb(var(--concept-color));
+    background-color: rgba(var(--concept-color), .2);
+  }
+
+  &.is-filtered {
+    border: 2px solid $danger;
+  }
+
+  &.is-active, &.is-filtered {
+    border-radius: 4px;
+  }
+}

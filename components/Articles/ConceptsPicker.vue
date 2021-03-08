@@ -1,6 +1,6 @@
 <template>
   <div class="concepts-picker">
-    <page-separator :title="title" />
+    <page-separator title="BioConcepts" />
 
     <b-form class="page-section pt-0">
       <b-form-group
@@ -8,9 +8,10 @@
         :key="type">
         <b-form-checkbox
           v-if="type !== 'O'"
-          v-model="selectedConcepts"
+          v-model="currentConcepts"
           :value="type"
-          :class="`concept-box-${type}`">
+          :class="`concept-box-${type}`"
+          @change="onConceptsChanged">
           <small
             :style="`color: ${getPickerTextColor(type, concept)}`"
             class="font-weight-medium">
@@ -26,10 +27,9 @@
 import { mapGetters, mapMutations } from 'vuex'
 
 export default {
-  props: {
-    title: {
-      type: String,
-      default: 'BioConcepts'
+  data() {
+    return {
+      currentConcepts: []
     }
   },
   computed: {
@@ -41,9 +41,13 @@ export default {
         return this.getSelectedConcepts
       },
       set(val) {
+        this.currentConcepts = val
         this.setSelectedConcepts(val)
       }
     }
+  },
+  mounted() {
+    this.currentConcepts = this.selectedConcepts
   },
   methods: {
     ...mapMutations({
@@ -51,6 +55,9 @@ export default {
     }),
     getPickerTextColor(type, concept) {
       return this.selectedConcepts.includes(type) ? concept.hex : '#6c6e7d'
+    },
+    onConceptsChanged(value) {
+      this.selectedConcepts = value
     }
   }
 }

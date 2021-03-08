@@ -1,11 +1,11 @@
-export default () => ({
+export default ($context) => ({
   getCombinedUnits(article) {
     const units = article.units
     const combinedUnits = []
     let currentCombiner = null
 
     units.forEach((unit, index) => {
-      const unitType = this.$helpers.getUnitConceptType(unit)
+      const unitType = $context.$helpers.getUnitConceptType(unit)
 
       if (
         !currentCombiner ||
@@ -16,7 +16,7 @@ export default () => ({
           currentCombiner.message = currentCombiner.indexes
             .map((index) =>
               unescape(
-                this.$helpers.getFormattedWordSpaces(
+                $context.$helpers.getFormattedWordSpaces(
                   units[index].word,
                   index > 0 ? units[index - 1].word : null,
                   index < units.length - 1 ? units[index + 1].word : null,

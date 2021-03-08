@@ -46,13 +46,13 @@ export default async function(
 
       await store.dispatch('users/getUser', handler)
     } else {
-      const path = route.path
+      const path = route.matched[0].path || route.path
       if (!path.includes('auth') && !$helpers.permissions.guest.includes(path))
         noPermissionHandle()
     }
   } else {
     const role = store.getters['users/getCurrentUser'].role
-    const path = route.path
+    const path = route.matched[0].path || route.path
 
     if (!$helpers.roleHasPermission(role, path)) noPermissionHandle()
     else redirectIfInAuth()

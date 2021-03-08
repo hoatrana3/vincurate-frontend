@@ -31,7 +31,7 @@
             class="flex">
             <b-progress-bar
               :value="progressCount"
-              :label="`${((progressCount / progressTotal) * 100)}%`" />
+              :label="`${Math.round((progressCount / progressTotal) * 100)}%`" />
           </b-progress>
         </div>
 
@@ -125,7 +125,7 @@
                       size="sm"
                       :disabled="isUploading || file.isUploading"
                       @click.prevent="() => onRetry(file)">
-                      <i class="material-icons text-black-20">autorenew</i>
+                      <i class="material-icons text-black-70">autorenew</i>
                     </b-btn>
                   </a>
                 </li>
