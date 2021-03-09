@@ -1,4 +1,4 @@
-export default ({ $notify }) => {
+export default ({ $notify, $loader }) => {
   class ApiHandler {
     constructor() {
       this.data = null
@@ -45,6 +45,7 @@ export default ({ $notify }) => {
 
     async execute() {
       try {
+        $loader.startLoad()
         this.onStarts.forEach((onStart) => onStart())
         const response = await this.onRequest()
         this.onResponses.forEach((onResponse) => onResponse(response))
@@ -57,6 +58,7 @@ export default ({ $notify }) => {
         else this.onErrors.forEach((onError) => onError(err))
       } finally {
         this.onFinallies.forEach((onFinally) => onFinally())
+        $loader.stopLoad()
       }
     }
   }
