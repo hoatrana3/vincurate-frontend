@@ -1,8 +1,8 @@
 import {
   AUTHENTICATE_USER,
-  GET_USER,
+  GET_USER, GET_USER_ARTICLES,
   REGISTER_USER,
-  UPDATE_USER,
+  UPDATE_USER
 } from '@/api/ApiUrls'
 
 export default ($axios) => ({
@@ -18,4 +18,7 @@ export default ($axios) => ({
   updateUser({ params, data }) {
     return $axios.patch(UPDATE_USER.get(params), data)
   },
+  getUserArticles({ params }) {
+    return $axios.get(GET_USER_ARTICLES.get(params))
+  }
 })

@@ -24,7 +24,7 @@
         <div class="mb-32pt d-flex align-items-center">
           <small
             class="text-black-70 text-headings text-uppercase mr-3"
-            v-text="`Displaying ${Math.min(perPage, totalCount)} out of ${totalCount} articles`" />
+            v-text="`Displaying ${Math.min(perPage, totalCount)} out of ${totalCount || 0} articles`" />
           <b-dropdown
             class="ml-auto"
             text="All Categories"
@@ -42,13 +42,15 @@
             class="col-md-9 row article-cards-container"
             :class="{ 'show-concepts': selectedConcepts.length > 0 }"
             :data-concepts="selectedConcepts.join(', ')">
-            <div
-              v-for="article in articles"
-              :key="article.id"
-              class="col-12 card-group-row__col">
-              <mini-article-card
-                :article="article"
-                class="card-group-row__card" />
+            <div class="col-12">
+              <div
+                v-for="article in articles"
+                :key="article.id"
+                class="card-group-row__col">
+                <mini-article-card
+                  :article="article"
+                  class="card-group-row__card" />
+              </div>
             </div>
           </div>
           <div class="col-md-3">

@@ -77,6 +77,10 @@ export const getters = {
         name: 'articles-upload',
         params: {layout}
       },
+      myArticles: {
+        name: 'articles-my-articles',
+        params: {layout}
+      },
       editAccount: {
         name: 'user-edit-account',
         params: {layout}

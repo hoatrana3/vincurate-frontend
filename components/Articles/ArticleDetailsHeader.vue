@@ -49,11 +49,8 @@ export default {
   },
   computed: {
     articleTitle() {
-      if (!this.article) return ''
-
-      if (this.$helpers.isPresent(this.article.title))
-        return this.article.title
-      else return 'No Title Article'
+      const title = this.article.title
+      return !title || !title.length ? 'No Title Article' : title
     }
   }
 }

@@ -78,8 +78,6 @@ export default {
       .addOnResponse((response) => {
         nextOlderArticle = response.getData()
       })
-      .addOnError(() => {
-      })
     await store.dispatch('articles/fetchNextOlderArticle', _handler)
 
     return {

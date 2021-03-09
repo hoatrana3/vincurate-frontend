@@ -5,14 +5,21 @@ export const generalRoutes = ({ routes }) => [{
     type: 'md-icon',
     id: 'home'
   }
-}]
-
-export const articleRoutes = ({ routes }) => [{
+}, {
   label: 'Explore Articles',
   route: routes.articlesExplore,
   icon: {
     type: 'md-icon',
     id: 'local_library'
+  }
+}]
+
+export const articleRoutes = ({ routes }) => [{
+  label: 'My Articles',
+  route: routes.myArticles,
+  icon: {
+    type: 'md-icon',
+    id: 'featured_play_list'
   }
 }, {
   label: 'Upload Articles',

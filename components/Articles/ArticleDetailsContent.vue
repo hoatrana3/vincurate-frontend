@@ -6,11 +6,11 @@
           <md-icon
             left
             class="text-muted icon--left">
-            person_pin
+            inbox
           </md-icon>
-          Unkown author
+          {{ articleSource }}
         </li>
-        <li class="nav-item navbar-list__item">
+        <li class="nav-item navbar-list__item mr-3">
           <md-icon
             left
             class="text-muted">
@@ -18,15 +18,30 @@
           </md-icon>
           {{ article.category }}
         </li>
+        <li class="nav-item navbar-list__item mr-3">
+          <md-icon
+            left
+            class="text-muted icon--left">
+            remove_red_eye
+          </md-icon>
+          {{ article.visibility }}
+        </li>
         <li class="nav-item navbar-list__item ml-auto">
-          <b-btn
-            v-b-tooltip.hover.bottom="'Download CSV'"
-            variant="light"
-            pill
-            size="sm"
-            @click.prevent="downloadArticle">
-            <i class="material-icons text-black-70">file_download</i>
-          </b-btn>
+          <b-dd
+            variant="flush"
+            toggle-class="text-muted"
+            no-caret
+            right>
+
+            <template v-slot:button-content>
+              <md-icon class="icon-24pt">more_vert</md-icon>
+            </template>
+
+            <b-dd-item :to="`/articles/${article.id}/edit-basic`">Edit</b-dd-item>
+            <b-dd-item @click.prevent="downloadArticle">Download data</b-dd-item>
+            <b-dd-divider />
+            <b-dd-item variant="danger">Delete</b-dd-item>
+          </b-dd>
         </li>
       </ul>
       <div class="card-body">
@@ -53,6 +68,12 @@ export default {
     article: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    articleSource() {
+      const source = this.article.source
+      return !source || !source.length ? 'Unknown source' : source
     }
   },
   methods: {

@@ -2,8 +2,8 @@ import {
   EXPORT_ARTICLE,
   GET_ARTICLE,
   GET_NEXT_OLDER_ARTICLE,
-  SEARCH_ARTICLES,
-  UPLOAD_ARTICLE,
+  SEARCH_ARTICLES, UPDATE_ARTICLE, UPDATE_USER,
+  UPLOAD_ARTICLE
 } from '@/api/ApiUrls'
 
 export default ($axios) => ({
@@ -27,5 +27,8 @@ export default ($axios) => ({
         'Content-Type': 'multipart/form-data',
       },
     })
+  },
+  updateArticle({ params, data }) {
+    return $axios.patch(UPDATE_ARTICLE.get(params), data)
   },
 })

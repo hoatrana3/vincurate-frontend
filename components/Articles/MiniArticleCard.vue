@@ -8,7 +8,7 @@
         <b-link
           class="card-title mb-8pt"
           :to="`/articles/${article.id}`">
-          No Title Article
+          {{ articleTitle }}
         </b-link>
         <p class="text-70 mb-0" v-html="article.description" />
       </div>
@@ -38,6 +38,12 @@ export default {
     article: {
       type: Object,
       required: true
+    }
+  },
+  computed: {
+    articleTitle() {
+      const title = this.article.title
+      return !title || !title.length ? 'No Title Article' : title
     }
   }
 }
