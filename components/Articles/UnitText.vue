@@ -9,13 +9,15 @@
       'is-active': isActivated,
       'is-filtered': isFiltered,
       'is-editable': isEditable
-    }"><!--
+    }"
+    :unit-index="index"
+    :unit-concept="unit.type"><!--
     -->{{ renderMessage
     }}<!--
   --><span @click="removeConcept"><!--
   --><md-icon
-       v-if="isActivated && isEditable"
-       class="btn-cancel-unit">cancel</md-icon><!--
+      v-if="isActivated && isEditable"
+      class="btn-cancel-unit">cancel</md-icon><!--
   --></span><!--
   --></span>
 </template>
@@ -52,6 +54,10 @@ export default {
     isEditable: {
       type: Boolean,
       default: false
+    },
+    index: {
+      type: Number,
+      default: 0
     }
   },
   computed: {

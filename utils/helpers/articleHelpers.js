@@ -46,8 +46,6 @@ export default ($context) => ({
     return combinedUnits
   },
   combinedUnitsToUnits(article) {
-    console.log(article)
-
     const combinedUnits = article.combinedUnits
     const aUnits = article.units
     let units = []
@@ -78,5 +76,8 @@ export default ($context) => ({
       type: cUnits[0].type,
       indexes: flattenDeep(indexes)
     }
+  },
+  splitCombinedUnits(cUnit, start, end, type) {
+
   }
 })

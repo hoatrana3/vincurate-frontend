@@ -5,3 +5,14 @@
 .font-weight-medium {
   font-weight: 500;
 }
+
+.btn-labels-container {
+  .btn-label {
+    background-color: rgb(var(--concept-color));
+    border-color: rgb(var(--concept-color));
+
+    &:hover {
+      box-shadow: $popover-box-shadow;
+    }
+  }
+}

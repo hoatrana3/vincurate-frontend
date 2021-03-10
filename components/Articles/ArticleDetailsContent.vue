@@ -44,11 +44,12 @@
           </b-dd>
         </li>
       </ul>
-      <div class="card-body">
+      <div :id="bodyId" class="card-body">
         <unit-text
           v-for="(unit, index) in article.combinedUnits"
           :unit="unit"
           :key="index"
+          :index="index"
           :prepend="article.combinedUnits[index - 1]"
           :append="article.combinedUnits[index + 1]"
           :is-first="index === 0"
@@ -79,6 +80,10 @@ export default {
     isEditable: {
       type: Boolean,
       default: false
+    },
+    bodyId: {
+      type: String,
+      default: ''
     }
   },
   computed: {
@@ -86,9 +91,6 @@ export default {
       const source = this.article.source
       return !source || !source.length ? 'Unknown source' : source
     }
-  },
-  mounted() {
-    console.log(this.article.combinedUnits)
   },
   methods: {
     ...mapActions({

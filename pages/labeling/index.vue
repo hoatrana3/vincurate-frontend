@@ -7,8 +7,28 @@
       class="mb-32pt" />
 
     <page-separator title="System BioConcepts" />
-    <page-separator title="Article Details" />
+    <div class="btn-labels-container d-flex flex-wrap align-items-center mb-3">
+      <div
+        v-for="[type, concept] of Object.entries($helpers.UNIT_CONCEPTS)"
+        :key="type"
+        :style="`--concept-color: ${concept.color}`">
+        <b-btn
+          v-if="type !== 'O'"
+          pill
+          size="sm"
+          class="btn-label mr-2 mb-2">
+          <small>{{ concept.name }}</small>
+          <b-badge
+            pill
+            variant="light"
+            class="ml-2 mb-0">
+            {{ type }}
+          </b-badge>
+        </b-btn>
+      </div>
+    </div>
     <article-details-content
+      body-id="article-content"
       :article="article"
       :show-header="false"
       is-editable
@@ -78,6 +98,9 @@ export default {
     this.setSelectedConcepts(Object.keys(this.$helpers.getMainConcepts()))
     this.setPickedFilters([])
   },
+  mounted() {
+    this.setArticleContentSelectEvent()
+  },
   methods: {
     ...mapMutations({
       setSelectedConcepts: 'articles/setSelectedConcepts',
@@ -88,7 +111,25 @@ export default {
     },
     doSaveLabeling() {
       this.article.units = this.$helpers.combinedUnitsToUnits(this.article)
-      console.log(this.article)
+    },
+    setArticleContentSelectEvent() {
+      document.getElementById('article-content').addEventListener('mouseup', () => {
+        const selection = window.getSelection()
+        console.log(selection)
+        const startAnchor = selection.anchorOffset
+        const endAnchor = selection.focusOffset
+        const startEl = selection.anchorNode.parentElement
+        const endEl = selection.focusNode.parentElement
+        const startUnitIndex = startEl.getAttribute('unit-index')
+        const endUnitIndex = endEl.getAttribute('unit-index')
+        const startUnitConcept = startEl.getAttribute('unit-concept')
+
+        if (startUnitIndex === endUnitIndex && startUnitConcept === 'O') {
+          // TODO: We need to split combined units into more combined units
+          // But, to do that, we need to add to combined units indexes fileds the index of a origin unit start and end in all article
+          // Then in side this, we will compare with startAnchor and endAnchor, and then we can find the nearest origin unit and select it!
+        }
+      })
     }
   }
 }

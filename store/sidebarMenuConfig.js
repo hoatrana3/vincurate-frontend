@@ -35,7 +35,7 @@ export const labelingRoutes = ({ routes }) => [{
   route: routes.labelingArticles,
   icon: {
     type: 'md-icon',
-    id: 'featured_play_list'
+    id: 'label'
   }
 }]
 
