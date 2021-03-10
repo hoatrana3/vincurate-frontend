@@ -6,8 +6,7 @@
       :container-class="null"
       class="mb-32pt" />
 
-    <page-separator
-      :title="$t(title)" />
+    <page-separator title="Basic information" />
 
     <b-form @submit.prevent="doSave" class="col-sm-5 px-0 page-section pt-0">
       <b-form-group

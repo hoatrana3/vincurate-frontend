@@ -8,16 +8,25 @@
     :class="{
       'is-active': isActivated,
       'is-filtered': isFiltered,
+      'is-editable': isEditable
     }"><!--
     -->{{ renderMessage
     }}<!--
+  --><span @click="removeConcept"><!--
+  --><md-icon
+       v-if="isActivated && isEditable"
+       class="btn-cancel-unit">cancel</md-icon><!--
+  --></span><!--
   --></span>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
+import { MdIcon } from 'vue-luma'
+import cloneDeep from 'lodash/cloneDeep'
 
 export default {
+  components: [MdIcon],
   props: {
     unit: {
       type: Object,
@@ -37,6 +46,10 @@ export default {
       default: false
     },
     isLast: {
+      type: Boolean,
+      default: false
+    },
+    isEditable: {
       type: Boolean,
       default: false
     }
@@ -72,6 +85,13 @@ export default {
       )
 
       return index >= 0
+    }
+  },
+  methods: {
+    removeConcept() {
+      const oldUnit = cloneDeep(this.unit)
+      this.unit.type = 'O'
+      this.$emit('onRemoveConcept', oldUnit, this.unit)
     }
   }
 }

@@ -85,6 +85,10 @@ export const getters = {
         name: 'user-edit-account',
         params: {layout}
       },
+      labelingArticles: {
+        name: 'labeling',
+        params: {layout}
+      },
     }
   }
 }

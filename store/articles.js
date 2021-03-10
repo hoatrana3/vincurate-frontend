@@ -104,7 +104,7 @@ export const actions = {
         )
       } else {
         const article = response.getData()
-        article.combinedUnits = this.$helpers.getCombinedUnits(article)
+        article.combinedUnits = this.$helpers.unitsToCombinedUnits(article)
 
         commit('setCurrentArticle', article)
       }

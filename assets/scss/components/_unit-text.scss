@@ -8,6 +8,17 @@
     font-weight: 500;
     color: rgb(var(--concept-color));
     background-color: rgba(var(--concept-color), .2);
+
+    &.is-editable {
+      padding: 3px;
+
+      .btn-cancel-unit {
+        font-size: 1em;
+        margin-left: 3px;
+        margin-top: -3px;
+        cursor: pointer;
+      }
+    }
   }
 
   &.is-filtered {

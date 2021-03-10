@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="card stack stack--2">
-      <ul class="nav card-header d-flex align-items-center">
+      <ul v-if="showHeader" class="nav card-header d-flex align-items-center">
         <li class="nav-item navbar-list__item mr-3">
           <md-icon
             left
@@ -47,13 +47,16 @@
       <div class="card-body">
         <unit-text
           v-for="(unit, index) in article.combinedUnits"
-          :key="index"
           :unit="unit"
+          :key="index"
           :prepend="article.combinedUnits[index - 1]"
           :append="article.combinedUnits[index + 1]"
           :is-first="index === 0"
-          :is-last="index === article.combinedUnits.length - 1" />
+          :is-last="index === article.combinedUnits.length - 1"
+          :is-editable="isEditable"
+          @onRemoveConcept="(oldCu, newCu) => doOnUnitConceptRemoved(oldCu, newCu, index)" />
       </div>
+      <slot name="content-footer" />
     </div>
   </div>
 </template>
@@ -68,6 +71,14 @@ export default {
     article: {
       type: Object,
       required: true
+    },
+    showHeader: {
+      type: Boolean,
+      default: true
+    },
+    isEditable: {
+      type: Boolean,
+      default: false
     }
   },
   computed: {
@@ -75,6 +86,9 @@ export default {
       const source = this.article.source
       return !source || !source.length ? 'Unknown source' : source
     }
+  },
+  mounted() {
+    console.log(this.article.combinedUnits)
   },
   methods: {
     ...mapActions({
@@ -86,6 +100,33 @@ export default {
         .setData({ params: [this.article.id] })
 
       this.exportArticle(handler)
+    },
+    doOnUnitConceptRemoved(oldCu, newCu, index) {
+      this.groupNoneConceptUnits(newCu, index)
+      this.$emit('onArticleContentEdited', this.article)
+    },
+    groupNoneConceptUnits(newCu, index) {
+      const unitBef = this.article.combinedUnits[index - 1]
+      const unitAft = this.article.combinedUnits[index + 1]
+      let unitsToGroup = []
+      let indexToInsert = index
+      let countToRemove = 1
+
+      if (unitBef && unitBef.type === 'O') {
+        unitsToGroup.push(unitBef)
+        indexToInsert = index - 1
+        countToRemove++
+      }
+
+      unitsToGroup.push(newCu)
+
+      if (unitAft && unitAft.type === 'O') {
+        unitsToGroup.push(unitAft)
+        countToRemove++
+      }
+
+      const groupedUnit = this.$helpers.groupCombinedUnits(unitsToGroup)
+      this.article.combinedUnits.splice(indexToInsert, countToRemove, groupedUnit)
     }
   }
 }

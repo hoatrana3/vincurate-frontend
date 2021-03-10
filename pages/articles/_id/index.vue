@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions, mapMutations } from 'vuex'
+import { mapGetters, mapMutations } from 'vuex'
 import Page from '@/components/Page'
 import ArticleDetailsHeader from '@/components/Articles/ArticleDetailsHeader'
 import ArticleDetailsContent from '@/components/Articles/ArticleDetailsContent'

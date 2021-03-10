@@ -1,5 +1,7 @@
+import flattenDeep from 'lodash/flattenDeep'
+
 export default ($context) => ({
-  getCombinedUnits(article) {
+  unitsToCombinedUnits(article) {
     const units = article.units
     const combinedUnits = []
     let currentCombiner = null
@@ -42,5 +44,39 @@ export default ($context) => ({
     })
 
     return combinedUnits
+  },
+  combinedUnitsToUnits(article) {
+    console.log(article)
+
+    const combinedUnits = article.combinedUnits
+    const aUnits = article.units
+    let units = []
+
+    combinedUnits.forEach(({ type, indexes }) => {
+      const cuUnits = []
+      indexes.forEach(idx => cuUnits.push(aUnits[idx]))
+
+      cuUnits.forEach((cuU, cuIdx) => {
+        if (type !== 'O') {
+          cuU.label = `${ cuIdx === 0 ? 'B' : 'I' }-${type}`
+        } else {
+          cuU.label = 'O'
+        }
+      })
+
+      units.push(...cuUnits)
+    })
+
+    return units
+  },
+  groupCombinedUnits(cUnits) {
+    const messages = cUnits.map(cU => cU.message)
+    const indexes = cUnits.map(cU => cU.indexes)
+
+    return {
+      message: messages.join(' '),
+      type: cUnits[0].type,
+      indexes: flattenDeep(indexes)
+    }
   }
 })

@@ -13,7 +13,8 @@ const userPerms = [
   '/articles/upload',
   '/articles/my-articles',
   '/user/edit-account',
-  '/articles/:id/edit-basic'
+  '/articles/:id/edit-basic',
+  '/labeling'
 ]
 const adminPerms = [
   ...userPerms

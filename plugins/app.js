@@ -4,7 +4,7 @@ import Vue from 'vue'
  * Global Helpers
  */
 
-import {mapGetters} from 'vuex'
+import { mapGetters } from 'vuex'
 
 Vue.mixin({
   computed: {

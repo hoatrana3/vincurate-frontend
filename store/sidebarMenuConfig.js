@@ -30,13 +30,23 @@ export const articleRoutes = ({ routes }) => [{
   }
 }]
 
+export const labelingRoutes = ({ routes }) => [{
+  label: 'Labeling Articles',
+  route: routes.labelingArticles,
+  icon: {
+    type: 'md-icon',
+    id: 'featured_play_list'
+  }
+}]
+
 export const getters = {
   layoutMenu: (state, getters, rootState, rootGetters) => {
     const routes = rootGetters['settings/routes']
 
     return {
       general: generalRoutes({ routes }),
-      articles: articleRoutes({ routes })
+      articles: articleRoutes({ routes }),
+      labeling: labelingRoutes({ routes })
     }
   }
 }
