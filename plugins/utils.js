@@ -11,5 +11,6 @@ export default ($context, inject) => {
   inject('apiHandler', apiHandler($context))
   inject('storage', storage($context))
 
-  helpers($context).setConceptsCssVarialbes()
+  // helpers($context).setConceptsCssVarialbes()
+  helpers($context).initLabelCofigs();
 }

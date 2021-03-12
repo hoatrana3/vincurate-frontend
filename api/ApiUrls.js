@@ -25,3 +25,5 @@ export const EXPORT_ARTICLE = ApiUrl.build(
   `${BASE_API_V1_URL}/articles/:id/export`
 )
 export const UPLOAD_ARTICLE = ApiUrl.build(`${BASE_API_V1_URL}/articles/upload`)
+
+export const GET_ALL_LABELS = ApiUrl.build(`${BASE_API_V1_URL}/labels`)
