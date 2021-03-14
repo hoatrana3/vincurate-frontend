@@ -39,7 +39,7 @@
                 v-text="'arrow_forward_ios'" />
             </b-btn>
           </div>
-          <concepts-picker />
+          <concepts-picker :concept-labels="shownConceptLabels" />
         </div>
       </div>
     </div>
@@ -92,7 +92,14 @@ export default {
   computed: {
     ...mapGetters({
       currentArticle: 'articles/getCurrentArticle'
-    })
+    }),
+    shownConceptLabels() {
+      const onlyUnique = (value, index, self) => {
+        return self.findIndex(v => v.value === value.value) === index
+      }
+
+      return this.currentArticle.annotations.map(a => a.label).filter(onlyUnique)
+    }
   },
   created() {
     this.setPickedFilters([])

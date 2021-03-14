@@ -4,7 +4,7 @@
 
     <b-form class="page-section pt-0">
       <b-form-group
-        v-for="concept in allConceptLabels"
+        v-for="concept in shownConceptLabels"
         :key="concept.id">
         <b-form-checkbox
           v-model="selectedConcepts"
@@ -24,6 +24,12 @@
 import { mapGetters, mapMutations } from 'vuex'
 
 export default {
+  props: {
+    conceptLabels: {
+      type: Array,
+      default: () => []
+    }
+  },
   computed: {
     ...mapGetters({
       allConceptLabels: 'label/getAllLabels',
@@ -37,22 +43,26 @@ export default {
         this.setSelectedConcepts(val)
       }
     },
-    allConceptLabelValues() {
-      return this.allConceptLabels.map(l => l.value)
+    shownConceptLabels() {
+      if (this.conceptLabels && this.conceptLabels.length) return this.conceptLabels
+      return this.allConceptLabels
+    },
+    allShownConceptLabelValues() {
+      return this.shownConceptLabels.map(l => l.value)
     }
   },
   watch: {
     allConceptLabels() {
-      this.selectedConcepts = this.allConceptLabelValues
+      this.selectedConcepts = this.allShownConceptLabelValues
     }
   },
   mounted() {
-    this.selectedConcepts = this.allConceptLabelValues
+    this.selectedConcepts = this.allShownConceptLabelValues
   },
   methods: {
     ...mapMutations({
       setSelectedConcepts: 'articles/setSelectedConcepts'
-    }),
+    })
   }
 }
 </script>
