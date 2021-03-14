@@ -39,8 +39,7 @@
 
         <div class="row card-group-row">
           <div
-            class="col-md-9 row article-cards-container"
-            :class="{ 'show-concepts': selectedConcepts.length > 0 }"
+            class="col-md-9 row static-concepts-container"
             :data-concepts="selectedConcepts.join(', ')">
             <div class="col-12">
               <div
@@ -69,7 +68,7 @@
 </template>
 
 <script>
-import { mapGetters, mapActions, mapMutations } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import Page from '~/components/Page.vue'
 import MiniArticleCard from '@/components/Articles/MiniArticleCard'
 import { MdIcon, PageHeader } from 'vue-luma'
@@ -116,17 +115,11 @@ export default {
     },
     currentPage() {
       this.handlePageChange()
-    },
-  },
-  created() {
-    this.setSelectedConcepts(Object.keys(this.$helpers.getMainConcepts()))
+    }
   },
   methods: {
     ...mapActions({
       searchArticles: 'articles/searchArticles'
-    }),
-    ...mapMutations({
-      setSelectedConcepts: 'articles/setSelectedConcepts'
     }),
     async getSearchData(query) {
       const q = query || this.searchQuery || '*'

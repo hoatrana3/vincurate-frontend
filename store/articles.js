@@ -47,13 +47,12 @@ export const mutations = {
   setPickedFilters(state, val) {
     state.pickedFilters = val
   },
-  changeActiveUnitInFilter(state, val) {
-    val.active = false
-  },
   addPickedFilter(state, val) {
+    val.active = true
     state.pickedFilters.push(val)
   },
   removePickedFilter(state, val) {
+    val.active = false
     state.pickedFilters = state.pickedFilters.filter((t) => t !== val)
   }
 }
@@ -103,10 +102,7 @@ export const actions = {
           response.getMessage()
         )
       } else {
-        const article = response.getData()
-        article.combinedUnits = this.$helpers.unitsToCombinedUnits(article)
-
-        commit('setCurrentArticle', article)
+        commit('setCurrentArticle', response.getData())
       }
 
       return response

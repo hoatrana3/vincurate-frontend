@@ -44,19 +44,7 @@
           </b-dd>
         </li>
       </ul>
-      <div :id="bodyId" class="card-body">
-        <unit-text
-          v-for="(unit, index) in article.combinedUnits"
-          :unit="unit"
-          :key="index"
-          :index="index"
-          :prepend="article.combinedUnits[index - 1]"
-          :append="article.combinedUnits[index + 1]"
-          :is-first="index === 0"
-          :is-last="index === article.combinedUnits.length - 1"
-          :is-editable="isEditable"
-          @onRemoveConcept="(oldCu, newCu) => doOnUnitConceptRemoved(oldCu, newCu, index)" />
-      </div>
+      <article-content-renderer :id="bodyId" :article="article" class="card-body" />
       <slot name="content-footer" />
     </div>
   </div>
@@ -64,10 +52,10 @@
 
 <script>
 import { mapActions } from 'vuex'
-import UnitText from '@/components/Articles/UnitText'
+import ArticleContentRenderer from '~/components/Articles/ArticleContentRenderer'
 
 export default {
-  components: { UnitText },
+  components: { ArticleContentRenderer },
   props: {
     article: {
       type: Object,

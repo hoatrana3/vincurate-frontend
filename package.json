@@ -20,6 +20,8 @@
     "core-js": "^3.6.5",
     "dot-object": "^1.9.0",
     "fm-app-settings": "^5.4.0",
+    "hex-rgb": "^4.2.0",
+    "insert-css": "^2.0.0",
     "jwt-decode": "^3.1.2",
     "lodash": "^4.17.21",
     "material-design-kit": "^2.2.0",

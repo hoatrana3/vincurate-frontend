@@ -1,36 +1,6 @@
 .articles_explore {
-  $concepts: "DIS", "CHE", "TRM", "MISC", "ORG", "PER", "LOC";
-
-  .article-cards-container.show-concepts {
-    @each $c in $concepts {
-      &[data-concepts*='#{$c}'] {
-        span.concept-#{$c}-text {
-          $color: var(--concept-#{$c}-color);
-
-          display: inline;
-          color: rgb($color);
-          background-color: rgba($color, .2);
-          transition: $transition-base;
-          border-radius: 4px;
-          font-weight: 500;
-        }
-      }
-    }
-  }
-
   .concepts-picker {
     position: sticky;
     top: calc(#{$navbar-height} + 2.2rem + 24px);
-
-    @each $c in $concepts {
-      .concept-box-#{$c} {
-        .custom-control-input:checked ~ .custom-control-label::before {
-          $color: var(--concept-#{$c}-color);
-
-          border-color: rgb($color);
-          background-color: rgb($color);
-        }
-      }
-    }
   }
 }

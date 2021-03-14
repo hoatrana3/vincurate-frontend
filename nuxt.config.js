@@ -77,11 +77,11 @@ module.exports = {
     '~/plugins/bv-form-image-group',
     '~/plugins/vue-quill-editor.client',
 
-    { src: '~/plugins/vuesax', mode: 'client' },
     '~/plugins/vue-fragment',
     '~/plugins/axios',
     { src: '~/plugins/services', mode: 'client' },
     { src: '~/plugins/utils', mode: 'client' },
+    { src: '~/plugins/vuesax', mode: 'client' },
 
     // Settings client middleware (handles dynamic layout route settings client side)
     '~/plugins/settings.client'
