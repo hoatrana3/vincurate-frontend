@@ -14,7 +14,15 @@ const userPerms = [
   '/articles/my-articles',
   '/user/edit-account',
   '/articles/:id/edit-basic',
-  '/labeling'
+  '/articles/:id?edit-basic',
+  '/labeling',
+  '/projects/my-projects',
+  '/projects/new',
+  '/projects/:id',
+  '/projects/:id/edit',
+  '/projects/:id?/edit',
+  '/projects/:id/upload-articles',
+  '/projects/:id?/upload-articles',
 ]
 const adminPerms = [
   ...userPerms

@@ -39,6 +39,22 @@ export const labelingRoutes = ({ routes }) => [{
   }
 }]
 
+export const projectRoutes = ({ routes }) => [{
+  label: 'My Projects',
+  route: routes.myProjects,
+  icon: {
+    type: 'md-icon',
+    id: 'apps'
+  }
+}, {
+  label: 'Add Project',
+  route: routes.addProject,
+  icon: {
+    type: 'md-icon',
+    id: 'add_box'
+  }
+}]
+
 export const getters = {
   layoutMenu: (state, getters, rootState, rootGetters) => {
     const routes = rootGetters['settings/routes']
@@ -46,7 +62,8 @@ export const getters = {
     return {
       general: generalRoutes({ routes }),
       articles: articleRoutes({ routes }),
-      labeling: labelingRoutes({ routes })
+      labeling: labelingRoutes({ routes }),
+      projects: projectRoutes({ routes })
     }
   }
 }

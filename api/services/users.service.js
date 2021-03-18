@@ -1,11 +1,14 @@
 import {
-  AUTHENTICATE_USER,
+  AUTHENTICATE_USER, GET_ALL_USERS,
   GET_USER, GET_USER_ARTICLES,
   REGISTER_USER,
   UPDATE_USER
 } from '@/api/ApiUrls'
 
 export default ($axios) => ({
+  getAllUsers() {
+    return $axios.get(GET_ALL_USERS.get())
+  },
   registerUser({ data }) {
     return $axios.post(REGISTER_USER.get(), data)
   },

@@ -10,6 +10,4 @@ export default ($context, inject) => {
   inject('loader', loader($context))
   inject('apiHandler', apiHandler($context))
   inject('storage', storage($context))
-
-  helpers($context).initLabelCofigs();
 }

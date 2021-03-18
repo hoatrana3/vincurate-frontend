@@ -82,6 +82,7 @@ module.exports = {
     { src: '~/plugins/services', mode: 'client' },
     { src: '~/plugins/utils', mode: 'client' },
     { src: '~/plugins/vuesax', mode: 'client' },
+    { src: '~/plugins/init-data', mode: 'client' },
 
     // Settings client middleware (handles dynamic layout route settings client side)
     '~/plugins/settings.client'
