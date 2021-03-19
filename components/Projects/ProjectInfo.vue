@@ -5,9 +5,9 @@
       <b-form-group
         label="Project title"
         label-class="form-label">
-        <h3 class="text-primary text-capitalize font-weight-bold">
+        <h2 class="text-primary text-capitalize font-weight-bold">
           {{ currentProject.title }}
-        </h3>
+        </h2>
       </b-form-group>
       <div class="d-flex justify-content-between align-item-center flex-wrap mb-32pt">
         <b-form-group
@@ -91,15 +91,21 @@
         </div>
       </div>
     </div>
+
+    <div class="col-12">
+      <page-separator title="Project Articles" />
+      <articles-explore :additional-query="currentProject.id" />
+    </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
 import MyProjectRolesTable from '@/components/Projects/MyProjectRolesTable'
+import ArticlesExplore from '@/components/Articles/ArticlesExplore'
 
 export default {
-  components: { MyProjectRolesTable },
+  components: { ArticlesExplore, MyProjectRolesTable },
   computed: {
     ...mapGetters({
       currentProject: 'projects/getCurrentProject'

@@ -20,13 +20,6 @@ export default ({ $apiHandler, store }) => ({
     })
   },
   setGlobalCssClasses(labels) {
-    insertCss(`
-      .has-concept.is-active,
-      .has-concept.is-filter {
-        border-radius: 4px;
-      }
-    `)
-
     labels.forEach(({ value, color }) => {
       const bgColor = hexRgb(color, { format: 'array' });
       bgColor[3] = 0.2;

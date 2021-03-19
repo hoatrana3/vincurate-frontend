@@ -16,3 +16,12 @@
     }
   }
 }
+
+.has-concept {
+  transition: $transition-base;
+}
+
+.has-concept.is-active,
+.has-concept.is-filter {
+  border-radius: 4px;
+}
