@@ -1,124 +1,73 @@
-<!--<template>-->
-<!--  <div :class="containerClass">-->
-<!--    <page-header-->
-<!--      :title="title"-->
-<!--      :breadcrumb="breadcrumb"-->
-<!--      :container-class="null"-->
-<!--      class="mb-32pt" />-->
+<template>
+  <div>
+    <page-header
+      :title="title"
+      :breadcrumb="breadcrumb"
+      :container-class="containerClass" />
+    <div class="page-section">
+      <div :class="containerClass">
 
-<!--    <div class="page-section border-bottom-2">-->
-<!--      <div :class="containerClass">-->
-<!--        <resume-course />-->
-<!--      </div>-->
-<!--    </div>-->
+        <page-separator
+          :title="title" />
 
-<!--    <div-->
-<!--      :class="containerClass"-->
-<!--      class="page-section">-->
+        <div class="card mb-0">
+          <div class="card-header">
+            <div
+              class="row align-items-center"
+              style="white-space: nowrap;">
+              <div class="col-lg-auto">
+                <form
+                  class="search-form search-form--light d-lg-inline-flex mb-8pt mb-lg-0">
+                  <b-form-input
+                    class="w-lg-auto"
+                    placeholder="Search projects" />
+                  <b-btn
+                    variant="flush"
+                    type="submit">
+                    <md-icon v-text="'search'" />
+                  </b-btn>
+                </form>
+              </div>
+              <div class="col-lg d-flex flex-wrap align-items-center justify-content-end">
+                <b-btn
+                  :to="routeTo(routes.addProject)"
+                  exact
+                  variant="accent"
+                  v-text="'Create project'" />
+              </div>
+            </div>
+          </div>
 
-<!--      <div class="row card-group-row">-->
-<!--        <div-->
-<!--          v-for="item in items"-->
-<!--          :key="item.id"-->
-<!--          class="card-group-row__col col-md-6">-->
-<!--          <quiz-card-->
-<!--            :item="item" />-->
-<!--        </div>-->
-<!--      </div>-->
+          <my-projects-table />
+        </div>
 
-<!--      <pager-->
-<!--        class="mb-32pt" />-->
+      </div>
+    </div>
+  </div>
+</template>
 
-<!--      <quizzes-list />-->
+<script>
+import {
+  MdIcon,
+  PageHeader,
+  PageSeparator
+} from 'vue-luma'
+import Page from '@/components/Page'
+import MyProjectsTable from '@/components/Projects/MyProjectsTable'
 
-<!--    </div>-->
-<!--  </div>-->
-<!--</template>-->
-
-<!--<script>-->
-<!--import cloneDeep from 'lodash/cloneDeep'-->
-<!--import {-->
-<!--  PageHeader,-->
-<!--  PageSeparator-->
-<!--} from 'vue-luma'-->
-<!--import Page from '@/components/Page'-->
-<!--import ArticleDetailsContent from '@/components/Articles/ArticleDetailsContent'-->
-<!--import { mapGetters, mapMutations } from 'vuex'-->
-
-<!--export default {-->
-<!--  components: {-->
-<!--    ArticleDetailsContent,-->
-<!--    PageHeader,-->
-<!--    PageSeparator-->
-<!--  },-->
-<!--  extends: Page,-->
-<!--  layout: 'boxed',-->
-<!--  async asyncData({ store, $apiHandler, $notify, redirect }) {-->
-<!--    let article-->
-<!--    const handler = $apiHandler-->
-<!--      .build()-->
-<!--      .setData({ params: ['60463ef15dfe800064939b80'] })-->
-<!--      .addOnResponse(response => {-->
-<!--        article = cloneDeep(response.getData())-->
-<!--      })-->
-<!--      .addOnError((e) => {-->
-<!--        $notify.error(-->
-<!--          'Article not found',-->
-<!--          'We can not find the article you want'-->
-<!--        )-->
-<!--        redirect('/articles')-->
-<!--      })-->
-<!--    await store.dispatch('articles/fetchArticle', handler)-->
-
-<!--    return { article }-->
-<!--  },-->
-<!--  data() {-->
-<!--    return {-->
-<!--      title: 'Labeling Article'-->
-<!--    }-->
-<!--  },-->
-<!--  computed: {-->
-<!--    ...mapGetters({-->
-<!--      currentArticle: 'articles/getCurrentArticle'-->
-<!--    })-->
-<!--  },-->
-<!--  created() {-->
-<!--    this.setSelectedConcepts(Object.keys(this.$helpers.getMainConcepts()))-->
-<!--    this.setPickedFilters([])-->
-<!--  },-->
-<!--  mounted() {-->
-<!--    this.setArticleContentSelectEvent()-->
-<!--  },-->
-<!--  methods: {-->
-<!--    ...mapMutations({-->
-<!--      setSelectedConcepts: 'articles/setSelectedConcepts',-->
-<!--      setPickedFilters: 'articles/setPickedFilters'-->
-<!--    }),-->
-<!--    onArticleEdited(article) {-->
-<!--      this.article = cloneDeep(article)-->
-<!--    },-->
-<!--    doSaveLabeling() {-->
-<!--      this.article.units = this.$helpers.combinedUnitsToUnits(this.article)-->
-<!--    },-->
-<!--    setArticleContentSelectEvent() {-->
-<!--      document.getElementById('article-content').addEventListener('mouseup', () => {-->
-<!--        const selection = window.getSelection()-->
-<!--        console.log(selection)-->
-<!--        const startAnchor = selection.anchorOffset-->
-<!--        const endAnchor = selection.focusOffset-->
-<!--        const startEl = selection.anchorNode.parentElement-->
-<!--        const endEl = selection.focusNode.parentElement-->
-<!--        const startUnitIndex = startEl.getAttribute('unit-index')-->
-<!--        const endUnitIndex = endEl.getAttribute('unit-index')-->
-<!--        const startUnitConcept = startEl.getAttribute('unit-concept')-->
-
-<!--        if (startUnitIndex === endUnitIndex && startUnitConcept === 'O') {-->
-<!--          // TODO: We need to split combined units into more combined units-->
-<!--          // But, to do that, we need to add to combined units indexes fileds the index of a origin unit start and end in all article-->
-<!--          // Then in side this, we will compare with startAnchor and endAnchor, and then we can find the nearest origin unit and select it!-->
-<!--        }-->
-<!--      })-->
-<!--    }-->
-<!--  }-->
-<!--}-->
-<!--</script>-->
+export default {
+  components: {
+    MyProjectsTable,
+    MdIcon,
+    PageHeader,
+    PageSeparator
+  },
+  extends: Page,
+  layout: 'boxed',
+  data() {
+    return {
+      title: 'My Projects'
+    }
+  }
+}
+</script>

@@ -8,7 +8,7 @@
 
     <page-separator title="Basic information" />
 
-    <b-form @submit.prevent="doSave" class="col-sm-5 px-0 page-section pt-0">
+    <b-form @submit.prevent="doSave" class="px-0 page-section pt-0">
       <b-form-group
         label="Title"
         label-for="title"
@@ -20,33 +20,21 @@
       </b-form-group>
 
       <b-form-group
-        label="Source"
-        label-for="source"
+        label="Content"
+        label-for="content"
         label-class="form-label">
-        <b-form-input
-          v-model="info.source"
-          id="source"
-          placeholder="Source of article" />
-      </b-form-group>
-
-      <b-form-group
-        label="Category"
-        label-for="category"
-        label-class="form-label">
-        <b-select
-          v-model="info.category"
-          id="category"
-          :options="['News', 'Others']" />
-      </b-form-group>
-
-      <b-form-group
-        label="Visibility"
-        label-for="visibility"
-        label-class="form-label">
-        <b-select
-          v-model="info.visibility"
-          id="visibility"
-          :options="['Personal', 'Stakeholders', 'Community']" />
+        <b-form-textarea
+          v-model="info.content"
+          id="content"
+          size="md"
+          rows="10"
+          max-rows="20"
+          placeholder="Content of article" />
+        <template v-slot:description>
+          <span class="text-danger font-weight-medium">
+            (*) Old annotations <u>might be wrong</u> after you change the article's content
+          </span>
+        </template>
       </b-form-group>
 
       <b-btn type="submit" variant="primary">
@@ -68,7 +56,7 @@ import Page from '@/components/Page'
 export default {
   components: {
     PageHeader,
-    PageSeparator,
+    PageSeparator
   },
   extends: Page,
   layout: 'boxed',
@@ -106,9 +94,7 @@ export default {
     doSave() {
       const data = {
         title: this.info.title,
-        source: this.info.source,
-        category: this.info.category,
-        visibility: this.info.visibility,
+        content: this.info.content
       }
       const handler = this.$apiHandler
         .build()
@@ -121,7 +107,7 @@ export default {
             'Updated article',
             'Your article is successfully updated'
           )
-          this.info = response.getData()
+          this.$router.push(`/articles/${response.getData().id}`)
         })
 
       this.updateArticleInfo(handler)

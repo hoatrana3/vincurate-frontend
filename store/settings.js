@@ -73,10 +73,6 @@ export const getters = {
         name: 'articles-explore',
         params: { layout }
       },
-      articlesUpload: {
-        name: 'articles-upload',
-        params: { layout }
-      },
       myArticles: {
         name: 'articles-my-articles',
         params: { layout }

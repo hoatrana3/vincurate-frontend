@@ -38,8 +38,10 @@
           v-if="isLoggedIn"
           text="Manage"
           no-caret>
+          <b-dropdown-item :to="routeTo(routes.myProjects)">My Projects</b-dropdown-item>
+          <b-dropdown-item :to="routeTo(routes.addProject)">Create Project</b-dropdown-item>
+          <b-dd-divider />
           <b-dropdown-item :to="routeTo(routes.myArticles)">My Articles</b-dropdown-item>
-          <b-dropdown-item :to="routeTo(routes.articlesUpload)">Upload Articles</b-dropdown-item>
         </b-nav-item-dropdown>
       </b-navbar-nav>
     </template>

@@ -157,6 +157,20 @@ export const actions = {
 
     return await handler.setOnRequest(onRequest).execute()
   },
+  async getUserProjects({ commit, dispatch }, handler) {
+    const onRequest = async () => {
+      const rawData = await this.$usersService.getUserProjects(handler.data)
+      const response = new ResponseWrapper(rawData)
+
+      if (response.isError()) {
+        throw new CustomError('Failed to get user\'s projects', response.getMessage())
+      }
+
+      return response
+    }
+
+    return await handler.setOnRequest(onRequest).execute()
+  },
 
   login({ commit }, { user, tokens: { access: { token } } }) {
     commit('setCurrentUser', user)
