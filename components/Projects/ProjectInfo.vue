@@ -35,9 +35,15 @@
         </b-form-group>
       </div>
 
-      <page-separator title="Project Roles" />
+      <page-separator title="Roles" />
       <my-project-roles-table
         :roles="projectRoles"
+        class="mb-32pt"
+        no-actions />
+
+      <page-separator title="Labels" />
+      <my-project-labels-table
+        :labels="currentProject.labels"
         class="mb-32pt"
         no-actions />
     </div>
@@ -103,9 +109,10 @@
 import { mapGetters } from 'vuex'
 import MyProjectRolesTable from '@/components/Projects/MyProjectRolesTable'
 import ArticlesExplore from '@/components/Articles/ArticlesExplore'
+import MyProjectLabelsTable from '@/components/Projects/MyProjectLabelsTable'
 
 export default {
-  components: { ArticlesExplore, MyProjectRolesTable },
+  components: { MyProjectLabelsTable, ArticlesExplore, MyProjectRolesTable },
   computed: {
     ...mapGetters({
       currentProject: 'projects/getCurrentProject'

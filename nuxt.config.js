@@ -77,6 +77,7 @@ module.exports = {
     '~/plugins/bv-form-image-group',
     '~/plugins/vue-quill-editor.client',
 
+    '~/plugins/vue-typeahead-bootstrap',
     '~/plugins/vue-fragment',
     '~/plugins/axios',
     { src: '~/plugins/services', mode: 'client' },
@@ -116,7 +117,8 @@ module.exports = {
         numberFormats,
         silentTranslationWarn: true
       }
-    }]
+    }],
+    'vue-swatches/nuxt'
   ],
 
   /*

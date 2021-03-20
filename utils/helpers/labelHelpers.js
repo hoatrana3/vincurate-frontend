@@ -43,6 +43,12 @@ export default ({ $apiHandler, store }) => ({
         .text-concept-${value} {
           color: ${color};
         }
+        .has-category.category-${value} {
+          border: 2px solid ${color};
+          color: ${color};
+          background-color: rgba(${bgColorStr});
+          text-align: center;
+        }
       `)
     })
   }

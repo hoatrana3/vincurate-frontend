@@ -17,11 +17,18 @@
   }
 }
 
-.has-concept {
+.has-concept,
+.has-category {
   transition: $transition-base;
 }
 
 .has-concept.is-active,
 .has-concept.is-filter {
   border-radius: 4px;
+}
+
+.has-category {
+  display: inline-block;
+  border-radius: 25px;
+  padding: 3px 8px;
 }

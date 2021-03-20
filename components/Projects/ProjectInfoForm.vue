@@ -18,6 +18,9 @@
         label-for="type"
         class="mb-32pt"
         label-class="form-label">
+        <template v-slot:description>
+          <span class="text-danger">(*) All labels will be removed when you change project type</span>
+        </template>
         <b-select
           v-model="type"
           :disabled="!forNew"
@@ -30,7 +33,7 @@
         </b-select>
       </b-form-group>
 
-      <page-separator title="Project Roles" />
+      <page-separator title="Roles" />
       <my-project-roles-table
         :roles="roles"
         class="mb-32pt"
@@ -43,6 +46,23 @@
             v-text="'Add role'" />
         </template>
       </my-project-roles-table>
+
+      <page-separator
+        v-if="type !== 'Sequence to Sequence'"
+        title="Labels" />
+      <my-project-labels-table
+        v-if="type !== 'Sequence to Sequence'"
+        :labels="labels"
+        class="mb-32pt"
+        @removeLabel="removeLabel">
+        <template v-slot:table-left-header>
+          <b-btn
+            exact
+            variant="accent"
+            @click="() => setOpenAddProjectLabelModal(true)"
+            v-text="'Add label'" />
+        </template>
+      </my-project-labels-table>
     </div>
     <div class="col-md-4">
       <b-btn
@@ -81,6 +101,9 @@
     </div>
 
     <add-project-role-modal @onSubmit="addNewRole" />
+    <add-project-label-modal
+      :project-type="type"
+      @onSubmit="addNewLabel" />
   </div>
 </template>
 
@@ -88,9 +111,11 @@
 import { mapGetters, mapMutations } from 'vuex'
 import MyProjectRolesTable from '@/components/Projects/MyProjectRolesTable'
 import AddProjectRoleModal from '@/components/Projects/AddProjectRoleModal'
+import MyProjectLabelsTable from '@/components/Projects/MyProjectLabelsTable'
+import AddProjectLabelModal from '@/components/Projects/AddProjectLabelModal'
 
 export default {
-  components: { AddProjectRoleModal, MyProjectRolesTable },
+  components: { AddProjectLabelModal, MyProjectLabelsTable, AddProjectRoleModal, MyProjectRolesTable },
   props: {
     forNew: {
       type: Boolean,
@@ -101,7 +126,8 @@ export default {
     return {
       projectTitle: '',
       type: 'Sequence Labeling',
-      roles: []
+      roles: [],
+      labels: []
     }
   },
   computed: {
@@ -125,13 +151,18 @@ export default {
           this.projectTitle = val.title
           this.type = val.type
           this.roles = this.currentProjectRoles
+          this.labels = this.currentProject.labels
         }
       }
+    },
+    type() {
+      this.labels = []
     }
   },
   methods: {
     ...mapMutations({
-      setOpenAddProjectRoleModal: 'projects/setOpenAddProjectRoleModal'
+      setOpenAddProjectRoleModal: 'projects/setOpenAddProjectRoleModal',
+      setOpenAddProjectLabelModal: 'projects/setOpenAddProjectLabelModal'
     }),
     addNewRole(newRole) {
       const role = this.roles.find(r => r.id === newRole.id)
@@ -142,6 +173,14 @@ export default {
       const index = this.roles.findIndex(r => r.id === item.id)
       if (index >= 0) this.roles.splice(index, 1)
     },
+    addNewLabel(newLabel) {
+      const label = this.labels.find(l => l.id === newLabel.id)
+      if (!label) this.labels.push(newLabel)
+    },
+    removeLabel(item) {
+      const index = this.labels.findIndex(l => l.id === item.id)
+      if (index >= 0) this.labels.splice(index, 1)
+    },
     saveProject() {
       const data = {
         title: this.projectTitle,
@@ -150,7 +189,8 @@ export default {
         roles: this.roles.map(r => ({
           user: r.id,
           role: r.role
-        }))
+        })),
+        labels: this.labels.map(l => l.id)
       }
       this.$emit('onSubmit', data)
     }
