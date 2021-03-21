@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="card stack stack--2">
-      <ul v-if="showHeader" class="nav card-header d-flex align-items-center">
+      <ul class="nav card-header d-flex align-items-center">
         <li class="nav-item navbar-list__item mr-3">
           <md-icon
             left
@@ -44,7 +44,9 @@
           </b-dd>
         </li>
       </ul>
-      <article-content-renderer :id="bodyId" :article="article" class="card-body" />
+      <article-content-renderer
+        :article="article"
+        class="card-body" />
       <slot name="content-footer" />
     </div>
   </div>
@@ -60,18 +62,6 @@ export default {
     article: {
       type: Object,
       required: true
-    },
-    showHeader: {
-      type: Boolean,
-      default: true
-    },
-    isEditable: {
-      type: Boolean,
-      default: false
-    },
-    bodyId: {
-      type: String,
-      default: ''
     }
   },
   computed: {

@@ -19,6 +19,7 @@ export const SEARCH_ARTICLES = ApiUrl.build(
 )
 export const GET_ARTICLE = ApiUrl.build(`${BASE_API_V1_URL}/articles/:id`)
 export const UPDATE_ARTICLE = ApiUrl.build(`${BASE_API_V1_URL}/articles/:id`)
+export const UPDATE_ARTICLE_ANNOTATIONS = ApiUrl.build(`${BASE_API_V1_URL}/articles/:id/update-annotations`)
 export const GET_NEXT_OLDER_ARTICLE = ApiUrl.build(
   `${BASE_API_V1_URL}/articles/:id/next`
 )

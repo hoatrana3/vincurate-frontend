@@ -27,6 +27,20 @@
   border-radius: 4px;
 }
 
+.has-concept.is-editable{
+  padding: 1.5px;
+
+  .concept-remove-btn {
+    display: inline-block;
+    cursor: pointer;
+    transition: $transition-base;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+}
+
 .has-category {
   display: inline-block;
   border-radius: 25px;

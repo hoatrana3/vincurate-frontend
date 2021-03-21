@@ -81,10 +81,6 @@ export const getters = {
         name: 'user-edit-account',
         params: { layout }
       },
-      labelingArticles: {
-        name: 'labeling',
-        params: { layout }
-      },
       myProjects: {
         name: 'projects-my-projects',
         params: { layout }

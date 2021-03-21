@@ -145,6 +145,25 @@ export const actions = {
 
     return await handler.setOnRequest(onRequest).execute()
   },
+  async updateArticleAnnotations({ commit }, handler) {
+    const onRequest = async () => {
+      const rawData = await this.$articlesService.updateArticleAnnotations(handler.data)
+      const response = new ResponseWrapper(rawData)
+
+      if (response.isError()) {
+        throw new CustomError(
+          'Failed to update article annotations',
+          response.getMessage()
+        )
+      } else {
+        commit('setCurrentArticle', response.getData())
+      }
+
+      return response
+    }
+
+    return await handler.setOnRequest(onRequest).execute()
+  },
   async exportArticle({ commit, dispatch }, handler) {
     const onRequest = async () => {
       const rawData = await this.$articlesService.exportArticle(handler.data)

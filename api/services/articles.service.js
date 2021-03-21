@@ -2,7 +2,7 @@ import {
   EXPORT_ARTICLE,
   GET_ARTICLE,
   GET_NEXT_OLDER_ARTICLE,
-  SEARCH_ARTICLES, UPDATE_ARTICLE, UPDATE_USER,
+  SEARCH_ARTICLES, UPDATE_ARTICLE, UPDATE_ARTICLE_ANNOTATIONS, UPDATE_USER,
   UPLOAD_ARTICLE
 } from '@/api/ApiUrls'
 
@@ -30,5 +30,8 @@ export default ($axios) => ({
   },
   updateArticle({ params, data }) {
     return $axios.patch(UPDATE_ARTICLE.get(params), data)
+  },
+  updateArticleAnnotations({ params, data }) {
+    return $axios.patch(UPDATE_ARTICLE_ANNOTATIONS.get(params), data)
   },
 })

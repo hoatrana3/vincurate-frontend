@@ -1,8 +1,18 @@
 <template>
   <div
     class="font-size-16pt text-justify static-concepts-container"
-    :data-concepts="selectedConcepts.join(', ')"
-    v-html="styledContent">
+    :data-concepts="selectedConcepts.join(', ')">
+    <span
+      v-for="(text, index) in preformatTexts"
+      :key="`${text.text}-${$moment().unix()}-${index}`"
+      :offset-start="text.offsetStart"
+      :class="getTextCustomClass(text)"><!--
+      -->{{ text.text }}
+      <i
+        v-if="editable && text.value.length"
+        class="mdi mdi-close-circle concept-remove-btn"
+        @click="removeTextAnnotation(text)" /><!--
+    --></span>
   </div>
 </template>
 
@@ -15,6 +25,14 @@ export default {
     article: {
       type: Object,
       required: true
+    },
+    editable: {
+      type: Boolean,
+      default: false
+    },
+    forceActive: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -28,25 +46,71 @@ export default {
       selectedConcepts: 'articles/getSelectedConcepts',
       pickedFilters: 'articles/getPickedFilters'
     }),
-    styledContent() {
-      const annos = cloneDeep(this.annotations).sort((a1, a2) => a2.offsetEnd - a1.offsetEnd)
-      let desc = this.content
+    preformatTexts() {
+      const results = []
+      const annos = cloneDeep(this.annotations).sort((a1, a2) => a1.offsetEnd - a2.offsetEnd)
+      const desc = this.content
+      let contentIndex = 0
+      let annoIndex = 0
 
-      annos.forEach((anno) => {
-        let annotatedStr = desc.substring(anno.offsetStart, anno.offsetEnd)
-        const label = anno.label
-        const indexFilter = this.pickedFilters.findIndex(f => f.text.toLowerCase() === annotatedStr.toLowerCase())
+      while (contentIndex < desc.length) {
+        let text = ''
+        let textAnno = null
+        let value = ''
+        const preContentIndex = contentIndex
+        const anno = annos[annoIndex]
 
-        annotatedStr = `<span class="has-concept concept-${label.value}${indexFilter >= 0 ? ' is-filter' : ''}">${annotatedStr}</span>`
-        desc = [desc.slice(0, anno.offsetStart), annotatedStr, desc.slice(anno.offsetEnd)].join('')
-      })
+        if (anno) {
+          if (contentIndex < anno.offsetStart) {
+            text = desc.substring(contentIndex, anno.offsetStart)
+            contentIndex = anno.offsetStart
+          } else {
+            text = desc.substring(contentIndex, anno.offsetEnd)
+            textAnno = anno
+            value = anno.label.value
+            contentIndex = anno.offsetEnd
+            annoIndex++
+          }
+        } else {
+          text = desc.substring(contentIndex)
+          contentIndex = desc.length
+        }
 
-      return desc
+        results.push({
+          text,
+          value,
+          offsetStart: preContentIndex,
+          annotation: textAnno
+        })
+      }
+
+      return results
     }
   },
   created() {
     this.content = this.article.content
-    this.annotations = this.article.annotations
+    this.annotations = cloneDeep(this.article.annotations)
+  },
+  methods: {
+    getTextCustomClass(text) {
+      const indexFilter = this.pickedFilters.findIndex(f => f.text.toLowerCase() === text.text.toLowerCase())
+      const conceptClass = text.annotation ? `has-concept concept-${text.value}` : ''
+      const filterClass = indexFilter > 0 ? 'is-filter' : ''
+      const editableClass = this.editable ? 'is-editable' : ''
+      const forceActiveClass = this.forceActive ? 'is-active' : ''
+
+      return [conceptClass, filterClass, editableClass, forceActiveClass].filter(i => i.length).join(' ')
+    },
+    removeTextAnnotation(text) {
+      const index = this.annotations.findIndex(a => a.offsetStart === text.annotation.offsetStart && a.offsetEnd === text.annotation.offsetEnd)
+      if (index >= 0) this.annotations.splice(index, 1)
+    },
+    addTextAnnotation(annotation) {
+      this.annotations.push(annotation)
+    },
+    getAnnotations() {
+      return this.annotations
+    }
   }
 }
 </script>

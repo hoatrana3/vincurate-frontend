@@ -26,6 +26,15 @@ export default ({ $apiHandler, store }) => ({
       const bgColorStr = bgColor.join(',')
 
       insertCss(`
+        .has-${value}-text-color {
+          color: ${color} !important;
+        }
+        .has-${value}-background-color {
+          background-color: ${color} !important;
+        }
+        .has-${value}-border-color {
+          border-color: ${color} !important;
+        }
         .static-concepts-container[data-concepts*='${value}'] .has-concept.concept-${value},
         .has-concept.concept-${value}.is-active {
           border-radius: 4px;

@@ -47,7 +47,7 @@
 
           <b-dd-item :to="`/articles/${data.item.id}`">Details</b-dd-item>
           <b-dd-item :to="`/articles/${data.item.id}/edit-basic`">Edit</b-dd-item>
-          <b-dd-item :to="`/articles/${data.item.id}/label`">Label</b-dd-item>
+          <b-dd-item :to="`/articles/${data.item.id}/curate`">Curate</b-dd-item>
           <b-dd-divider />
           <b-dd-item variant="danger">Delete</b-dd-item>
         </b-dd>

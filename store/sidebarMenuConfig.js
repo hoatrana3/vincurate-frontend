@@ -23,15 +23,6 @@ export const articleRoutes = ({ routes }) => [{
   }
 }]
 
-export const labelingRoutes = ({ routes }) => [{
-  label: 'Labeling Articles',
-  route: routes.labelingArticles,
-  icon: {
-    type: 'md-icon',
-    id: 'label'
-  }
-}]
-
 export const projectRoutes = ({ routes }) => [{
   label: 'My Projects',
   route: routes.myProjects,
@@ -55,7 +46,6 @@ export const getters = {
     return {
       general: generalRoutes({ routes }),
       articles: articleRoutes({ routes }),
-      labeling: labelingRoutes({ routes }),
       projects: projectRoutes({ routes })
     }
   }
