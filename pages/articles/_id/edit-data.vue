@@ -2,11 +2,9 @@
   <div :class="containerClass">
     <page-header
       :title="title"
-      :breadcrumb="breadcrumb"
-      :container-class="null"
-      class="mb-32pt" />
+      :breadcrumb="breadcrumb" />
 
-    <div class="page-section border-bottom-2">
+    <div class="page-section">
       <page-separator title="Project concepts" />
       <div class="d-flex flex-wrap align-items-center mb-3">
         <b-btn
@@ -21,7 +19,7 @@
           <b-badge
             pill
             variant="light"
-            class="ml-2 mb-0">
+            class="ml-2 mb-0">x
             {{ label.value }}
           </b-badge>
         </b-btn>
@@ -37,8 +35,14 @@
       </div>
       <b-btn
         variant="primary"
-        @click="doSave">
-        Save Annotations
+        class="mr-2"
+        @click="doSaveForReview">
+        Save for reviewing
+      </b-btn>
+      <b-btn
+        variant="accent"
+        @click="doSaveDirectly">
+        Save to origin data
       </b-btn>
     </div>
   </div>
@@ -92,20 +96,13 @@ export default {
     ...mapGetters({
       currentArticle: 'articles/getCurrentArticle',
       currentUser: 'users/getCurrentUser'
-    })
-  },
-  created() {
-    this.info = cloneDeep(this.currentArticle)
-  },
-  methods: {
-    ...mapActions({
-      updateArticleAnnotations: 'articles/updateArticleAnnotations'
     }),
-    doSave() {
+    saveHandler() {
       const data = {
         annotations: this.$refs.articleContent.getAnnotations()
       }
-      const handler = this.$apiHandler
+
+      return this.$apiHandler
         .build()
         .setData({
           params: [this.info.id],
@@ -118,8 +115,21 @@ export default {
           )
           this.$router.push(`/articles/${response.getData().id}`)
         })
-
-      this.updateArticleAnnotations(handler)
+    }
+  },
+  created() {
+    this.info = cloneDeep(this.currentArticle)
+  },
+  methods: {
+    ...mapActions({
+      updateArticleAnnotations: 'articles/updateArticleAnnotations',
+      createArticleEditVersion: 'articles/createArticleEditVersion'
+    }),
+    doSaveDirectly() {
+      this.updateArticleAnnotations(this.saveHandler)
+    },
+    doSaveForReview() {
+      this.createArticleEditVersion(this.saveHandler)
     },
     doLabel(label) {
       const selection = window.getSelection()
@@ -142,7 +152,7 @@ export default {
 
         this.$refs.articleContent.addTextAnnotation(newAnnotation)
       }
-    },
+    }
   }
 }
 </script>

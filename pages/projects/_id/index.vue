@@ -4,7 +4,7 @@
       :title="title"
       :breadcrumb="breadcrumb"
       :container-class="containerClass" />
-    <div class="page-section border-bottom-2">
+    <div class="page-section">
       <div :class="containerClass">
         <project-info />
       </div>

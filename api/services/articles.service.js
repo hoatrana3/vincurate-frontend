@@ -1,4 +1,5 @@
 import {
+  CREATE_ARTICLE_EDIT_VERSION,
   EXPORT_ARTICLE,
   GET_ARTICLE,
   GET_NEXT_OLDER_ARTICLE,
@@ -33,5 +34,8 @@ export default ($axios) => ({
   },
   updateArticleAnnotations({ params, data }) {
     return $axios.patch(UPDATE_ARTICLE_ANNOTATIONS.get(params), data)
+  },
+  createArticleEditVersion({ params, data }) {
+    return $axios.post(CREATE_ARTICLE_EDIT_VERSION.get(params), data)
   },
 })

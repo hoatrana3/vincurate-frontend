@@ -18,9 +18,6 @@
         label-for="type"
         class="mb-32pt"
         label-class="form-label">
-        <template v-slot:description>
-          <span class="text-danger">(*) All labels will be removed when you change project type</span>
-        </template>
         <b-select
           v-model="type"
           :disabled="!forNew"
