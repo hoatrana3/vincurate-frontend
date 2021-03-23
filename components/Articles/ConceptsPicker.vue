@@ -4,17 +4,14 @@
 
     <b-form class="page-section pt-0">
       <b-form-group
-        v-for="[type, concept] of Object.entries($helpers.UNIT_CONCEPTS)"
-        :key="type">
+        v-for="concept in shownConceptLabels"
+        :key="concept.id">
         <b-form-checkbox
-          v-if="type !== 'O'"
-          v-model="currentConcepts"
-          :value="type"
-          :class="`concept-box-${type}`"
-          @change="onConceptsChanged">
+          v-model="selectedConcepts"
+          :value="concept.value"
+          :class="`has-concept-checkbox concept-${concept.value}`">
           <small
-            :style="`color: ${getPickerTextColor(type, concept)}`"
-            class="font-weight-medium">
+            class="checkbox-concept-text font-weight-medium">
             {{ concept.name }}
           </small>
         </b-form-checkbox>
@@ -27,13 +24,15 @@
 import { mapGetters, mapMutations } from 'vuex'
 
 export default {
-  data() {
-    return {
-      currentConcepts: []
+  props: {
+    conceptLabels: {
+      type: Array,
+      default: () => []
     }
   },
   computed: {
     ...mapGetters({
+      allConceptLabels: 'label/getAllLabels',
       getSelectedConcepts: 'articles/getSelectedConcepts'
     }),
     selectedConcepts: {
@@ -41,24 +40,29 @@ export default {
         return this.getSelectedConcepts
       },
       set(val) {
-        this.currentConcepts = val
         this.setSelectedConcepts(val)
       }
+    },
+    shownConceptLabels() {
+      if (this.conceptLabels && this.conceptLabels.length) return this.conceptLabels
+      return this.allConceptLabels
+    },
+    allShownConceptLabelValues() {
+      return this.shownConceptLabels.map(l => l.value)
+    }
+  },
+  watch: {
+    allConceptLabels() {
+      this.selectedConcepts = this.allShownConceptLabelValues
     }
   },
   mounted() {
-    this.currentConcepts = this.selectedConcepts
+    this.selectedConcepts = this.allShownConceptLabelValues
   },
   methods: {
     ...mapMutations({
       setSelectedConcepts: 'articles/setSelectedConcepts'
-    }),
-    getPickerTextColor(type, concept) {
-      return this.selectedConcepts.includes(type) ? concept.hex : '#6c6e7d'
-    },
-    onConceptsChanged(value) {
-      this.selectedConcepts = value
-    }
+    })
   }
 }
 </script>

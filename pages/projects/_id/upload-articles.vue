@@ -6,6 +6,35 @@
       :container-class="containerClass" />
     <div class="page-section">
       <div :class="containerClass">
+        <page-separator title="Information" />
+
+        <div class="row">
+          <div class="col-md-4">
+            <b-form-group
+              label="Project title"
+              label-for="title"
+              class="mb-32pt"
+              label-class="form-label">
+              <b-form-input
+                :value="currentProject.title"
+                disabled />
+            </b-form-group>
+          </div>
+          <div class="col-md-4">
+            <b-form-group
+              label="Project type"
+              label-for="title"
+              class="mb-32pt"
+              label-class="form-label">
+              <b-form-input
+                :value="currentProject.type"
+                disabled />
+            </b-form-group>
+          </div>
+        </div>
+
+        <page-separator title="Process" class="mt-3" />
+
         <div class="mb-32pt d-flex align-items-center">
           <small class="chip chip-outline-dark">Total: {{ articleFiles.length }}</small>
           <small class="chip chip-outline-success">Success: {{ successFiles.length }}</small>
@@ -34,9 +63,6 @@
               :label="`${Math.round((progressCount / progressTotal) * 100)}%`" />
           </b-progress>
         </div>
-
-        <page-separator
-          :title="$t('General')" />
 
         <div class="row mb-8pt">
           <div class="col-md-6 col-lg-4">
@@ -139,9 +165,9 @@
 </template>
 
 <script>
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import reject from 'lodash/reject'
-import Page from '~/components/Page.vue'
+import Page from '@/components/Page.vue'
 import {
   PageHeader,
   PageSeparator
@@ -154,6 +180,19 @@ export default {
   },
   extends: Page,
   layout: 'boxed',
+  async asyncData({ store, params, $apiHandler, $notify, redirect }) {
+    const handler = $apiHandler
+      .build()
+      .setData({ params: [params.id] })
+      .addOnError((e) => {
+        $notify.error(
+          'Project not found',
+          'We can not find the project you want'
+        )
+        redirect('/projects')
+      })
+    await store.dispatch('projects/fetchProject', handler)
+  },
   data() {
     return {
       title: 'Upload Articles',
@@ -165,6 +204,11 @@ export default {
       progressCount: 0,
       progressTotal: 0
     }
+  },
+  computed: {
+    ...mapGetters({
+      currentProject: 'projects/getCurrentProject'
+    })
   },
   methods: {
     ...mapActions({
@@ -217,7 +261,9 @@ export default {
     },
     async uploadSingleArticle(file) {
       const formData = new FormData()
-      formData.append('article', file.file)
+      formData.append('file', file.file)
+      formData.append('projectId', this.currentProject.id)
+      formData.append('method', 'SL_NER')
 
       const handler = this.$apiHandler
         .build()

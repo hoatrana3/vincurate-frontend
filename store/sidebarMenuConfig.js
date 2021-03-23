@@ -21,21 +21,21 @@ export const articleRoutes = ({ routes }) => [{
     type: 'md-icon',
     id: 'featured_play_list'
   }
-}, {
-  label: 'Upload Articles',
-  route: routes.articlesUpload,
-  icon: {
-    type: 'md-icon',
-    id: 'cloud_upload'
-  }
 }]
 
-export const labelingRoutes = ({ routes }) => [{
-  label: 'Labeling Articles',
-  route: routes.labelingArticles,
+export const projectRoutes = ({ routes }) => [{
+  label: 'My Projects',
+  route: routes.myProjects,
   icon: {
     type: 'md-icon',
-    id: 'label'
+    id: 'apps'
+  }
+}, {
+  label: 'Add Project',
+  route: routes.addProject,
+  icon: {
+    type: 'md-icon',
+    id: 'add_box'
   }
 }]
 
@@ -46,7 +46,7 @@ export const getters = {
     return {
       general: generalRoutes({ routes }),
       articles: articleRoutes({ routes }),
-      labeling: labelingRoutes({ routes })
+      projects: projectRoutes({ routes })
     }
   }
 }

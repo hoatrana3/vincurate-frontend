@@ -3,12 +3,16 @@ import ResponseWrapper from '@/api/ResponseWrapper'
 import CustomError from '@/api/CustomError'
 
 export const state = () => ({
+  allUsers: [],
   currentUser: null,
   currentToken: '',
   currentDecodedToken: null
 })
 
 export const getters = {
+  getAllUsers(state) {
+    return state.allUsers
+  },
   getCurrentUser(state) {
     return state.currentUser
   },
@@ -32,6 +36,9 @@ export const getters = {
 }
 
 export const mutations = {
+  setAllUsers(state, val) {
+    state.allUsers = val
+  },
   setCurrentUser(state, val) {
     state.currentUser = val
   },
@@ -49,6 +56,22 @@ export const mutations = {
 }
 
 export const actions = {
+  async getAllUsers({ commit, dispatch }, handler) {
+    const onRequest = async () => {
+      const rawData = await this.$usersService.getAllUsers()
+      const response = new ResponseWrapper(rawData)
+
+      if (response.isError()) {
+        throw new CustomError('Failed to get all users', response.getMessage())
+      } else {
+        commit('setAllUsers', response.getData())
+      }
+
+      return response
+    }
+
+    return await handler.setOnRequest(onRequest).execute()
+  },
   async registerUser({ commit, dispatch }, handler) {
     const onRequest = async () => {
       const rawData = await this.$usersService.registerUser(handler.data)
@@ -127,6 +150,20 @@ export const actions = {
 
       if (response.isError()) {
         throw new CustomError('Failed to get user\'s articles', response.getMessage())
+      }
+
+      return response
+    }
+
+    return await handler.setOnRequest(onRequest).execute()
+  },
+  async getUserProjects({ commit, dispatch }, handler) {
+    const onRequest = async () => {
+      const rawData = await this.$usersService.getUserProjects(handler.data)
+      const response = new ResponseWrapper(rawData)
+
+      if (response.isError()) {
+        throw new CustomError('Failed to get user\'s projects', response.getMessage())
       }
 
       return response

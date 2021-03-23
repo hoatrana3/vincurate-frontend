@@ -77,11 +77,13 @@ module.exports = {
     '~/plugins/bv-form-image-group',
     '~/plugins/vue-quill-editor.client',
 
+    '~/plugins/vue-typeahead-bootstrap',
     '~/plugins/vue-fragment',
     '~/plugins/axios',
-    { src: '~/plugins/utils', mode: 'client' },
     { src: '~/plugins/services', mode: 'client' },
+    { src: '~/plugins/utils', mode: 'client' },
     { src: '~/plugins/vuesax', mode: 'client' },
+    { src: '~/plugins/init-data', mode: 'client' },
 
     // Settings client middleware (handles dynamic layout route settings client side)
     '~/plugins/settings.client'
@@ -115,7 +117,8 @@ module.exports = {
         numberFormats,
         silentTranslationWarn: true
       }
-    }]
+    }],
+    'vue-swatches/nuxt'
   ],
 
   /*

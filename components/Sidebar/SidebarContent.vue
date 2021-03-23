@@ -8,17 +8,17 @@
         class="mb-24pt" />
     </template>
     <template
+      v-if="sidebar.menu.projects && sidebar.menu.projects.length">
+      <div class="sidebar-heading">Projects</div>
+      <fmv-sidebar-menu
+        :menu="sidebar.i18nMenu.projects"
+        class="mb-24pt" />
+    </template>
+    <template
       v-if="sidebar.menu.articles && sidebar.menu.articles.length">
       <div class="sidebar-heading">Articles</div>
       <fmv-sidebar-menu
         :menu="sidebar.i18nMenu.articles"
-        class="mb-24pt" />
-    </template>
-    <template
-      v-if="sidebar.menu.labeling && sidebar.menu.labeling.length">
-      <div class="sidebar-heading">Labeling</div>
-      <fmv-sidebar-menu
-        :menu="sidebar.i18nMenu.labeling"
         class="mb-24pt" />
     </template>
   </fragment>

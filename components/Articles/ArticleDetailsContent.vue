@@ -1,7 +1,7 @@
 <template>
   <div>
     <div class="card stack stack--2">
-      <ul v-if="showHeader" class="nav card-header d-flex align-items-center">
+      <ul class="nav card-header d-flex align-items-center">
         <li class="nav-item navbar-list__item mr-3">
           <md-icon
             left
@@ -44,19 +44,9 @@
           </b-dd>
         </li>
       </ul>
-      <div :id="bodyId" class="card-body">
-        <unit-text
-          v-for="(unit, index) in article.combinedUnits"
-          :unit="unit"
-          :key="index"
-          :index="index"
-          :prepend="article.combinedUnits[index - 1]"
-          :append="article.combinedUnits[index + 1]"
-          :is-first="index === 0"
-          :is-last="index === article.combinedUnits.length - 1"
-          :is-editable="isEditable"
-          @onRemoveConcept="(oldCu, newCu) => doOnUnitConceptRemoved(oldCu, newCu, index)" />
-      </div>
+      <article-content-renderer
+        :article="article"
+        class="card-body" />
       <slot name="content-footer" />
     </div>
   </div>
@@ -64,26 +54,14 @@
 
 <script>
 import { mapActions } from 'vuex'
-import UnitText from '@/components/Articles/UnitText'
+import ArticleContentRenderer from '~/components/Articles/ArticleContentRenderer'
 
 export default {
-  components: { UnitText },
+  components: { ArticleContentRenderer },
   props: {
     article: {
       type: Object,
       required: true
-    },
-    showHeader: {
-      type: Boolean,
-      default: true
-    },
-    isEditable: {
-      type: Boolean,
-      default: false
-    },
-    bodyId: {
-      type: String,
-      default: ''
     }
   },
   computed: {

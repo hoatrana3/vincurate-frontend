@@ -59,36 +59,36 @@ export const getters = {
     return {
       home: {
         name: 'home',
-        params: {layout}
+        params: { layout }
       },
       login: {
         name: 'auth-login',
-        params: {layout}
+        params: { layout }
       },
       signup: {
         name: 'auth-signup',
-        params: {layout}
+        params: { layout }
       },
       articlesExplore: {
         name: 'articles-explore',
-        params: {layout}
-      },
-      articlesUpload: {
-        name: 'articles-upload',
-        params: {layout}
+        params: { layout }
       },
       myArticles: {
         name: 'articles-my-articles',
-        params: {layout}
+        params: { layout }
       },
       editAccount: {
         name: 'user-edit-account',
-        params: {layout}
+        params: { layout }
       },
-      labelingArticles: {
-        name: 'labeling',
-        params: {layout}
+      myProjects: {
+        name: 'projects-my-projects',
+        params: { layout }
       },
+      addProject: {
+        name: 'projects-new',
+        params: { layout }
+      }
     }
   }
 }

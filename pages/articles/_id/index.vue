@@ -12,7 +12,7 @@
     <div class="page-section border-bottom-2">
       <div class="container-fluid row">
         <div class="col-md-2 offset-md-1">
-          <article-details-unit-filter-nav />
+          <article-details-text-filter-nav />
         </div>
         <div class="col-md-6">
           <article-details-content :article="currentArticle" />
@@ -39,7 +39,7 @@
                 v-text="'arrow_forward_ios'" />
             </b-btn>
           </div>
-          <concepts-picker />
+          <concepts-picker :concept-labels="shownConceptLabels" />
         </div>
       </div>
     </div>
@@ -52,10 +52,10 @@ import Page from '@/components/Page'
 import ArticleDetailsHeader from '@/components/Articles/ArticleDetailsHeader'
 import ArticleDetailsContent from '@/components/Articles/ArticleDetailsContent'
 import ConceptsPicker from '@/components/Articles/ConceptsPicker'
-import ArticleDetailsUnitFilterNav from '@/components/Articles/ArticleDetailsUnitFilterNav'
+import ArticleDetailsTextFilterNav from '~/components/Articles/ArticleDetailsTextFilterNav'
 
 export default {
-  components: { ConceptsPicker, ArticleDetailsContent, ArticleDetailsHeader, ArticleDetailsUnitFilterNav },
+  components: { ArticleDetailsTextFilterNav, ConceptsPicker, ArticleDetailsContent, ArticleDetailsHeader },
   extends: Page,
   layout: 'fixed',
   async asyncData({ store, params, $apiHandler, $notify, redirect }) {
@@ -92,10 +92,16 @@ export default {
   computed: {
     ...mapGetters({
       currentArticle: 'articles/getCurrentArticle'
-    })
+    }),
+    shownConceptLabels() {
+      const onlyUnique = (value, index, self) => {
+        return self.findIndex(v => v.value === value.value) === index
+      }
+
+      return this.currentArticle.annotations.map(a => a.label).filter(onlyUnique)
+    }
   },
   created() {
-    this.setSelectedConcepts(Object.keys(this.$helpers.getMainConcepts()))
     this.setPickedFilters([])
   },
   methods: {

@@ -47,13 +47,12 @@ export const mutations = {
   setPickedFilters(state, val) {
     state.pickedFilters = val
   },
-  changeActiveUnitInFilter(state, val) {
-    val.active = false
-  },
   addPickedFilter(state, val) {
+    val.active = true
     state.pickedFilters.push(val)
   },
   removePickedFilter(state, val) {
+    val.active = false
     state.pickedFilters = state.pickedFilters.filter((t) => t !== val)
   }
 }
@@ -103,10 +102,7 @@ export const actions = {
           response.getMessage()
         )
       } else {
-        const article = response.getData()
-        article.combinedUnits = this.$helpers.unitsToCombinedUnits(article)
-
-        commit('setCurrentArticle', article)
+        commit('setCurrentArticle', response.getData())
       }
 
       return response
@@ -138,6 +134,44 @@ export const actions = {
       if (response.isError()) {
         throw new CustomError(
           'Failed to update article info',
+          response.getMessage()
+        )
+      } else {
+        commit('setCurrentArticle', response.getData())
+      }
+
+      return response
+    }
+
+    return await handler.setOnRequest(onRequest).execute()
+  },
+  async updateArticleAnnotations({ commit }, handler) {
+    const onRequest = async () => {
+      const rawData = await this.$articlesService.updateArticleAnnotations(handler.data)
+      const response = new ResponseWrapper(rawData)
+
+      if (response.isError()) {
+        throw new CustomError(
+          'Failed to update article annotations',
+          response.getMessage()
+        )
+      } else {
+        commit('setCurrentArticle', response.getData())
+      }
+
+      return response
+    }
+
+    return await handler.setOnRequest(onRequest).execute()
+  },
+  async createArticleEditVersion({ commit }, handler) {
+    const onRequest = async () => {
+      const rawData = await this.$articlesService.createArticleEditVersion(handler.data)
+      const response = new ResponseWrapper(rawData)
+
+      if (response.isError()) {
+        throw new CustomError(
+          'Failed to create article edit version',
           response.getMessage()
         )
       } else {

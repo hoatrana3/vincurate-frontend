@@ -14,23 +14,11 @@
         {{ (data.index + 1) + (page - 1) * per }}
       </template>
 
-      <template #cell(title)="data">
-        {{ !data.length ? 'No Article Title' : data }}
-      </template>
-
-      <template #cell(description)="data">
-        <div v-html="data.item.description" />
-      </template>
-
-      <template #cell(annotationsCount)="data">
-        {{ data.item.annotations.length }}
+      <template #cell(articlesCount)="data">
+        {{ data.item.articles.length }}
       </template>
 
       <template #cell(createdAt)="data">
-        {{ formatDate(data) }}
-      </template>
-
-      <template #cell(updatedAt)="data">
         {{ formatDate(data) }}
       </template>
 
@@ -45,9 +33,8 @@
             <md-icon class="icon-24pt">more_vert</md-icon>
           </template>
 
-          <b-dd-item :to="`/articles/${data.item.id}`">Details</b-dd-item>
-          <b-dd-item :to="`/articles/${data.item.id}/edit-basic`">Edit basic</b-dd-item>
-          <b-dd-item :to="`/articles/${data.item.id}/edit-data`">Edit data</b-dd-item>
+          <b-dd-item :to="`/projects/${data.item.id}`">Details</b-dd-item>
+          <b-dd-item :to="`/projects/${data.item.id}/edit`">Edit</b-dd-item>
           <b-dd-divider />
           <b-dd-item variant="danger">Delete</b-dd-item>
         </b-dd>
@@ -58,13 +45,13 @@
     <div class="card-footer d-flex align-items-center">
       <custom-pager
         v-model="page"
-        :rows="articles.length"
+        :rows="projects.length"
         :per-page="per"
         class="m-0" />
       <div class="ml-auto">
         Total Articles
         <md-icon>remove</md-icon>
-        <strong>{{ articles.length }}</strong>
+        <strong>{{ projects.length }}</strong>
       </div>
     </div>
   </div>
@@ -90,7 +77,7 @@ export default {
   ],
   data() {
     return {
-      articles: [],
+      projects: [],
       page: 1,
       per: 10
     }
@@ -99,9 +86,6 @@ export default {
     ...mapGetters({
       userId: 'users/getCurrentUserId'
     }),
-    sortBy() {
-      return this.earnings ? 'revenue' : 'purchased_at'
-    },
     fields() {
       return [{
         key: 'index',
@@ -112,22 +96,18 @@ export default {
         thClass: 'text-right',
         tdClass: 'text-right'
       }, {
-        key: 'description',
-        label: 'Description',
+        key: 'type',
+        label: 'Type',
         thClass: 'text-right',
         tdClass: 'text-right'
       }, {
-        key: 'annotationsCount',
-        label: 'Annotations Count',
+        key: 'articlesCount',
+        label: 'Articles Count',
         sortable: true
       }, {
         key: 'createdAt',
         sortable: true,
         label: 'Created At'
-      }, {
-        key: 'updatedAt',
-        sortable: true,
-        label: 'Last Updated'
       }, {
         key: 'actions',
         label: ''
@@ -135,30 +115,30 @@ export default {
     },
     paginatedItems() {
       const start = (this.page - 1) * this.per
-      let items = this.articles.slice(start, start + this.per)
+      let items = this.projects.slice(start, start + this.per)
 
       return items || []
     }
   },
   created() {
-    this.fetchUserArticles()
+    this.fetchUserProjects()
   },
   methods: {
     ...mapActions({
-      getUserArticles: 'users/getUserArticles'
+      getUserProjects: 'users/getUserProjects'
     }),
-    async fetchUserArticles() {
+    async fetchUserProjects() {
       const userId = this.userId
       const handler = this.$apiHandler
         .build()
         .setData({ params: [userId] })
         .addOnResponse((response) => {
-          this.articles = response.getData()
+          this.projects = response.getData()
         })
-      await this.getUserArticles(handler)
+      await this.getUserProjects(handler)
     },
     formatDate(date) {
-      return this.$helpers.formatTimeAgo(date)
+      return this.$moment(date.value).format('DD-MM-YYYY HH:mm:ss')
     }
   }
 }

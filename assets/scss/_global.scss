@@ -16,3 +16,33 @@
     }
   }
 }
+
+.has-concept,
+.has-category {
+  transition: $transition-base;
+}
+
+.has-concept.is-active,
+.has-concept.is-filter {
+  border-radius: 4px;
+}
+
+.has-concept.is-editable{
+  padding: 1.5px;
+
+  .concept-remove-btn {
+    display: inline-block;
+    cursor: pointer;
+    transition: $transition-base;
+
+    &:hover {
+      transform: scale(1.2);
+    }
+  }
+}
+
+.has-category {
+  display: inline-block;
+  border-radius: 25px;
+  padding: 3px 8px;
+}

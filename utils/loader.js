@@ -7,11 +7,24 @@ export default () => ({
     color: '#5567FF'
   },
   currentLoader: null,
+  timeoutStop: null,
   startLoad() {
-    this.currentLoader = this.$vs.loading(this.LOADER_CONFIG)
+    if (this.timeoutStop) {
+      clearTimeout(this.timeoutStop)
+      this.timeoutStop = null
+    } else if (!this.currentLoader) {
+      this.currentLoader = this.$vs.loading(this.LOADER_CONFIG)
+    }
   },
   stopLoad() {
-    if (!this.currentLoader) return
-    this.currentLoader.close()
+    setTimeout(() => {
+      if (!this.currentLoader) return
+      this.currentLoader.close()
+      this.currentLoader = null
+
+      const loadingEl = document.querySelector('.vs-loading')
+      if (loadingEl) document.body.removeChild(loadingEl)
+      this.timeoutStop = null
+    }, 500)
   }
 })
