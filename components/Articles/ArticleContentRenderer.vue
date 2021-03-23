@@ -7,8 +7,8 @@
       :key="`${text.text}-${$moment().unix()}-${index}`"
       :offset-start="text.offsetStart"
       :class="getTextCustomClass(text)"><!--
-      -->{{ text.text }}
-      <i
+      -->{{ text.text }}<!--
+      --><i
         v-if="editable && text.value.length"
         class="mdi mdi-close-circle concept-remove-btn"
         @click="removeTextAnnotation(text)" /><!--
@@ -95,7 +95,7 @@ export default {
     getTextCustomClass(text) {
       const indexFilter = this.pickedFilters.findIndex(f => f.text.toLowerCase() === text.text.toLowerCase())
       const conceptClass = text.annotation ? `has-concept concept-${text.value}` : ''
-      const filterClass = indexFilter > 0 ? 'is-filter' : ''
+      const filterClass = indexFilter >= 0 ? 'is-filter' : ''
       const editableClass = this.editable ? 'is-editable' : ''
       const forceActiveClass = this.forceActive ? 'is-active' : ''
 

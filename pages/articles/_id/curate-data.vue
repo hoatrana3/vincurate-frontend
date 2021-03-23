@@ -19,7 +19,7 @@
           <b-badge
             pill
             variant="light"
-            class="ml-2 mb-0">x
+            class="ml-2 mb-0">
             {{ label.value }}
           </b-badge>
         </b-btn>
@@ -50,7 +50,7 @@
 
 <script>
 import cloneDeep from 'lodash/cloneDeep'
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters, mapActions, mapMutations } from 'vuex'
 import {
   PageHeader,
   PageSeparator
@@ -119,11 +119,15 @@ export default {
   },
   created() {
     this.info = cloneDeep(this.currentArticle)
+    this.setPickedFilters([])
   },
   methods: {
     ...mapActions({
       updateArticleAnnotations: 'articles/updateArticleAnnotations',
       createArticleEditVersion: 'articles/createArticleEditVersion'
+    }),
+    ...mapMutations({
+      setPickedFilters: 'articles/setPickedFilters',
     }),
     doSaveDirectly() {
       this.updateArticleAnnotations(this.saveHandler)
@@ -138,7 +142,7 @@ export default {
       const startEl = selection.anchorNode.parentElement
       const endEl = selection.focusNode.parentElement
 
-      if (startEl === endEl && startAnchor !== endAnchor) {
+      if (startAnchor && endAnchor && startEl === endEl && startAnchor !== endAnchor) {
         const offsetStartEl = startEl.getAttribute('offset-start')
         const offsetStartContent = parseInt(offsetStartEl) + startAnchor
         const offsetEndContent = parseInt(offsetStartEl) + endAnchor

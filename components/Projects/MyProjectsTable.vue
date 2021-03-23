@@ -103,10 +103,8 @@ export default {
       }, {
         key: 'articlesCount',
         label: 'Articles Count',
-        sortable: true
       }, {
         key: 'createdAt',
-        sortable: true,
         label: 'Created At'
       }, {
         key: 'actions',

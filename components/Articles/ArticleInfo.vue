@@ -3,19 +3,19 @@
     <div class="col-md-8">
       <page-separator title="Basic information" />
       <b-form-group
-        label="Project title"
+        label="Article title"
         label-class="form-label">
         <h2 class="text-primary text-capitalize font-weight-bold">
-          {{ currentProject.title }}
+          {{ articleTitle }}
         </h2>
       </b-form-group>
       <div class="d-flex justify-content-between align-item-center flex-wrap mb-32pt">
         <b-form-group
-          label="Type"
+          label="Project"
           class="mr-3"
           label-class="form-label">
           <span class="text-black-70">
-            {{ currentProject.type }}
+            <b-link :to="`projects/${currentArticle.project.id}`">{{ currentArticle.project.title }}</b-link>
           </span>
         </b-form-group>
         <b-form-group
@@ -23,57 +23,46 @@
           class="mr-3"
           label-class="form-label">
           <span class="text-black-70">
-            {{ $helpers.formatTimeAgo(currentProject.createdAt) }}
+            {{ $helpers.formatTimeAgo(currentArticle.createdAt) }}
           </span>
         </b-form-group>
         <b-form-group
           label="Last updated"
           label-class="form-label">
           <span class="text-black-70">
-            {{ $helpers.formatTimeAgo(currentProject.updatedAt) }}
+            {{ $helpers.formatTimeAgo(currentArticle.updatedAt) }}
           </span>
         </b-form-group>
       </div>
-
-      <page-separator title="Roles" />
-      <project-roles-table
-        :roles="projectRoles"
-        class="mb-32pt"
-        no-actions />
-
-      <page-separator title="Labels" />
-      <project-labels-table
-        :labels="currentProject.labels"
-        class="mb-32pt"
-        no-actions />
     </div>
     <div class="col-md-4">
       <b-btn
         block
-        :to="`/projects/${currentProject.id}/edit`"
+        :to="`/articles/${currentArticle.id}/edit-basic`"
         variant="dark"
         class="mb-2">
         <md-icon v-text="'mode_edit'" class="mr-2" />
-        Edit project
+        Edit article
       </b-btn>
 
       <div class="d-flex align-items-center mb-4">
         <b-btn
           variant="primary"
-          :to="`/projects/${currentProject.id}/upload-articles`"
+          :to="`/articles/${currentArticle.id}/curate-data`"
           class="flex mr-2">
-          <md-icon v-text="'file_upload'" class="mr-2" />
-          Upload
+          <md-icon v-text="'ballot'" class="mr-2" />
+          Curate
         </b-btn>
         <b-btn
           variant="info"
+          :to="`/articles/${currentArticle.id}`"
           class="flex">
-          <md-icon v-text="'file_download'" class="mr-2" />
-          Download
+          <md-icon v-text="'remove_red_eye'" class="mr-2" />
+          Guest view
         </b-btn>
       </div>
 
-      <page-separator title="Owner" />
+      <page-separator title="Uploaded by" />
       <div class="card">
         <div class="card-body flex text-center d-flex flex-column align-items-center justify-content-center">
           <fmv-avatar
@@ -90,38 +79,27 @@
           </fmv-avatar>
           <b-link
             class="card-title flex"
-            v-text="currentProject.owner.name" />
+            v-text="currentArticle.user.name" />
           <p
             class="card-subtitle text-black-70"
-            v-text="currentProject.owner.email" />
+            v-text="currentArticle.user.email" />
         </div>
       </div>
-    </div>
-
-    <div class="col-12">
-      <page-separator title="Project Articles" />
-      <articles-explore :additional-query="currentProject.id" />
     </div>
   </div>
 </template>
 
 <script>
 import { mapGetters } from 'vuex'
-import ProjectRolesTable from '@/components/Projects/ProjectRolesTable'
-import ArticlesExplore from '@/components/Articles/ArticlesExplore'
-import ProjectLabelsTable from '@/components/Projects/ProjectLabelsTable'
 
 export default {
-  components: { ProjectLabelsTable, ArticlesExplore, ProjectRolesTable },
   computed: {
     ...mapGetters({
-      currentProject: 'projects/getCurrentProject'
+      currentArticle: 'articles/getCurrentArticle'
     }),
-    projectRoles() {
-      return this.currentProject.roles.map(r => ({
-        ...r.user,
-        role: r.role
-      }))
+    articleTitle() {
+      const title = this.currentArticle.title
+      return !title || !title.length ? 'No Title Article' : title
     }
   }
 }

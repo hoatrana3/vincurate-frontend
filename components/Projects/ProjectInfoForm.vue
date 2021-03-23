@@ -31,7 +31,7 @@
       </b-form-group>
 
       <page-separator title="Roles" />
-      <my-project-roles-table
+      <project-roles-table
         :roles="roles"
         class="mb-32pt"
         @removeRole="removeRole">
@@ -42,12 +42,12 @@
             @click="() => setOpenAddProjectRoleModal(true)"
             v-text="'Add role'" />
         </template>
-      </my-project-roles-table>
+      </project-roles-table>
 
       <page-separator
         v-if="type !== 'Sequence to Sequence'"
         title="Labels" />
-      <my-project-labels-table
+      <project-labels-table
         v-if="type !== 'Sequence to Sequence'"
         :labels="labels"
         class="mb-32pt"
@@ -59,7 +59,7 @@
             @click="() => setOpenAddProjectLabelModal(true)"
             v-text="'Add label'" />
         </template>
-      </my-project-labels-table>
+      </project-labels-table>
     </div>
     <div class="col-md-4">
       <b-btn
@@ -106,13 +106,13 @@
 
 <script>
 import { mapGetters, mapMutations } from 'vuex'
-import MyProjectRolesTable from '@/components/Projects/MyProjectRolesTable'
+import ProjectRolesTable from '@/components/Projects/ProjectRolesTable'
 import AddProjectRoleModal from '@/components/Projects/AddProjectRoleModal'
-import MyProjectLabelsTable from '@/components/Projects/MyProjectLabelsTable'
+import ProjectLabelsTable from '@/components/Projects/ProjectLabelsTable'
 import AddProjectLabelModal from '@/components/Projects/AddProjectLabelModal'
 
 export default {
-  components: { AddProjectLabelModal, MyProjectLabelsTable, AddProjectRoleModal, MyProjectRolesTable },
+  components: { AddProjectLabelModal, ProjectLabelsTable, AddProjectRoleModal, ProjectRolesTable },
   props: {
     forNew: {
       type: Boolean,

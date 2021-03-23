@@ -1,67 +1,72 @@
 <template>
   <div>
     <b-table
-      ref="table"
-      :items="paginatedItems"
-      :fields="fields"
-      sort-by="createdAt"
+      ref='table'
+      :items='paginatedItems'
+      :fields='fields'
+      sort-by='createdAt'
       sort-desc
       bordered
-      head-variant="dark"
-      class="mb-0">
+      head-variant='dark'
+      class='mb-0'>
 
-      <template #cell(index)="data">
+      <template #cell(index)='data'>
         {{ (data.index + 1) + (page - 1) * per }}
       </template>
 
-      <template #cell(title)="data">
+      <template #cell(title)='data'>
         {{ !data.length ? 'No Article Title' : data }}
       </template>
 
-      <template #cell(description)="data">
-        <div v-html="data.item.description" />
+      <template #cell(description)='data'>
+        <div v-html='data.item.description' />
       </template>
 
-      <template #cell(annotationsCount)="data">
+      <template #cell(annotationsCount)='data'>
         {{ data.item.annotations.length }}
       </template>
 
-      <template #cell(createdAt)="data">
+      <template #cell(editVersionCount)='data'>
+        {{ data.item.editVersions.length }}
+      </template>
+
+      <template #cell(project)='{item: {project: {id, title}}}'>
+        <b-link :to='`/projects/${id}`'>{{ title }}</b-link>
+      </template>
+
+      <template #cell(createdAt)='data'>
         {{ formatDate(data) }}
       </template>
 
-      <template #cell(updatedAt)="data">
-        {{ formatDate(data) }}
-      </template>
-
-      <template #cell(actions)="data">
+      <template #cell(actions)='data'>
         <b-dd
-          variant="flush"
-          toggle-class="text-muted"
+          variant='flush'
+          toggle-class='text-muted'
           no-caret
           right>
 
           <template v-slot:button-content>
-            <md-icon class="icon-24pt">more_vert</md-icon>
+            <md-icon class='icon-24pt'>more_vert</md-icon>
           </template>
 
-          <b-dd-item :to="`/articles/${data.item.id}`">Details</b-dd-item>
-          <b-dd-item :to="`/articles/${data.item.id}/edit-basic`">Edit basic</b-dd-item>
-          <b-dd-item :to="`/articles/${data.item.id}/edit-data`">Edit data</b-dd-item>
+          <b-dd-item :to='`/articles/${data.item.id}/details`'>Details</b-dd-item>
+          <b-dd-item :to='`/articles/${data.item.id}/edit-basic`'>Edit</b-dd-item>
+          <b-dd-item :to='`/articles/${data.item.id}/curate-data`'>Curate</b-dd-item>
+          <b-dd-item :to='`/articles/${data.item.id}`'>Guest view</b-dd-item>
           <b-dd-divider />
-          <b-dd-item variant="danger">Delete</b-dd-item>
+          <b-dd-item variant='danger'>Delete</b-dd-item>
         </b-dd>
       </template>
 
     </b-table>
 
-    <div class="card-footer d-flex align-items-center">
+    <div class='card-footer d-flex align-items-center'>
       <custom-pager
-        v-model="page"
-        :rows="articles.length"
-        :per-page="per"
-        class="m-0" />
-      <div class="ml-auto">
+        v-model='page'
+        :rows='articles.length'
+        :per-page='per'
+        class='m-0' />
+      <div class='ml-auto'>
         Total Articles
         <md-icon>remove</md-icon>
         <strong>{{ articles.length }}</strong>
@@ -110,24 +115,24 @@ export default {
         key: 'title',
         label: 'Title',
         thClass: 'text-right',
-        tdClass: 'text-right'
+        tdClass: 'text-right',
       }, {
         key: 'description',
         label: 'Description',
         thClass: 'text-right',
-        tdClass: 'text-right'
+        tdClass: 'text-right',
       }, {
         key: 'annotationsCount',
         label: 'Annotations Count',
-        sortable: true
+      },  {
+        key: 'editVersionCount',
+        label: 'Edit Versions Count',
+      }, {
+        key: 'project',
+        label: 'Project'
       }, {
         key: 'createdAt',
-        sortable: true,
         label: 'Created At'
-      }, {
-        key: 'updatedAt',
-        sortable: true,
-        label: 'Last Updated'
       }, {
         key: 'actions',
         label: ''
