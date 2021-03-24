@@ -19,6 +19,7 @@ const userPerms = [
   '/articles/:id?edit-basic',
   '/articles/:id/curate-data',
   '/articles/:id?/curate-data',
+  '/edit-versions/:id',
   '/projects/my-projects',
   '/projects/new',
   '/projects/:id',

@@ -29,6 +29,8 @@ export const EXPORT_ARTICLE = ApiUrl.build(
 )
 export const UPLOAD_ARTICLE = ApiUrl.build(`${BASE_API_V1_URL}/articles/upload`)
 
+export const GET_EDIT_VERSION = ApiUrl.build(`${BASE_API_V1_URL}/edit-versions/:id`)
+
 export const GET_ALL_LABELS = ApiUrl.build(`${BASE_API_V1_URL}/labels`)
 
 export const GET_USER_PROJECTS = ApiUrl.build(`${BASE_API_V1_URL}/users/:id/projects`)

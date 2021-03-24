@@ -15,7 +15,7 @@
           class="mr-3"
           label-class="form-label">
           <span class="text-black-70">
-            <b-link :to="`projects/${currentArticle.project.id}`">{{ currentArticle.project.title }}</b-link>
+            <b-link :to="`/projects/${currentArticle.project.id}`">{{ currentArticle.project.title }}</b-link>
           </span>
         </b-form-group>
         <b-form-group
@@ -34,6 +34,11 @@
           </span>
         </b-form-group>
       </div>
+
+      <page-separator title="Edit versions" />
+      <article-edit-verions-table
+        :edit-versions="currentArticle.editVersions"
+        class="mb-32pt" />
     </div>
     <div class="col-md-4">
       <b-btn
@@ -91,8 +96,10 @@
 
 <script>
 import { mapGetters } from 'vuex'
+import ArticleEditVerionsTable from '@/components/Articles/ArticleEditVerionsTable'
 
 export default {
+  components: { ArticleEditVerionsTable },
   computed: {
     ...mapGetters({
       currentArticle: 'articles/getCurrentArticle'
