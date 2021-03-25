@@ -35,7 +35,7 @@ export default ({ $apiHandler, store }) => ({
         .has-${value}-border-color {
           border-color: ${color} !important;
         }
-        .static-concepts-container[data-concepts*='${value}'] .has-concept.concept-${value},
+        .static-concepts-container[data-concepts*='${value}'] .has-concept.concept-${value}:not(.is-disabled),
         .has-concept.concept-${value}.is-active {
           border-radius: 4px;
           color: ${color};

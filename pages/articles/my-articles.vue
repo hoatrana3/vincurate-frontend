@@ -28,19 +28,11 @@
                   </b-btn>
                 </form>
               </div>
-              <div class="col-lg d-flex flex-wrap align-items-center justify-content-end">
-                <b-btn
-                  :to="routeTo(routes.askQuestion)"
-                  exact
-                  variant="accent"
-                  v-text="'Create article'" />
-              </div>
             </div>
           </div>
 
           <my-articles-table />
         </div>
-
       </div>
     </div>
   </div>

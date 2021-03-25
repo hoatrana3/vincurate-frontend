@@ -22,21 +22,29 @@
   transition: $transition-base;
 }
 
-.has-concept.is-active,
-.has-concept.is-filter {
+.has-concept {
   border-radius: 4px;
-}
-
-.has-concept.is-editable{
-  padding: 1.5px;
 
   .concept-remove-btn {
-    display: inline-block;
-    cursor: pointer;
-    transition: $transition-base;
+    display: none;
+  }
 
-    &:hover {
-      transform: scale(1.2);
+  &.is-disabled {
+    background-color: rgba($dark,.2);
+  }
+
+  &.is-editable {
+    padding: 1.5px;
+
+    .concept-remove-btn {
+      display: inline-block;
+      cursor: pointer;
+      transition: $transition-base;
+      margin-left: 3.5px;
+
+      &:hover {
+        transform: scale(1.2);
+      }
     }
   }
 }

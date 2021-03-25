@@ -2,18 +2,25 @@ import ResponseWrapper from '@/api/ResponseWrapper'
 import CustomError from '@/api/CustomError'
 
 export const state = () => ({
-  currentEditVersion: null
+  currentEditVersion: null,
+  onlyShowDiff: true
 })
 
 export const getters = {
   getCurrentEditVersion(state) {
     return state.currentEditVersion
+  },
+  getOnlyShowDiff(state) {
+    return state.onlyShowDiff
   }
 }
 
 export const mutations = {
   setCurrentEditVersion(state, val) {
     state.currentEditVersion = val
+  },
+  setOnlyShowDiff(state, val) {
+    state.onlyShowDiff = val
   }
 }
 
