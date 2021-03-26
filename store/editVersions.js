@@ -3,7 +3,7 @@ import CustomError from '@/api/CustomError'
 
 export const state = () => ({
   currentEditVersion: null,
-  onlyShowDiff: true
+  onlyShowDiff: true,
 })
 
 export const getters = {
@@ -12,7 +12,7 @@ export const getters = {
   },
   getOnlyShowDiff(state) {
     return state.onlyShowDiff
-  }
+  },
 }
 
 export const mutations = {
@@ -21,13 +21,15 @@ export const mutations = {
   },
   setOnlyShowDiff(state, val) {
     state.onlyShowDiff = val
-  }
+  },
 }
 
 export const actions = {
   async fetchEditVersion({ commit, dispatch }, handler) {
     const onRequest = async () => {
-      const rawData = await this.$editVersionsService.fetchEditVersion(handler.data)
+      const rawData = await this.$editVersionsService.fetchEditVersion(
+        handler.data
+      )
       const response = new ResponseWrapper(rawData)
 
       if (response.isError()) {
@@ -43,5 +45,26 @@ export const actions = {
     }
 
     return await handler.setOnRequest(onRequest).execute()
-  }
+  },
+  async applyEditVersion({ commit }, handler) {
+    const onRequest = async () => {
+      const rawData = await this.$editVersionsService.applyEditVersion(
+        handler.data
+      )
+      const response = new ResponseWrapper(rawData)
+
+      if (response.isError()) {
+        throw new CustomError(
+          'Failed to apply review edit version',
+          response.getMessage()
+        )
+      } else {
+        commit('setCurrentEditVersion', response.getData())
+      }
+
+      return response
+    }
+
+    return await handler.setOnRequest(onRequest).execute()
+  },
 }

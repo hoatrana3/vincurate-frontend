@@ -107,7 +107,7 @@ export default {
             'Updated article',
             'Your article is successfully updated'
           )
-          this.$router.push(`/articles/${response.getData().id}`)
+          this.$router.push(`/articles/${response.getData().id}/details`)
         })
 
       this.updateArticleInfo(handler)

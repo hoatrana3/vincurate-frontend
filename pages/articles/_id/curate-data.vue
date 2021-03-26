@@ -113,7 +113,7 @@ export default {
             'Updated article',
             'Your article annotations is successfully updated'
           )
-          this.$router.push(`/articles/${response.getData().id}`)
+          this.$router.push(`/articles/${response.getData().id}/details`)
         })
     }
   },

@@ -3,20 +3,20 @@
     <div
       class="font-size-16pt text-justify static-concepts-container"
       :data-concepts="selectedConcepts.join(', ')">
-    <span
-      v-for="(text, index) in preformatTexts"
-      :key="`${text.text}-${$moment().unix()}-${index}`"
-      :offset-start="text.offsetStart"
-      :class="getTextCustomClass(text)"><!--
+      <span
+        v-for="(text, index) in preformatTexts"
+        :key="`${text.text}-${$moment().unix()}-${index}`"
+        :offset-start="text.offsetStart"
+        :class="getTextCustomClass(text)"><!--
       -->{{ text.text }}<!--
       --><i
-      v-if="editable && text.value.length"
-      class="mdi mdi-close-circle concept-remove-btn"
-      @click="removeTextAnnotation(text)" /><!--
+        v-if="editable && text.value.length"
+        class="mdi mdi-close-circle concept-remove-btn"
+        @click="removeTextAnnotation(text)" /><!--
     --></span>
     </div>
     <span class="d-block text-right text-black-70 mt-2">
-      by <a href="#">{{ article.lastCurator.name }}</a>
+      by <b-link to="#">{{ article.lastCurator.name }}</b-link>
       <md-icon>remove</md-icon>
       {{ $helpers.formatTimeAgo(article.updatedAt) }}
       <md-icon>remove</md-icon>
@@ -66,6 +66,9 @@ export default {
       const forceActiveClass = this.forceActive && (!this.onlyShowDiff || isDiff) ? 'is-active' : ''
 
       return [conceptClass, editableClass, forceActiveClass].filter(i => i.length).join(' ')
+    },
+    getDiffAnnos() {
+      return this.diffAnnotations
     }
   }
 }
