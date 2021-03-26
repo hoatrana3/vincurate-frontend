@@ -93,7 +93,7 @@ export default {
   },
   methods: {
     getTextCustomClass(text) {
-      const indexFilter = this.pickedFilters.findIndex(f => f.text.toLowerCase() === text.text.toLowerCase())
+      const indexFilter = this.pickedFilters.findIndex(f => f.text.toLowerCase().trim() === text.text.toLowerCase().trim())
       const conceptClass = text.annotation ? `has-concept concept-${text.value}` : ''
       const filterClass = indexFilter >= 0 ? 'is-filter' : ''
       const editableClass = this.editable ? 'is-editable' : ''

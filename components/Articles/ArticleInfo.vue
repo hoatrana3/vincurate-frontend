@@ -44,22 +44,31 @@
       <b-btn
         block
         :to="`/articles/${currentArticle.id}/edit-basic`"
-        variant="dark"
-        class="mb-2">
+        variant="dark">
         <md-icon v-text="'mode_edit'" class="mr-2" />
         Edit article
       </b-btn>
+      <b-btn
+        block
+        variant="primary"
+        :to="`/articles/${currentArticle.id}/curate-data`"
+        class="mb-2">
+        <md-icon v-text="'ballot'" class="mr-2" />
+        Curate
+      </b-btn>
 
       <div class="d-flex align-items-center mb-4">
-        <b-btn
-          variant="primary"
-          :to="`/articles/${currentArticle.id}/curate-data`"
-          class="flex mr-2">
-          <md-icon v-text="'ballot'" class="mr-2" />
-          Curate
-        </b-btn>
-        <b-btn
+        <b-dropdown
           variant="info"
+          class="flex mr-2">
+          <template #button-content>
+            <md-icon v-text="'file_download'" class="mr-2" />
+            Download
+          </template>
+          <b-dropdown-item @click="() => downloadArticle('SL_JSONL')">JSONL format</b-dropdown-item>
+        </b-dropdown>
+        <b-btn
+          variant="light"
           :to="`/articles/${currentArticle.id}`"
           class="flex">
           <md-icon v-text="'remove_red_eye'" class="mr-2" />
@@ -95,7 +104,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import ArticleEditVerionsTable from '@/components/Articles/ArticleEditVerionsTable'
 
 export default {
@@ -107,6 +116,18 @@ export default {
     articleTitle() {
       const title = this.currentArticle.title
       return !title || !title.length ? 'No Title Article' : title
+    }
+  },
+  methods: {
+    ...mapActions({
+      exportArticle: 'articles/exportArticle'
+    }),
+    downloadArticle(method) {
+      const handler = this.$apiHandler
+        .build()
+        .setData({ params: [this.currentArticle.id], query: `method=${method}` })
+
+      this.exportArticle(handler)
     }
   }
 }

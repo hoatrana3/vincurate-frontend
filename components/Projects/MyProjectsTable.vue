@@ -35,6 +35,7 @@
 
           <b-dd-item :to="`/projects/${data.item.id}`">Details</b-dd-item>
           <b-dd-item :to="`/projects/${data.item.id}/edit`">Edit</b-dd-item>
+          <b-dd-item :to="`/projects/${data.item.id}/upload-articles`">Upload</b-dd-item>
           <b-dd-divider />
           <b-dd-item variant="danger">Delete</b-dd-item>
         </b-dd>

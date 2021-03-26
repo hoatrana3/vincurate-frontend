@@ -17,10 +17,8 @@ export default ($axios) => ({
   fetchNextOlderArticle({ params }) {
     return $axios.get(GET_NEXT_OLDER_ARTICLE.get(params))
   },
-  exportArticle({ params }) {
-    return $axios.get(EXPORT_ARTICLE.get(params), {
-      responseType: 'blob',
-    })
+  exportArticle({ params, query }) {
+    window.open(EXPORT_ARTICLE.get(params, query))
   },
   uploadArticle({ data }) {
     return $axios.post(UPLOAD_ARTICLE.get(), data, {

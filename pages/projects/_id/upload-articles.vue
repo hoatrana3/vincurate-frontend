@@ -12,7 +12,6 @@
           <div class="col-md-4">
             <b-form-group
               label="Project title"
-              label-for="title"
               class="mb-32pt"
               label-class="form-label">
               <b-form-input
@@ -23,12 +22,28 @@
           <div class="col-md-4">
             <b-form-group
               label="Project type"
-              label-for="title"
               class="mb-32pt"
               label-class="form-label">
               <b-form-input
                 :value="currentProject.type"
                 disabled />
+            </b-form-group>
+          </div>
+          <div class="col-md-4">
+            <b-form-group
+              label="Upload type"
+              label-for="type"
+              label-class="form-label"
+              description="Please select upload type to choose files">
+              <b-select
+                v-model="uploadType"
+                id="type"
+                placeholder="Select upload type"
+                :options="uploadTypes">
+                <template #first>
+                  <b-form-select-option :value="null" disabled>Please select an upload type</b-form-select-option>
+                </template>
+              </b-select>
             </b-form-group>
           </div>
         </div>
@@ -79,6 +94,7 @@
                   <a class="text-body d-flex align-items-center justify-content-center">
                     <b-btn
                       block
+                      :disabled="!uploadType"
                       variant="light"
                       @click.prevent="openFileUploadInput">
                       Choose files
@@ -86,7 +102,7 @@
                     <input
                       ref="uploadInput"
                       type="file"
-                      accept=".csv"
+                      :accept="fileAccept"
                       multiple
                       class="d-none"
                       @change="onFilesUploaded" />
@@ -200,6 +216,7 @@ export default {
       progressFiles: [],
       successFiles: [],
       failureFiles: [],
+      uploadType: null,
       isUploading: false,
       progressCount: 0,
       progressTotal: 0
@@ -208,7 +225,38 @@ export default {
   computed: {
     ...mapGetters({
       currentProject: 'projects/getCurrentProject'
-    })
+    }),
+    uploadTypes() {
+      switch (this.currentProject.type) {
+        case 'Sequence Labeling':
+          return [{
+            text: 'Use NER format',
+            value: 'SL_NER'
+          }, {
+            text: 'Use JSONL format',
+            value: 'SL_JSONL'
+          }, {
+            text: 'Use ConLL format',
+            value: 'SL_CONLL'
+          }, {
+            text: 'Use Plain text format',
+            value: 'SL_PLAIN'
+          }]
+      }
+      return []
+    },
+    fileAccept() {
+      switch (this.uploadType) {
+        case 'SL_NER':
+          return '.csv'
+        case 'SL_JSONL':
+          return '.json,.jsonl'
+        case 'SL_CONLL':
+          return '.csv,.conll'
+        default:
+          return '*'
+      }
+    }
   },
   methods: {
     ...mapActions({
@@ -263,7 +311,7 @@ export default {
       const formData = new FormData()
       formData.append('file', file.file)
       formData.append('projectId', this.currentProject.id)
-      formData.append('method', 'SL_NER')
+      formData.append('method', this.uploadType)
 
       const handler = this.$apiHandler
         .build()

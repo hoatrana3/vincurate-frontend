@@ -51,27 +51,19 @@
       <b-btn
         block
         :to="`/projects/${currentProject.id}/edit`"
-        variant="dark"
-        class="mb-2">
+        variant="dark">
         <md-icon v-text="'mode_edit'" class="mr-2" />
         Edit project
       </b-btn>
 
-      <div class="d-flex align-items-center mb-4">
-        <b-btn
-          variant="primary"
-          :to="`/projects/${currentProject.id}/upload-articles`"
-          class="flex mr-2">
-          <md-icon v-text="'file_upload'" class="mr-2" />
-          Upload
-        </b-btn>
-        <b-btn
-          variant="info"
-          class="flex">
-          <md-icon v-text="'file_download'" class="mr-2" />
-          Download
-        </b-btn>
-      </div>
+      <b-btn
+        block
+        variant="primary"
+        :to="`/projects/${currentProject.id}/upload-articles`"
+        class="mb-4">
+        <md-icon v-text="'file_upload'" class="mr-2" />
+        Upload
+      </b-btn>
 
       <page-separator title="Owner" />
       <div class="card">

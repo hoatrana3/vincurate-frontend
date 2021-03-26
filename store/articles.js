@@ -184,20 +184,6 @@ export const actions = {
     return await handler.setOnRequest(onRequest).execute()
   },
   async exportArticle({ commit, dispatch }, handler) {
-    const onRequest = async () => {
-      const rawData = await this.$articlesService.exportArticle(handler.data)
-      const response = new ResponseWrapper(rawData, true)
-
-      if (response.isError()) {
-        throw new CustomError('Failed to export article', response.getMessage())
-      } else {
-        window.open(rawData.config.url)
-        // TODO: This way of handling will cause duplicate call API!
-      }
-
-      return response
-    }
-
-    await handler.setOnRequest(onRequest).execute()
+    this.$articlesService.exportArticle(handler.data)
   }
 }
