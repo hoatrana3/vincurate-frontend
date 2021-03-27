@@ -1,5 +1,5 @@
 <template>
-  <fragment>
+  <div>
     <template
       v-if="sidebar.menu.general && sidebar.menu.general.length">
       <div class="sidebar-heading">General</div>
@@ -22,22 +22,27 @@
         class="mb-24pt" />
     </template>
     <template
-      v-if="sidebar.menu.admin && sidebar.menu.admin.length">
+      v-if="currentUser && currentUser.role === 'admin' && sidebar.menu.admin && sidebar.menu.admin.length">
       <div class="sidebar-heading">Admin</div>
       <fmv-sidebar-menu
         :menu="sidebar.i18nMenu.admin"
         class="mb-24pt" />
     </template>
-  </fragment>
+  </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
+
 export default {
   props: {
     sidebar: {
       type: Object,
       required: true
     }
-  }
+  },
+  computed: mapGetters({
+    currentUser: 'users/getCurrentUser'
+  })
 }
 </script>
