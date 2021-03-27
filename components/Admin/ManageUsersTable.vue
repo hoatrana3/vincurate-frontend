@@ -14,8 +14,20 @@
         {{ (data.index + 1) + (page - 1) * per }}
       </template>
 
-      <template #cell(articlesCount)="data">
-        {{ data.item.articles.length }}
+      <template #cell(name)="data">
+        <b-link to="#">{{ data.value }}</b-link>
+      </template>
+
+      <template #cell(projectsCount)="data">
+        {{ data.item.projects.length }}
+      </template>
+
+      <template #cell(status)="data">
+        <b-badge
+          :variant="data.item.isActive ? 'success' : 'danger'"
+          pill>
+          {{ data.item.isActive ? 'Active' : 'Blocked' }}
+        </b-badge>
       </template>
 
       <template #cell(createdAt)="data">
@@ -33,11 +45,9 @@
             <md-icon class="icon-24pt">more_vert</md-icon>
           </template>
 
-          <b-dd-item :to="`/projects/${data.item.id}`">Details</b-dd-item>
-          <b-dd-item :to="`/projects/${data.item.id}/edit`">Edit</b-dd-item>
-          <b-dd-item :to="`/projects/${data.item.id}/upload-articles`">Upload</b-dd-item>
-          <b-dd-divider />
-          <b-dd-item variant="danger">Delete</b-dd-item>
+          <b-dd-item @click="() => toggleActive(data.item)">
+            {{ data.item.isActive ? 'Block' : 'Unblock' }}
+          </b-dd-item>
         </b-dd>
       </template>
 
@@ -46,13 +56,13 @@
     <div class="card-footer d-flex align-items-center">
       <custom-pager
         v-model="page"
-        :rows="projects.length"
+        :rows="users.length"
         :per-page="per"
         class="m-0" />
       <div class="ml-auto">
         Total Articles
         <md-icon>remove</md-icon>
-        <strong>{{ projects.length }}</strong>
+        <strong>{{ users.length }}</strong>
       </div>
     </div>
   </div>
@@ -66,6 +76,7 @@ import {
   MdIcon
 } from 'vue-luma'
 import CustomPager from '@/components/General/CustomPager'
+import apiHandler from '@/api/apiHandler'
 
 export default {
   components: {
@@ -78,35 +89,36 @@ export default {
   ],
   data() {
     return {
-      projects: [],
       page: 1,
       per: 10
     }
   },
   computed: {
     ...mapGetters({
-      userId: 'users/getCurrentUserId'
+      users: 'users/getAllUsers'
     }),
     fields() {
       return [{
         key: 'index',
         label: '#'
       }, {
-        key: 'title',
-        label: 'Title',
-        thClass: 'text-right',
-        tdClass: 'text-right'
+        key: 'name',
+        label: 'Name'
       }, {
-        key: 'type',
-        label: 'Type',
-        thClass: 'text-right',
-        tdClass: 'text-right'
+        key: 'email',
+        label: 'Email'
       }, {
-        key: 'articlesCount',
-        label: 'Articles Count',
+        key: 'role',
+        label: 'Role'
+      }, {
+        key: 'projectsCount',
+        label: 'Projects Count'
       }, {
         key: 'createdAt',
         label: 'Created At'
+      }, {
+        key: 'status',
+        label: 'Status'
       }, {
         key: 'actions',
         label: ''
@@ -114,27 +126,37 @@ export default {
     },
     paginatedItems() {
       const start = (this.page - 1) * this.per
-      let items = this.projects.slice(start, start + this.per)
+      let items = this.users.slice(start, start + this.per)
 
       return items || []
     }
   },
-  created() {
-    this.fetchUserProjects()
-  },
   methods: {
     ...mapActions({
-      getUserProjects: 'users/getUserProjects'
+      toggleActiveUser: 'users/toggleActiveUser',
+      getAllUsers: 'users/getAllUsers'
     }),
-    async fetchUserProjects() {
-      const userId = this.userId
+    toggleActive(user) {
+      const data = {
+        isActive: !user.isActive
+      }
       const handler = this.$apiHandler
         .build()
-        .setData({ params: [userId] })
-        .addOnResponse((response) => {
-          this.projects = response.getData()
+        .setData({
+          params: [user.id],
+          data
         })
-      await this.getUserProjects(handler)
+        .addOnResponse((response) => {
+          this.$notify.success(
+            'Toggled active user',
+            'User status is successfully updated'
+          )
+
+          const handler = this.$apiHandler.build()
+          this.getAllUsers(handler)
+        })
+
+      this.toggleActiveUser(handler)
     }
   }
 }

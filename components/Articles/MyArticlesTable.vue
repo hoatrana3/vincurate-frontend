@@ -35,7 +35,7 @@
       </template>
 
       <template #cell(createdAt)='data'>
-        {{ formatDate(data) }}
+        {{ $helpers.formatTimeAgo(data.value) }}
       </template>
 
       <template #cell(actions)='data'>
@@ -161,9 +161,6 @@ export default {
           this.articles = response.getData()
         })
       await this.getUserArticles(handler)
-    },
-    formatDate(date) {
-      return this.$helpers.formatTimeAgo(date)
     }
   }
 }

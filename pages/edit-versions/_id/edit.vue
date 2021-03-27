@@ -8,17 +8,12 @@
       <page-separator title="Project concepts" />
       <article-edit-version-form
         ref="articleEditVersionForm"
-        :article="currentArticle" />
+        :article="editedArticle" />
       <b-btn
         variant="primary"
         class="mr-2"
-        @click="doSaveForReview">
-        Save for reviewing
-      </b-btn>
-      <b-btn
-        variant="accent"
-        @click="doSaveDirectly">
-        Save to origin data
+        @click="doSave">
+        Save edit version
       </b-btn>
     </div>
   </div>
@@ -48,41 +43,42 @@ export default {
       .setData({ params: [params.id] })
       .addOnError((e) => {
         $notify.error(
+          'Article edit version not found',
+          'We can not find the article edit version you want'
+        )
+        redirect('/articles')
+      })
+    await store.dispatch('editVersions/fetchEditVersion', handler)
+
+    const currentEditVersion = store.getters['editVersions/getCurrentEditVersion']
+    const handlerArticle = $apiHandler
+      .build()
+      .setData({ params: [currentEditVersion.article.id] })
+      .addOnError((e) => {
+        $notify.error(
           'Article not found',
           'We can not find the article you want'
         )
         redirect('/articles')
       })
-    await store.dispatch('articles/fetchArticle', handler)
+    await store.dispatch('articles/fetchArticle', handlerArticle)
   },
   data() {
     return {
-      title: 'Sequence Labeling',
+      title: 'Update Edit Version',
       info: null
     }
   },
   computed: {
     ...mapGetters({
       currentArticle: 'articles/getCurrentArticle',
+      currentEditVersion: 'editVersions/getCurrentEditVersion'
     }),
-    saveHandler() {
-      const data = {
-        annotations: this.$refs.articleEditVersionForm.getEditedAnnotations()
+    editedArticle() {
+      return {
+        ...this.currentArticle,
+        annotations: this.currentEditVersion.annotations
       }
-
-      return this.$apiHandler
-        .build()
-        .setData({
-          params: [this.info.id],
-          data
-        })
-        .addOnResponse((response) => {
-          this.$notify.success(
-            'Updated article',
-            'Your article annotations is successfully updated'
-          )
-          this.$router.push(`/articles/${response.getData().id}/details`)
-        })
     }
   },
   created() {
@@ -91,14 +87,31 @@ export default {
   },
   methods: {
     ...mapActions({
-      updateArticleAnnotations: 'articles/updateArticleAnnotations',
-      createArticleEditVersion: 'articles/createArticleEditVersion'
+      updateEditVersion: 'editVersions/updateEditVersion'
     }),
     ...mapMutations({
       setPickedFilters: 'articles/setPickedFilters'
     }),
-    doSaveDirectly() {
-      this.updateArticleAnnotations(this.saveHandler)
+    doSave() {
+      const data = {
+        annotations: this.$refs.articleEditVersionForm.getEditedAnnotations()
+      }
+
+      const handler = this.$apiHandler
+        .build()
+        .setData({
+          params: [this.currentEditVersion.id],
+          data
+        })
+        .addOnResponse((response) => {
+          this.$notify.success(
+            'Updated edit version',
+            'Your edit version is successfully updated'
+          )
+          this.$router.push(`/articles/${response.getData().article.id}/details`)
+        })
+
+      this.updateEditVersion(handler)
     },
     doSaveForReview() {
       this.createArticleEditVersion(this.saveHandler)

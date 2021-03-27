@@ -21,6 +21,13 @@
         :menu="sidebar.i18nMenu.articles"
         class="mb-24pt" />
     </template>
+    <template
+      v-if="sidebar.menu.admin && sidebar.menu.admin.length">
+      <div class="sidebar-heading">Admin</div>
+      <fmv-sidebar-menu
+        :menu="sidebar.i18nMenu.admin"
+        class="mb-24pt" />
+    </template>
   </fragment>
 </template>
 

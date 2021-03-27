@@ -88,6 +88,10 @@ export const getters = {
       addProject: {
         name: 'projects-new',
         params: { layout }
+      },
+      adminManageUsers: {
+        name: 'admin-manage-users',
+        params: { layout }
       }
     }
   }

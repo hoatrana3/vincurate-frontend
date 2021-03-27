@@ -39,6 +39,15 @@ export const projectRoutes = ({ routes }) => [{
   }
 }]
 
+export const adminRoutes = ({ routes }) => [{
+  label: 'Manage Users',
+  route: routes.adminManageUsers,
+  icon: {
+    type: 'md-icon',
+    id: 'account_box'
+  }
+}]
+
 export const getters = {
   layoutMenu: (state, getters, rootState, rootGetters) => {
     const routes = rootGetters['settings/routes']
@@ -46,7 +55,8 @@ export const getters = {
     return {
       general: generalRoutes({ routes }),
       articles: articleRoutes({ routes }),
-      projects: projectRoutes({ routes })
+      projects: projectRoutes({ routes }),
+      admin: adminRoutes({ routes })
     }
   }
 }

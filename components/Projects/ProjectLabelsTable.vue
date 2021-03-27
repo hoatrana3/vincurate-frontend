@@ -116,7 +116,7 @@ export default {
 
       if (!this.noActions) fields.push({
         key: 'actions',
-        label: 'Actions'
+        label: ''
       })
 
       return fields

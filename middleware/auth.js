@@ -39,8 +39,13 @@ export default async function(
         .build()
         .setData({ params: [userId] })
         .addOnResponse((response) => {
-          store.commit('users/setCurrentUser', response.getData())
-          redirectIfInAuth()
+          const user = response.getData()
+          if (!user.isActive)
+            noPermissionHandle()
+          else {
+            store.commit('users/setCurrentUser', response.getData())
+            redirectIfInAuth()
+          }
         })
         .addOnError(noPermissionHandle)
 
@@ -51,10 +56,16 @@ export default async function(
         noPermissionHandle()
     }
   } else {
-    const role = store.getters['users/getCurrentUser'].role
-    const path = route.matched[0].path || route.path
+    const user = store.getters['users/getCurrentUser']
 
-    if (!$helpers.roleHasPermission(role, path)) noPermissionHandle()
-    else redirectIfInAuth()
+    if (!user.isActive)
+      noPermissionHandle()
+    else {
+      const role = user.role
+      const path = route.matched[0].path || route.path
+
+      if (!$helpers.roleHasPermission(role, path)) noPermissionHandle()
+      else redirectIfInAuth()
+    }
   }
 }

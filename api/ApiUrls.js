@@ -33,6 +33,9 @@ export const UPLOAD_ARTICLE = ApiUrl.build(`${BASE_API_V1_URL}/articles/upload`)
 export const GET_EDIT_VERSION = ApiUrl.build(
   `${BASE_API_V1_URL}/edit-versions/:id`
 )
+export const UPDATE_EDIT_VERSION = ApiUrl.build(
+  `${BASE_API_V1_URL}/edit-versions/:id`
+)
 export const APPLY_EDIT_VERSION = ApiUrl.build(
   `${BASE_API_V1_URL}/edit-versions/:id/apply`
 )

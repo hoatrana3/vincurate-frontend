@@ -46,6 +46,25 @@ export const actions = {
 
     return await handler.setOnRequest(onRequest).execute()
   },
+  async updateEditVersion({ commit }, handler) {
+    const onRequest = async () => {
+      const rawData = await this.$editVersionsService.updateEditVersion(handler.data)
+      const response = new ResponseWrapper(rawData)
+
+      if (response.isError()) {
+        throw new CustomError(
+          'Failed to update edit version info',
+          response.getMessage()
+        )
+      } else {
+        commit('setCurrentEditVersion', response.getData())
+      }
+
+      return response
+    }
+
+    return await handler.setOnRequest(onRequest).execute()
+  },
   async applyEditVersion({ commit }, handler) {
     const onRequest = async () => {
       const rawData = await this.$editVersionsService.applyEditVersion(

@@ -20,6 +20,8 @@ const userPerms = [
   '/articles/:id/curate-data',
   '/articles/:id?/curate-data',
   '/edit-versions/:id',
+  '/edit-versions/:id/edit',
+  '/edit-versions/:id?/edit',
   '/projects/my-projects',
   '/projects/new',
   '/projects/:id',
@@ -28,13 +30,9 @@ const userPerms = [
   '/projects/:id/upload-articles',
   '/projects/:id?/upload-articles',
 ]
-const adminPerms = [
-  ...userPerms
-]
 const permissions = {
   guest: guestPerms,
-  user: userPerms,
-  admin: adminPerms
+  user: userPerms
 }
 
 export default () => ({
@@ -42,6 +40,7 @@ export default () => ({
   roleHasPermission(role, path) {
     if (!role || !role.length) return false
     if (!path || !path.length) return false
+    if (role === 'admin') return true
     if (!permissions.hasOwnProperty(role)) return false
     return permissions[role].includes(path)
   }

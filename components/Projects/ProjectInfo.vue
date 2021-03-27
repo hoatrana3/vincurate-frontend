@@ -62,7 +62,7 @@
         :to="`/projects/${currentProject.id}/upload-articles`"
         class="mb-4">
         <md-icon v-text="'file_upload'" class="mr-2" />
-        Upload
+        Upload articles
       </b-btn>
 
       <page-separator title="Owner" />

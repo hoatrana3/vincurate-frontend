@@ -143,6 +143,23 @@ export const actions = {
 
     return await handler.setOnRequest(onRequest).execute()
   },
+  async toggleActiveUser({ commit }, handler) {
+    const onRequest = async () => {
+      const rawData = await this.$usersService.updateUser(handler.data)
+      const response = new ResponseWrapper(rawData)
+
+      if (response.isError()) {
+        throw new CustomError(
+          'Failed to toggle active user',
+          response.getMessage()
+        )
+      }
+
+      return response
+    }
+
+    return await handler.setOnRequest(onRequest).execute()
+  },
   async getUserArticles({ commit, dispatch }, handler) {
     const onRequest = async () => {
       const rawData = await this.$usersService.getUserArticles(handler.data)

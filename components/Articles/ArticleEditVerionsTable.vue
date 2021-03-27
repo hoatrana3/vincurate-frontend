@@ -36,18 +36,28 @@
         {{ (data.index + 1) + (page - 1) * per }}
       </template>
 
+      <template #cell(user)="data">
+        <b-link to="#">{{ data.item.user.name }}</b-link>
+      </template>
+
       <template #cell(annotationCount)="data">
         {{ data.item.annotations.length }}
       </template>
 
       <template #cell(actions)="{item: {id}}">
-        <b-btn
-          variant="light"
-          size="sm"
-          pill
-          :to="`/edit-versions/${id}`">
-          <md-icon v-text="'playlist_add_check'" />
-        </b-btn>
+        <b-dd
+          variant='flush'
+          toggle-class='text-muted'
+          no-caret
+          right>
+
+          <template v-slot:button-content>
+            <md-icon class='icon-24pt'>more_vert</md-icon>
+          </template>
+
+          <b-dd-item :to="`/edit-versions/${id}`">Review</b-dd-item>
+          <b-dd-item :to="`/edit-versions/${id}/edit`">Edit</b-dd-item>
+        </b-dd>
       </template>
     </b-table>
 
@@ -105,13 +115,13 @@ export default {
         label: 'User'
       }, {
         key: 'annotationCount',
-        label: 'Annotation Count'
+        label: 'Annotations Count'
       }, {
         key: 'status',
         label: 'Status'
       }, {
         key: 'actions',
-        label: 'Actions'
+        label: ''
       }]
 
       return fields
