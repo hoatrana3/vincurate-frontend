@@ -1,3 +1,12 @@
+#drawer-layout-content {
+  display: flex;
+  flex-direction: column;
+
+  & > div:last-child {
+    margin-top: auto; // TODO: No more tricky css like this for footer
+  }
+}
+
 .custom-vs-notification .vs-notification__content__header h4 {
   color: white !important;
 }

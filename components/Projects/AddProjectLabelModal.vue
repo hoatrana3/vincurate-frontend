@@ -68,9 +68,11 @@ export default {
       isOpenProjectLabelModal: 'projects/isOpenProjectLabelModal',
       allLabels: 'labels/getAllLabels'
     }),
+    filteredLabels() {
+      return this.allLabels.filter(l => l.type === (this.projectType === 'Sequence Labeling' ? 'Concept' : 'Category'))
+    },
     labelOptions() {
-      const labelByProjectType = this.allLabels.filter(l => l.type === (this.projectType === 'Sequence Labeling' ? 'Concept' : 'Category'))
-      return labelByProjectType.map(label => ({
+      return this.filteredLabels.map(label => ({
         text: `${label.name} | ${label.value}`,
         value: label.id
       })).sort((o1, o2) => o1.text.localeCompare(o2.text))
@@ -91,7 +93,7 @@ export default {
         return
       }
 
-      const label = this.allLabels.find(l => l.id === val)
+      const label = this.filteredLabels.find(l => l.id === val)
       this.color = label.color
     }
   },
@@ -105,8 +107,8 @@ export default {
     },
     submit() {
       let labels = []
-      if (this.labelId === -1) labels = this.allLabels
-      else labels = [this.allLabels.find(l => l.id === this.labelId)]
+      if (this.labelId === -1) labels = this.filteredLabels
+      else labels = [this.filteredLabels.find(l => l.id === this.labelId)]
 
       this.labelId = null
       this.isOpen = false

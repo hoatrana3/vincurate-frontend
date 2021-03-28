@@ -103,56 +103,56 @@
 </template>
 
 <script>
-  import {AppLayout} from 'vue-luma'
-  import AppSettings from '~/components/Settings'
+import { AppLayout } from 'vue-luma'
+import AppSettings from '~/components/Settings'
 
-  import mainDrawerMixin from '~/mixins/main-drawer'
-  import navbarConfigMixin from '~/mixins/navbar-config'
-  import sidebarConfigMixin from '~/mixins/sidebar-config'
-  import layoutConfigMixin from '~/mixins/layout-config'
-  import subLayoutMixin from '~/mixins/sub-layout'
+import mainDrawerMixin from '~/mixins/main-drawer'
+import navbarConfigMixin from '~/mixins/navbar-config'
+import sidebarConfigMixin from '~/mixins/sidebar-config'
+import layoutConfigMixin from '~/mixins/layout-config'
+import subLayoutMixin from '~/mixins/sub-layout'
 
-  import SidebarContent from '@/components/Sidebar/SidebarContent'
-  import NavbarContent from '@/components/Navbar/NavbarContent'
+import SidebarContent from '@/components/Sidebar/SidebarContent'
+import NavbarContent from '@/components/Navbar/NavbarContent'
 
-  export default {
-    components: {
-      AppLayout,
-      AppSettings,
-      SidebarContent,
-      NavbarContent
-    },
-    mixins: [
-      mainDrawerMixin,
-      navbarConfigMixin,
-      sidebarConfigMixin,
-      layoutConfigMixin,
-      subLayoutMixin
-    ],
-    data() {
-      return {
-        guest: false
-      }
-    },
-    computed: {
-      bodyClass() {
-        return null
-      },
-      sidebarSearch() {
-        return true
-      },
-      sidebarBrandClass() {
-        return null
-      },
-      drawerLayoutClass() {
-        return null
-      },
-      sidebarConfigKey() {
-        return this.mainDrawerSidebar
-      }
-    },
-    created() {
-      this.$root.$on('luma::guest', guest => this.guest = guest)
+export default {
+  components: {
+    AppLayout,
+    AppSettings,
+    SidebarContent,
+    NavbarContent
+  },
+  mixins: [
+    mainDrawerMixin,
+    navbarConfigMixin,
+    sidebarConfigMixin,
+    layoutConfigMixin,
+    subLayoutMixin
+  ],
+  data() {
+    return {
+      guest: false
     }
+  },
+  computed: {
+    bodyClass() {
+      return null
+    },
+    sidebarSearch() {
+      return true
+    },
+    sidebarBrandClass() {
+      return null
+    },
+    drawerLayoutClass() {
+      return null
+    },
+    sidebarConfigKey() {
+      return this.mainDrawerSidebar
+    }
+  },
+  created() {
+    this.$root.$on('luma::guest', guest => this.guest = guest)
   }
+}
 </script>
