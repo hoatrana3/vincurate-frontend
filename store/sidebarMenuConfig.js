@@ -21,6 +21,13 @@ export const articleRoutes = ({ routes }) => [{
     type: 'md-icon',
     id: 'featured_play_list'
   }
+}, {
+  label: 'My Labels',
+  route: routes.myLabels,
+  icon: {
+    type: 'md-icon',
+    id: 'label'
+  }
 }]
 
 export const projectRoutes = ({ routes }) => [{

@@ -67,7 +67,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      allConceptLabels: 'label/getAllLabels',
+      allConceptLabels: 'labels/getAllLabels',
       currentArticle: 'articles/getCurrentArticle'
     })
   },

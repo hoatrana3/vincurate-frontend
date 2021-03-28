@@ -1,9 +1,10 @@
 import {
+  CREATE_ARTICLE,
   CREATE_ARTICLE_EDIT_VERSION, DELETE_ARTICLE,
   EXPORT_ARTICLE,
   GET_ARTICLE,
   GET_NEXT_OLDER_ARTICLE,
-  SEARCH_ARTICLES, UPDATE_ARTICLE, UPDATE_ARTICLE_ANNOTATIONS, UPDATE_USER,
+  SEARCH_ARTICLES, UPDATE_ARTICLE, UPDATE_ARTICLE_ANNOTATIONS,
   UPLOAD_ARTICLE
 } from '@/api/ApiUrls'
 
@@ -19,6 +20,9 @@ export default ($axios) => ({
   },
   exportArticle({ params, query }) {
     window.open(EXPORT_ARTICLE.get(params, query))
+  },
+  createArticle({ data }) {
+    return $axios.post(CREATE_ARTICLE.get(), data)
   },
   uploadArticle({ data }) {
     return $axios.post(UPLOAD_ARTICLE.get(), data, {

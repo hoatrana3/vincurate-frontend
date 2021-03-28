@@ -1,27 +1,5 @@
 <template>
-  <div class="card mb-0">
-    <div class="card-header">
-      <div
-        class="row align-items-center"
-        style="white-space: nowrap;">
-        <div class="col-lg-auto">
-          <form
-            class="search-form search-form--light d-lg-inline-flex mb-8pt mb-lg-0">
-            <b-form-input
-              class="w-lg-auto"
-              placeholder="Search labels" />
-            <b-btn
-              variant="flush"
-              type="submit">
-              <md-icon v-text="'search'" />
-            </b-btn>
-          </form>
-        </div>
-        <div class="col-lg d-flex flex-wrap align-items-center justify-content-end">
-          <slot name="table-left-header" />
-        </div>
-      </div>
-    </div>
+  <div>
     <b-table
       ref="table"
       :items="paginatedItems"
@@ -41,9 +19,20 @@
       </template>
 
       <template #cell(actions)="data">
-        <b-btn variant="light" size="sm" pill @click="() => removeLabel(data.item)">
-          <md-icon v-text="'close'" />
-        </b-btn>
+        <b-dd
+          variant="flush"
+          toggle-class="text-muted"
+          no-caret
+          right>
+
+          <template v-slot:button-content>
+            <md-icon class="icon-24pt">more_vert</md-icon>
+          </template>
+
+          <b-dd-item :to="`/labels/${data.item.id}/edit`">Edit</b-dd-item>
+<!--          <b-dd-divider />-->
+<!--          <b-dd-item variant="danger" @click="() => doDelete(data.item)">Delete</b-dd-item>-->
+        </b-dd>
       </template>
     </b-table>
 
@@ -63,6 +52,7 @@
 </template>
 
 <script>
+import { mapGetters, mapActions } from 'vuex'
 import {
   routeToMixin,
   tableSortMixin,
@@ -79,25 +69,19 @@ export default {
     routeToMixin,
     tableSortMixin
   ],
-  props: {
-    labels: {
-      type: Array,
-      default: () => []
-    },
-    noActions: {
-      type: Boolean,
-      default: false
-    }
-  },
   data() {
     return {
+      labels: [],
       page: 1,
-      per: 5
+      per: 10
     }
   },
   computed: {
+    ...mapGetters({
+      userId: 'users/getCurrentUserId'
+    }),
     fields() {
-      const fields = [{
+      return [{
         key: 'index',
         label: '#'
       }, {
@@ -107,19 +91,18 @@ export default {
         key: 'value',
         label: 'Code'
       }, {
+        key: 'type',
+        label: 'Type'
+      }, {
         key: 'color',
         label: 'Color'
       }, {
         key: 'preview',
         label: 'Preview'
-      }]
-
-      if (!this.noActions) fields.push({
+      }, {
         key: 'actions',
         label: ''
-      })
-
-      return fields
+      }]
     },
     paginatedItems() {
       const start = (this.page - 1) * this.per
@@ -128,9 +111,38 @@ export default {
       return items || []
     }
   },
+  created() {
+    this.fetchUserLabels()
+  },
   methods: {
-    removeLabel(role) {
-      this.$emit('removeLabel', role)
+    ...mapActions({
+      getUserLabels: 'users/getUserLabels',
+      deleteLabel: 'labels/deleteLabel'
+    }),
+    async fetchUserLabels() {
+      const userId = this.userId
+      const handler = this.$apiHandler
+        .build()
+        .setData({ params: [userId] })
+        .addOnResponse((response) => {
+          this.labels = response.getData()
+        })
+      await this.getUserLabels(handler)
+    },
+    doDelete(label) {
+      const handler = this.$apiHandler
+        .build()
+        .setData({ params: [label.id] })
+        .addOnResponse(() => {
+          this.$notify.success(
+            'Successfully delete label',
+            'Your label is deleted'
+          )
+
+          const index = this.labels.findIndex(a => a.id === label.id)
+          this.labels.splice(index, 1)
+        })
+      this.deleteLabel(handler)
     }
   }
 }

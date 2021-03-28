@@ -32,7 +32,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      allConceptLabels: 'label/getAllLabels',
+      allConceptLabels: 'labels/getAllLabels',
       getSelectedConcepts: 'articles/getSelectedConcepts'
     }),
     selectedConcepts: {

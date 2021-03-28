@@ -126,6 +126,25 @@ export const actions = {
 
     await handler.setOnRequest(onRequest).execute()
   },
+  async createArticle({ commit, dispatch }, handler) {
+    const onRequest = async () => {
+      const rawData = await this.$articlesService.createArticle(handler.data)
+      const response = new ResponseWrapper(rawData)
+
+      if (response.isError()) {
+        throw new CustomError(
+          'Failed to create new article',
+          response.getMessage()
+        )
+      } else {
+        commit('setCurrentArticle', response.getData())
+      }
+
+      return response
+    }
+
+    return await handler.setOnRequest(onRequest).execute()
+  },
   async updateArticle({ commit }, handler) {
     const onRequest = async () => {
       const rawData = await this.$articlesService.updateArticle(handler.data)

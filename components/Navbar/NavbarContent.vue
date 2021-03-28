@@ -42,6 +42,7 @@
           <b-dropdown-item :to="routeTo(routes.addProject)">Create Project</b-dropdown-item>
           <b-dd-divider />
           <b-dropdown-item :to="routeTo(routes.myArticles)">My Articles</b-dropdown-item>
+          <b-dropdown-item :to="routeTo(routes.myLabels)">My Labels</b-dropdown-item>
           <fragment v-if="currentUser && currentUser.role === 'admin'">
             <b-dd-divider />
             <b-dropdown-item :to="routeTo(routes.adminManageUsers)">System users</b-dropdown-item>

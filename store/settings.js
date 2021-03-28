@@ -89,6 +89,10 @@ export const getters = {
         name: 'projects-new',
         params: { layout }
       },
+      myLabels: {
+        name: 'labels-my-labels',
+        params: { layout }
+      },
       adminManageUsers: {
         name: 'admin-manage-users',
         params: { layout }

@@ -45,7 +45,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      allLabels: 'label/getAllLabels',
+      allLabels: 'labels/getAllLabels',
       currentUser: 'users/getCurrentUser'
     }),
     labels() {

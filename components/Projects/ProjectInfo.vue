@@ -51,19 +51,28 @@
       <b-btn
         block
         :to="`/projects/${currentProject.id}/edit`"
-        variant="dark">
+        variant="dark"
+        class="mb-2">
         <md-icon v-text="'mode_edit'" class="mr-2" />
         Edit project
       </b-btn>
 
-      <b-btn
-        block
-        variant="primary"
-        :to="`/projects/${currentProject.id}/upload-articles`"
-        class="mb-4">
-        <md-icon v-text="'file_upload'" class="mr-2" />
-        Upload articles
-      </b-btn>
+      <div class="d-flex align-items-center mb-4">
+        <b-btn
+          variant="primary"
+          :to="`/projects/${currentProject.id}/upload-articles`"
+          class="flex mr-2">
+          <md-icon v-text="'file_upload'" class="mr-2" />
+          Upload
+        </b-btn>
+        <b-btn
+          variant="info"
+          :to="`/projects/${currentProject.id}/new-article`"
+          class="flex">
+          <md-icon v-text="'add'" class="mr-2" />
+          Create
+        </b-btn>
+      </div>
 
       <page-separator title="Owner" />
       <div class="card">
@@ -92,7 +101,9 @@
 
     <div class="col-12">
       <page-separator title="Project Articles" />
-      <articles-explore :additional-query="currentProject.id" />
+      <articles-explore
+        :project="currentProject"
+        :additional-query="currentProject.id" />
     </div>
   </div>
 </template>

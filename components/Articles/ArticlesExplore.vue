@@ -46,7 +46,7 @@
         </div>
       </div>
       <div class="col-md-3">
-        <concepts-picker />
+        <concepts-picker :concept-labels="shownConceptLabels" />
       </div>
     </div>
 
@@ -76,6 +76,10 @@ export default {
   extends: Page,
   layout: 'fixed',
   props: {
+    project: {
+      type: Object,
+      default: null
+    },
     fields: {
       type: String,
       default: '*'
@@ -102,10 +106,15 @@ export default {
   computed: {
     ...mapGetters({
       searchResults: 'articles/getSearchResults',
-      selectedConcepts: 'articles/getSelectedConcepts'
+      selectedConcepts: 'articles/getSelectedConcepts',
+      allConceptLabels: 'labels/getAllLabels',
     }),
     searchQuery() {
       return this.$route.query.q || ''
+    },
+    shownConceptLabels() {
+      if (!this.project) return this.allConceptLabels
+      return this.project.labels
     }
   },
   watch: {

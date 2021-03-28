@@ -104,9 +104,6 @@ export default {
     ...mapGetters({
       userId: 'users/getCurrentUserId'
     }),
-    sortBy() {
-      return this.earnings ? 'revenue' : 'purchased_at'
-    },
     fields() {
       return [{
         key: 'index',

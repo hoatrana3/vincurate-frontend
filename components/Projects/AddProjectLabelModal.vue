@@ -66,7 +66,7 @@ export default {
   computed: {
     ...mapGetters({
       isOpenProjectLabelModal: 'projects/isOpenProjectLabelModal',
-      allLabels: 'label/getAllLabels'
+      allLabels: 'labels/getAllLabels'
     }),
     labelOptions() {
       const labelByProjectType = this.allLabels.filter(l => l.type === (this.projectType === 'Sequence Labeling' ? 'Concept' : 'Category'))

@@ -20,7 +20,7 @@
                   class="search-form search-form--light d-lg-inline-flex mb-8pt mb-lg-0">
                   <b-form-input
                     class="w-lg-auto"
-                    placeholder="Search projects" />
+                    placeholder="Search labels" />
                   <b-btn
                     variant="flush"
                     type="submit">
@@ -30,17 +30,16 @@
               </div>
               <div class="col-lg d-flex flex-wrap align-items-center justify-content-end">
                 <b-btn
-                  :to="routeTo(routes.addProject)"
                   exact
+                  :to="`/labels/new`"
                   variant="primary"
-                  v-text="'Create project'" />
+                  v-text="'Add label'" />
               </div>
             </div>
           </div>
 
-          <my-projects-table />
+          <my-labels-table />
         </div>
-
       </div>
     </div>
   </div>
@@ -53,11 +52,11 @@ import {
   PageSeparator
 } from 'vue-luma'
 import Page from '@/components/Page'
-import MyProjectsTable from '@/components/Projects/MyProjectsTable'
+import MyLabelsTable from '@/components/Label/MyLabelsTable'
 
 export default {
   components: {
-    MyProjectsTable,
+    MyLabelsTable,
     MdIcon,
     PageHeader,
     PageSeparator
@@ -66,7 +65,7 @@ export default {
   layout: 'boxed',
   data() {
     return {
-      title: 'My Projects'
+      title: 'My Labels'
     }
   }
 }

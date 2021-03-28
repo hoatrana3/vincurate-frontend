@@ -1,15 +1,16 @@
 import insertCss from 'insert-css'
 import hexRgb from 'hex-rgb'
 
-export default ({ $apiHandler, store }) => ({
+export default ($context) => ({
   async initLabelCofigs() {
-    const handler = $apiHandler
+    console.log('asdsd')
+    const handler = $context.$apiHandler
       .build()
       .addOnResponse((response) => {
         this.setGlobalStyleVars(response.getData())
         this.setGlobalCssClasses(response.getData())
       })
-    await store.dispatch('label/getAllLabels', handler)
+    await $context.store.dispatch('labels/getAllLabels', handler)
   },
   setGlobalStyleVars(labels) {
     labels.forEach(({ value, color }) => {
@@ -18,6 +19,14 @@ export default ({ $apiHandler, store }) => ({
         color
       )
     })
+  },
+  getLabelPreviewClass(label) {
+    switch (label.type) {
+      case 'Concept':
+        return `has-concept concept-${label.value} is-active`;
+      default:
+        return `has-category category-${label.value}`
+    }
   },
   setGlobalCssClasses(labels) {
     labels.forEach(({ value, color }) => {

@@ -166,7 +166,7 @@ export const actions = {
       const response = new ResponseWrapper(rawData)
 
       if (response.isError()) {
-        throw new CustomError('Failed to get user\'s articles', response.getMessage())
+        throw new CustomError("Failed to get user's articles", response.getMessage())
       }
 
       return response
@@ -180,7 +180,21 @@ export const actions = {
       const response = new ResponseWrapper(rawData)
 
       if (response.isError()) {
-        throw new CustomError('Failed to get user\'s projects', response.getMessage())
+        throw new CustomError("Failed to get user's projects", response.getMessage())
+      }
+
+      return response
+    }
+
+    return await handler.setOnRequest(onRequest).execute()
+  },
+  async getUserLabels({ commit, dispatch }, handler) {
+    const onRequest = async () => {
+      const rawData = await this.$usersService.getUserLabels(handler.data)
+      const response = new ResponseWrapper(rawData)
+
+      if (response.isError()) {
+        throw new CustomError("Failed to get user's labels", response.getMessage())
       }
 
       return response

@@ -1,6 +1,6 @@
 import {
   AUTHENTICATE_USER, GET_ALL_USERS,
-  GET_USER, GET_USER_ARTICLES, GET_USER_PROJECTS,
+  GET_USER, GET_USER_ARTICLES, GET_USER_LABELS, GET_USER_PROJECTS,
   REGISTER_USER,
   UPDATE_USER
 } from '@/api/ApiUrls'
@@ -26,5 +26,8 @@ export default ($axios) => ({
   },
   getUserProjects({ params }) {
     return $axios.get(GET_USER_PROJECTS.get(params))
+  },
+  getUserLabels({ params }) {
+    return $axios.get(GET_USER_LABELS.get(params))
   }
 })

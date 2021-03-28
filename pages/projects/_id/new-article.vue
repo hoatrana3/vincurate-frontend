@@ -7,13 +7,12 @@
       class="mb-32pt" />
 
     <page-separator title="Basic information" />
-    <article-info-form :init-article="info" @onSubmit="doSave" />
+    <article-info-form @onSubmit="doCreateArticle" />
   </div>
 </template>
 
 <script>
-import cloneDeep from 'lodash/cloneDeep'
-import { mapGetters, mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import {
   PageHeader,
   PageSeparator
@@ -35,47 +34,43 @@ export default {
       .setData({ params: [params.id] })
       .addOnError((e) => {
         $notify.error(
-          'Article not found',
-          'We can not find the article you want'
+          'Project not found',
+          'We can not find the project you want'
         )
-        redirect('/articles')
+        redirect('/projects')
       })
-    await store.dispatch('articles/fetchArticle', handler)
+    await store.dispatch('projects/fetchProject', handler)
   },
   data() {
     return {
-      title: 'Edit Article',
-      info: null
+      title: 'Create Article'
     }
   },
-  computed: {
-    ...mapGetters({
-      currentArticle: 'articles/getCurrentArticle'
-    })
-  },
-  created() {
-    this.info = cloneDeep(this.currentArticle)
-  },
+  computed: mapGetters({
+    currentProject: 'projects/getCurrentProject'
+  }),
   methods: {
     ...mapActions({
-      updateArticleInfo: 'articles/updateArticle'
+      createArticle: 'articles/createArticle'
     }),
-    doSave(data) {
+    async doCreateArticle(data) {
       const handler = this.$apiHandler
         .build()
         .setData({
-          params: [this.info.id],
-          data
+          data: {
+            ...data,
+            projectId: this.currentProject.id
+          }
         })
         .addOnResponse((response) => {
           this.$notify.success(
-            'Updated article',
-            'Your article is successfully updated'
+            'Created article',
+            'Your article is successfully created'
           )
           this.$router.push(`/articles/${response.getData().id}/details`)
         })
 
-      this.updateArticleInfo(handler)
+      await this.createArticle(handler)
     }
   }
 }
