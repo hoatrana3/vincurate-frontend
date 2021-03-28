@@ -145,6 +145,23 @@ export const actions = {
 
     return await handler.setOnRequest(onRequest).execute()
   },
+  async deleteArticle({ commit, dispatch }, handler) {
+    const onRequest = async () => {
+      const rawData = await this.$articlesService.deleteArticle(handler.data)
+      const response = new ResponseWrapper(rawData)
+
+      if (response.isError()) {
+        throw new CustomError(
+          'Failed to delete article',
+          response.getMessage()
+        )
+      }
+
+      return response
+    }
+
+    return await handler.setOnRequest(onRequest).execute()
+  },
   async updateArticleAnnotations({ commit }, handler) {
     const onRequest = async () => {
       const rawData = await this.$articlesService.updateArticleAnnotations(handler.data)

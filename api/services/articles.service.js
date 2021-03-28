@@ -1,5 +1,5 @@
 import {
-  CREATE_ARTICLE_EDIT_VERSION,
+  CREATE_ARTICLE_EDIT_VERSION, DELETE_ARTICLE,
   EXPORT_ARTICLE,
   GET_ARTICLE,
   GET_NEXT_OLDER_ARTICLE,
@@ -29,6 +29,9 @@ export default ($axios) => ({
   },
   updateArticle({ params, data }) {
     return $axios.patch(UPDATE_ARTICLE.get(params), data)
+  },
+  deleteArticle({ params }) {
+    return $axios.delete(DELETE_ARTICLE.get(params))
   },
   updateArticleAnnotations({ params, data }) {
     return $axios.patch(UPDATE_ARTICLE_ANNOTATIONS.get(params), data)

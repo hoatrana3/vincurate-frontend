@@ -54,7 +54,7 @@
           <b-dd-item :to='`/articles/${data.item.id}/curate-data`'>Curate</b-dd-item>
           <b-dd-item :to='`/articles/${data.item.id}`'>Guest view</b-dd-item>
           <b-dd-divider />
-          <b-dd-item variant='danger'>Delete</b-dd-item>
+          <b-dd-item variant='danger' @click="() => doDelete(data.item)">Delete</b-dd-item>
         </b-dd>
       </template>
 
@@ -115,18 +115,18 @@ export default {
         key: 'title',
         label: 'Title',
         thClass: 'text-right',
-        tdClass: 'text-right',
+        tdClass: 'text-right'
       }, {
         key: 'description',
         label: 'Description',
         thClass: 'text-right',
-        tdClass: 'text-right',
+        tdClass: 'text-right'
       }, {
         key: 'annotationsCount',
-        label: 'Annotations Count',
-      },  {
+        label: 'Annotations Count'
+      }, {
         key: 'editVersionCount',
-        label: 'Edit Versions Count',
+        label: 'Edit Versions Count'
       }, {
         key: 'project',
         label: 'Project'
@@ -150,7 +150,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      getUserArticles: 'users/getUserArticles'
+      getUserArticles: 'users/getUserArticles',
+      deleteArticle: 'articles/deleteArticle'
     }),
     async fetchUserArticles() {
       const userId = this.userId
@@ -161,6 +162,21 @@ export default {
           this.articles = response.getData()
         })
       await this.getUserArticles(handler)
+    },
+    doDelete(article) {
+      const handler = this.$apiHandler
+        .build()
+        .setData({ params: [article.id] })
+        .addOnResponse(() => {
+          this.$notify.success(
+            'Successfully delete article',
+            'Your article is deleted'
+          )
+
+          const index = this.articles.findIndex(a => a.id === article.id)
+          this.articles.splice(index, 1)
+        })
+      this.deleteArticle(handler)
     }
   }
 }

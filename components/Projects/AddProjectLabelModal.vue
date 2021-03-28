@@ -11,6 +11,7 @@
         :options="labelOptions">
         <template #first>
           <b-form-select-option :value="null" disabled>Please select a label</b-form-select-option>
+          <b-form-select-option :value="-1">Select All</b-form-select-option>
         </template>
       </b-select>
     </b-form-group>
@@ -85,10 +86,13 @@ export default {
   },
   watch: {
     labelId(val) {
-      if (val) {
-        const label = this.allLabels.find(l => l.id === val)
-        this.color = label.color
+      if (!val || val === -1) {
+        this.color = ''
+        return
       }
+
+      const label = this.allLabels.find(l => l.id === val)
+      this.color = label.color
     }
   },
   methods: {
@@ -100,11 +104,13 @@ export default {
       this.$emit('onClose')
     },
     submit() {
-      const label = this.allLabels.find(l => l.id === this.labelId)
-      label.color = this.color
+      let labels = []
+      if (this.labelId === -1) labels = this.allLabels
+      else labels = [this.allLabels.find(l => l.id === this.labelId)]
+
       this.labelId = null
       this.isOpen = false
-      this.$emit('onSubmit', label)
+      this.$emit('onSubmit', labels)
     }
   }
 }

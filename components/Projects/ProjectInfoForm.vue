@@ -100,7 +100,7 @@
     <add-project-role-modal @onSubmit="addNewRole" />
     <add-project-label-modal
       :project-type="type"
-      @onSubmit="addNewLabel" />
+      @onSubmit="addNewLabels" />
   </div>
 </template>
 
@@ -170,9 +170,10 @@ export default {
       const index = this.roles.findIndex(r => r.id === item.id)
       if (index >= 0) this.roles.splice(index, 1)
     },
-    addNewLabel(newLabel) {
-      const label = this.labels.find(l => l.id === newLabel.id)
-      if (!label) this.labels.push(newLabel)
+    addNewLabels(newLabels) {
+      this.labels.push(
+        ...newLabels.filter(l => this.labels.findIndex(_l => _l.id === l.id) < 0)
+      )
     },
     removeLabel(item) {
       const index = this.labels.findIndex(l => l.id === item.id)
