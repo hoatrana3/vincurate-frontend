@@ -34,7 +34,7 @@
               label="Upload type"
               label-for="type"
               label-class="form-label"
-              description="Please select upload type to choose files">
+              description="* Please select upload type to choose files">
               <b-select
                 v-model="uploadType"
                 id="type"

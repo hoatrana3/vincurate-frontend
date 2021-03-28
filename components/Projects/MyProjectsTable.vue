@@ -37,7 +37,7 @@
           <b-dd-item :to="`/projects/${data.item.id}/edit`">Edit</b-dd-item>
           <b-dd-item :to="`/projects/${data.item.id}/upload-articles`">Upload</b-dd-item>
           <b-dd-divider />
-          <b-dd-item variant="danger">Delete</b-dd-item>
+          <b-dd-item variant="danger" @click="() => doDelete(data.item)">Delete</b-dd-item>
         </b-dd>
       </template>
 
@@ -103,7 +103,7 @@ export default {
         tdClass: 'text-right'
       }, {
         key: 'articlesCount',
-        label: 'Articles Count',
+        label: 'Articles Count'
       }, {
         key: 'createdAt',
         label: 'Created At'
@@ -124,7 +124,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      getUserProjects: 'users/getUserProjects'
+      getUserProjects: 'users/getUserProjects',
+      deleteProject: 'projects/deleteProject'
     }),
     async fetchUserProjects() {
       const userId = this.userId
@@ -135,6 +136,21 @@ export default {
           this.projects = response.getData()
         })
       await this.getUserProjects(handler)
+    },
+    doDelete(project) {
+      const handler = this.$apiHandler
+        .build()
+        .setData({ params: [project.id] })
+        .addOnResponse(() => {
+          this.$notify.success(
+            'Successfully delete project',
+            'Your project is deleted'
+          )
+
+          const index = this.projects.findIndex(a => a.id === project.id)
+          this.projects.splice(index, 1)
+        })
+      this.deleteProject(handler)
     }
   }
 }

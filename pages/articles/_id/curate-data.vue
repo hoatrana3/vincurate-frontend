@@ -5,7 +5,7 @@
       :breadcrumb="breadcrumb" />
 
     <div class="page-section">
-      <page-separator title="Project concepts" />
+      <page-separator :title="currentArticle.project.type" />
       <article-edit-version-form
         ref="articleEditVersionForm"
         :article="currentArticle" />
@@ -57,7 +57,7 @@ export default {
   },
   data() {
     return {
-      title: 'Sequence Labeling',
+      title: 'Curate Article',
       info: null
     }
   },

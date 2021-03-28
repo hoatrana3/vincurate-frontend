@@ -41,7 +41,7 @@
           label-for="icon"
           label-class="form-label">
           <template #description>
-            (*) Find icon code
+            * Find icon code
             <b-link href="https://materialdesignicons.com/" target="_blank" class="text-underline font-weight-bold">here</b-link>.
             Example: <b>mdi mdi-home</b>
           </template>

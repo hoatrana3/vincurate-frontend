@@ -25,7 +25,7 @@
         v-if="!forNew"
         v-slot:description>
         <span class="text-danger font-weight-medium">
-          (*) Old annotations <u>might be wrong</u> after you change the article's content
+          * Old annotations <u>might be wrong</u> after you change the article's content
         </span>
       </template>
     </b-form-group>

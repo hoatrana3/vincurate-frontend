@@ -57,7 +57,7 @@
         Edit project
       </b-btn>
 
-      <div class="d-flex align-items-center mb-4">
+      <div class="d-flex align-items-center mb-2">
         <b-btn
           variant="primary"
           :to="`/projects/${currentProject.id}/upload-articles`"
@@ -73,6 +73,15 @@
           Create
         </b-btn>
       </div>
+
+      <b-btn
+        block
+        variant="accent"
+        class="mb-4"
+        @click="doDelete">
+        <md-icon v-text="'delete'" class="mr-2" />
+        Delete
+      </b-btn>
 
       <page-separator title="Owner" />
       <div class="card">
@@ -109,7 +118,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import ProjectRolesTable from '@/components/Projects/ProjectRolesTable'
 import ArticlesExplore from '@/components/Articles/ArticlesExplore'
 import ProjectLabelsTable from '@/components/Projects/ProjectLabelsTable'
@@ -125,6 +134,25 @@ export default {
         ...r.user,
         role: r.role
       }))
+    }
+  },
+  methods: {
+    ...mapActions({
+      deleteProject: 'projects/deleteProject'
+    }),
+    doDelete() {
+      const handler = this.$apiHandler
+        .build()
+        .setData({ params: [this.currentProject.id] })
+        .addOnResponse(() => {
+          this.$notify.success(
+            'Successfully delete project',
+            'Your project is deleted'
+          )
+
+          this.$router.push('/projects/my-projects')
+        })
+      this.deleteProject(handler)
     }
   }
 }

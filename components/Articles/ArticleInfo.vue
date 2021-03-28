@@ -57,7 +57,7 @@
         Curate
       </b-btn>
 
-      <div class="d-flex align-items-center mb-4">
+      <div class="d-flex align-items-center mb-2">
         <b-dropdown
           variant="info"
           class="flex mr-2">
@@ -75,6 +75,15 @@
           Guest view
         </b-btn>
       </div>
+
+      <b-btn
+        block
+        variant="accent"
+        class="mb-4"
+        @click="doDelete">
+        <md-icon v-text="'delete'" class="mr-2" />
+        Delete
+      </b-btn>
 
       <page-separator title="Uploaded by" />
       <div class="card">
@@ -120,7 +129,8 @@ export default {
   },
   methods: {
     ...mapActions({
-      exportArticle: 'articles/exportArticle'
+      exportArticle: 'articles/exportArticle',
+      deleteArticle: 'articles/deleteArticle'
     }),
     downloadArticle(method) {
       const handler = this.$apiHandler
@@ -128,6 +138,20 @@ export default {
         .setData({ params: [this.currentArticle.id], query: `method=${method}` })
 
       this.exportArticle(handler)
+    },
+    doDelete() {
+      const handler = this.$apiHandler
+        .build()
+        .setData({ params: [this.currentArticle.id] })
+        .addOnResponse(() => {
+          this.$notify.success(
+            'Successfully delete article',
+            'Your article is deleted'
+          )
+
+          this.$router.push('/articles/my-articles')
+        })
+      this.deleteArticle(handler)
     }
   }
 }
