@@ -26,8 +26,8 @@
         {{ data.item.annotations.length }}
       </template>
 
-      <template #cell(editVersionCount)='data'>
-        {{ data.item.editVersions.length }}
+      <template #cell(seqLabelVersionCount)='data'>
+        {{ data.item.seqLabelVersions.length }}
       </template>
 
       <template #cell(project)='{item: {project: {id, title}}}'>
@@ -122,8 +122,8 @@ export default {
         key: 'annotationsCount',
         label: 'Annotations Count'
       }, {
-        key: 'editVersionCount',
-        label: 'Edit Versions Count'
+        key: 'seqLabelVersionCount',
+        label: 'Labeling Versions Count'
       }, {
         key: 'project',
         label: 'Project'

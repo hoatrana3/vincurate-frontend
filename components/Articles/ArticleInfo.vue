@@ -35,9 +35,9 @@
         </b-form-group>
       </div>
 
-      <page-separator title="Edit versions" />
-      <article-edit-verions-table
-        :edit-versions="currentArticle.editVersions"
+      <page-separator title="Labeling versions" />
+      <article-seq-label-version-table
+        :seq-label-versions="currentArticle.seqLabelVersions"
         class="mb-32pt" />
     </div>
     <div class="col-md-4">
@@ -114,10 +114,10 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import ArticleEditVerionsTable from '@/components/Articles/ArticleEditVerionsTable'
+import ArticleSeqLabelVersionTable from '@/components/Articles/ArticleSeqLabelVersionTable'
 
 export default {
-  components: { ArticleEditVerionsTable },
+  components: { ArticleSeqLabelVersionTable },
   computed: {
     ...mapGetters({
       currentArticle: 'articles/getCurrentArticle'

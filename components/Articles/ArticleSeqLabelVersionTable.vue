@@ -55,8 +55,8 @@
             <md-icon class='icon-24pt'>more_vert</md-icon>
           </template>
 
-          <b-dd-item :to="`/edit-versions/${id}`">Review</b-dd-item>
-          <b-dd-item :to="`/edit-versions/${id}/edit`">Edit</b-dd-item>
+          <b-dd-item :to="`/seq-label-versions/${id}`">Review</b-dd-item>
+          <b-dd-item :to="`/seq-label-versions/${id}/edit`">Edit</b-dd-item>
         </b-dd>
       </template>
     </b-table>
@@ -64,13 +64,13 @@
     <div class="card-footer d-flex align-items-center">
       <custom-pager
         v-model="page"
-        :rows="editVersions.length"
+        :rows="seqLabelVersions.length"
         :per-page="per"
         class="m-0" />
       <div class="ml-auto">
-        Total Edit Versions
+        Total Labeling Versions
         <md-icon>remove</md-icon>
-        <strong>{{ editVersions.length }}</strong>
+        <strong>{{ seqLabelVersions.length }}</strong>
       </div>
     </div>
   </div>
@@ -94,7 +94,7 @@ export default {
     tableSortMixin
   ],
   props: {
-    editVersions: {
+    seqLabelVersions: {
       type: Array,
       default: () => []
     }
@@ -128,7 +128,7 @@ export default {
     },
     paginatedItems() {
       const start = (this.page - 1) * this.per
-      let items = this.editVersions.slice(start, start + this.per)
+      let items = this.seqLabelVersions.slice(start, start + this.per)
 
       return items || []
     }

@@ -6,8 +6,8 @@
 
     <div class="page-section">
       <page-separator :title="currentArticle.project.type" />
-      <article-edit-version-form
-        ref="articleEditVersionForm"
+      <article-seq-label-version-form
+        ref="articleSeqLabelVersionForm"
         :article="currentArticle" />
       <b-btn
         variant="primary"
@@ -32,11 +32,11 @@ import {
   PageSeparator
 } from 'vue-luma'
 import Page from '@/components/Page'
-import ArticleEditVersionForm from '@/components/Articles/ArticleEditVersionForm'
+import ArticleSeqLabelVersionForm from '@/components/Articles/ArticleSeqLabelVersionForm'
 
 export default {
   components: {
-    ArticleEditVersionForm,
+    ArticleSeqLabelVersionForm,
     PageHeader,
     PageSeparator
   },
@@ -67,7 +67,7 @@ export default {
     }),
     saveHandler() {
       const data = {
-        annotations: this.$refs.articleEditVersionForm.getEditedAnnotations()
+        annotations: this.$refs.articleSeqLabelVersionForm.getEditedAnnotations()
       }
 
       return this.$apiHandler
@@ -92,7 +92,7 @@ export default {
   methods: {
     ...mapActions({
       updateArticleAnnotations: 'articles/updateArticleAnnotations',
-      createArticleEditVersion: 'articles/createArticleEditVersion'
+      createArticleSeqLabelVersion: 'articles/createArticleSeqLabelVersion'
     }),
     ...mapMutations({
       setPickedFilters: 'articles/setPickedFilters'
@@ -101,7 +101,7 @@ export default {
       this.updateArticleAnnotations(this.saveHandler)
     },
     doSaveForReview() {
-      this.createArticleEditVersion(this.saveHandler)
+      this.createArticleSeqLabelVersion(this.saveHandler)
     }
   }
 }

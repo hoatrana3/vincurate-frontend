@@ -2,13 +2,13 @@ import ResponseWrapper from '@/api/ResponseWrapper'
 import CustomError from '@/api/CustomError'
 
 export const state = () => ({
-  currentEditVersion: null,
+  currentSeqLabelVersion: null,
   onlyShowDiff: true,
 })
 
 export const getters = {
-  getCurrentEditVersion(state) {
-    return state.currentEditVersion
+  getCurrentSeqLabelVersion(state) {
+    return state.currentSeqLabelVersion
   },
   getOnlyShowDiff(state) {
     return state.onlyShowDiff
@@ -16,8 +16,8 @@ export const getters = {
 }
 
 export const mutations = {
-  setCurrentEditVersion(state, val) {
-    state.currentEditVersion = val
+  setCurrentSeqLabelVersion(state, val) {
+    state.currentSeqLabelVersion = val
   },
   setOnlyShowDiff(state, val) {
     state.onlyShowDiff = val
@@ -25,20 +25,20 @@ export const mutations = {
 }
 
 export const actions = {
-  async fetchEditVersion({ commit, dispatch }, handler) {
+  async fetchSeqLabelVersion({ commit, dispatch }, handler) {
     const onRequest = async () => {
-      const rawData = await this.$editVersionsService.fetchEditVersion(
+      const rawData = await this.$seqLabelVersionsService.fetchSeqLabelVersion(
         handler.data
       )
       const response = new ResponseWrapper(rawData)
 
       if (response.isError()) {
         throw new CustomError(
-          'Failed to fetch article edit version details',
+          'Failed to fetch article labeling version details',
           response.getMessage()
         )
       } else {
-        commit('setCurrentEditVersion', response.getData())
+        commit('setCurrentSeqLabelVersion', response.getData())
       }
 
       return response
@@ -46,18 +46,18 @@ export const actions = {
 
     return await handler.setOnRequest(onRequest).execute()
   },
-  async updateEditVersion({ commit }, handler) {
+  async updateSeqLabelVersion({ commit }, handler) {
     const onRequest = async () => {
-      const rawData = await this.$editVersionsService.updateEditVersion(handler.data)
+      const rawData = await this.$seqLabelVersionsService.updateSeqLabelVersion(handler.data)
       const response = new ResponseWrapper(rawData)
 
       if (response.isError()) {
         throw new CustomError(
-          'Failed to update edit version info',
+          'Failed to update labeling version info',
           response.getMessage()
         )
       } else {
-        commit('setCurrentEditVersion', response.getData())
+        commit('setCurrentSeqLabelVersion', response.getData())
       }
 
       return response
@@ -65,20 +65,20 @@ export const actions = {
 
     return await handler.setOnRequest(onRequest).execute()
   },
-  async applyEditVersion({ commit }, handler) {
+  async applySeqLabelVersion({ commit }, handler) {
     const onRequest = async () => {
-      const rawData = await this.$editVersionsService.applyEditVersion(
+      const rawData = await this.$seqLabelVersionsService.applySeqLabelVersion(
         handler.data
       )
       const response = new ResponseWrapper(rawData)
 
       if (response.isError()) {
         throw new CustomError(
-          'Failed to apply review edit version',
+          'Failed to apply review labeling version',
           response.getMessage()
         )
       } else {
-        commit('setCurrentEditVersion', response.getData())
+        commit('setCurrentSeqLabelVersion', response.getData())
       }
 
       return response

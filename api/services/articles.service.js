@@ -1,10 +1,12 @@
 import {
   CREATE_ARTICLE,
-  CREATE_ARTICLE_EDIT_VERSION, DELETE_ARTICLE,
+  CREATE_ARTICLE_SEQ_LABEL_VERSION,
+  DELETE_ARTICLE,
   EXPORT_ARTICLE,
   GET_ARTICLE,
   GET_NEXT_OLDER_ARTICLE,
-  SEARCH_ARTICLES, UPDATE_ARTICLE, UPDATE_ARTICLE_ANNOTATIONS,
+  SEARCH_ARTICLES, UPDATE_ARTICLE,
+  UPDATE_ARTICLE_ANNOTATIONS,
   UPLOAD_ARTICLE
 } from '@/api/ApiUrls'
 
@@ -40,7 +42,7 @@ export default ($axios) => ({
   updateArticleAnnotations({ params, data }) {
     return $axios.patch(UPDATE_ARTICLE_ANNOTATIONS.get(params), data)
   },
-  createArticleEditVersion({ params, data }) {
-    return $axios.post(CREATE_ARTICLE_EDIT_VERSION.get(params), data)
+  createArticleSeqLabelVersion({ params, data }) {
+    return $axios.post(CREATE_ARTICLE_SEQ_LABEL_VERSION.get(params), data)
   },
 })

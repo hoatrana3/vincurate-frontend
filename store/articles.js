@@ -200,14 +200,14 @@ export const actions = {
 
     return await handler.setOnRequest(onRequest).execute()
   },
-  async createArticleEditVersion({ commit }, handler) {
+  async createArticleSeqLabelVersion({ commit }, handler) {
     const onRequest = async () => {
-      const rawData = await this.$articlesService.createArticleEditVersion(handler.data)
+      const rawData = await this.$articlesService.createArticleSeqLabelVersion(handler.data)
       const response = new ResponseWrapper(rawData)
 
       if (response.isError()) {
         throw new CustomError(
-          'Failed to create article edit version',
+          'Failed to create article labeling version',
           response.getMessage()
         )
       } else {

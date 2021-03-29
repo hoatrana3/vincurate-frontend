@@ -8,7 +8,9 @@
 
     <page-separator title="Basic information" />
 
-    <b-form @submit.prevent="doSave" class="col-sm-5 px-0 page-section pt-0">
+    <b-form
+      class="col-sm-5 px-0 page-section pt-0"
+      @submit.prevent="doSave">
       <b-form-group
         label="Full Name"
         label-for="full-name"

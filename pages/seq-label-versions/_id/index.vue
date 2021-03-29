@@ -11,7 +11,7 @@
         <div class="card stack stack--2">
           <article-content-edit-renderer
             ref="originArticleContent"
-            :article="currentEditVersion.article"
+            :article="currentSeqLabelVersion.article"
             :comp-article="editedArticle"
             force-active
             class="card-body" />
@@ -23,7 +23,7 @@
           <article-content-edit-renderer
             ref="editedArticleContent"
             :article="editedArticle"
-            :comp-article="currentEditVersion.article"
+            :comp-article="currentSeqLabelVersion.article"
             force-active
             class="card-body" />
         </div>
@@ -32,7 +32,7 @@
         <b-form-checkbox v-model="onlyShowDiff">
           Only highlight different texts
         </b-form-checkbox>
-        <div class="d-flex flex-wrap mt-2" v-if="currentEditVersion.status === 'Pending'">
+        <div class="d-flex flex-wrap mt-2" v-if="currentSeqLabelVersion.status === 'Pending'">
           <b-btn variant="success" class="mr-2" @click="doApprove">Approve</b-btn>
           <b-dropdown text="Merge" variant="warning" class="mr-2">
             <b-dropdown-item href="#" @click="() => doMerge(true)">Prefer origin</b-dropdown-item>
@@ -42,10 +42,10 @@
         </div>
         <div class="mt-3 text-center" v-else>
           <h2 class="font-weight-bold text-underline text-uppercase mb-0" :class="getTextColorByStatus()">
-            {{ currentEditVersion.status }}
+            {{ currentSeqLabelVersion.status }}
           </h2>
           <div class="text-black-70">
-            by <b-link to="#">{{ currentEditVersion.lastApprover.name }}</b-link>
+            by <b-link to="#">{{ currentSeqLabelVersion.lastApprover.name }}</b-link>
           </div>
         </div>
       </div>
@@ -59,7 +59,6 @@ import { mapGetters, mapActions, mapMutations } from 'vuex'
 import { PageHeader, PageSeparator } from 'vue-luma'
 import Page from '@/components/Page'
 import ArticleContentEditRenderer from '../../../components/Articles/ArticleContentEditRenderer'
-import edit from '@/pages/projects/_id/edit'
 
 export default {
   components: {
@@ -75,32 +74,32 @@ export default {
       .setData({ params: [params.id] })
       .addOnError((e) => {
         $notify.error(
-          'Article edit version not found',
-          'We can not find the article edit version you want'
+          'Article labeling version not found',
+          'We can not find the article labeling version you want'
         )
         redirect('/articles')
       })
-    await store.dispatch('editVersions/fetchEditVersion', handler)
+    await store.dispatch('seqLabelVersions/fetchSeqLabelVersion', handler)
   },
   data() {
     return {
-      title: 'Review Edit Version',
+      title: 'Review Labeling Version',
       info: null
     }
   },
   computed: {
     ...mapGetters({
-      currentEditVersion: 'editVersions/getCurrentEditVersion',
+      currentSeqLabelVersion: 'seqLabelVersions/getCurrentSeqLabelVersion',
       currentUser: 'users/getCurrentUser',
-      getOnlyShowDiff: 'editVersions/getOnlyShowDiff'
+      getOnlyShowDiff: 'seqLabelVersions/getOnlyShowDiff'
     }),
     editedArticle() {
       const {
         article: { content },
         user
-      } = this.currentEditVersion
+      } = this.currentSeqLabelVersion
       return {
-        ...this.currentEditVersion,
+        ...this.currentSeqLabelVersion,
         content,
         lastCurator: user
       }
@@ -115,27 +114,27 @@ export default {
     }
   },
   created() {
-    this.info = cloneDeep(this.currentEditVersion)
+    this.info = cloneDeep(this.currentSeqLabelVersion)
     this.setPickedFilters([])
   },
   methods: {
     ...mapMutations({
       setPickedFilters: 'articles/setPickedFilters',
-      setOnlyShowDiff: 'editVersions/setOnlyShowDiff'
+      setOnlyShowDiff: 'seqLabelVersions/setOnlyShowDiff'
     }),
     ...mapActions({
-      applyEditVersionInfo: 'editVersions/applyEditVersion'
+      applySeqLabelVersionInfo: 'seqLabelVersions/applySeqLabelVersion'
     }),
     doApprove() {
-      this.doApply(this.currentEditVersion.annotations, 'Approved')
+      this.doApply(this.currentSeqLabelVersion.annotations, 'Approved')
     },
     doDecline() {
-      this.doApply(this.currentEditVersion.annotations, 'Declined')
+      this.doApply(this.currentSeqLabelVersion.annotations, 'Declined')
     },
     doMerge(preferOrigin = true) {
       const editedDiffs = this.$refs.editedArticleContent.getDiffAnnos()
       const originDiffs = this.$refs.originArticleContent.getDiffAnnos()
-      const sourceDiffs = preferOrigin ? this.currentEditVersion.article.annotations : this.currentEditVersion.annotations
+      const sourceDiffs = preferOrigin ? this.currentSeqLabelVersion.article.annotations : this.currentSeqLabelVersion.annotations
       const filterDiffs = preferOrigin ? editedDiffs : originDiffs
       const mergeableDiffs = [
         ...sourceDiffs,
@@ -163,21 +162,21 @@ export default {
       const handler = this.$apiHandler
         .build()
         .setData({
-          params: [this.currentEditVersion.id],
+          params: [this.currentSeqLabelVersion.id],
           data
         })
         .addOnResponse((response) => {
           this.$notify.success(
-            'Applied review edit version',
-            'Your edit version is successfully applied review'
+            'Applied review labeling version',
+            'Your labeling version is successfully applied review'
           )
           this.$router.push(`/articles/${response.getData().article.id}/details`)
         })
 
-      this.applyEditVersionInfo(handler)
+      this.applySeqLabelVersionInfo(handler)
     },
     getTextColorByStatus() {
-      switch (this.currentEditVersion.status) {
+      switch (this.currentSeqLabelVersion.status) {
         case 'Declined':
           return 'text-danger'
         case 'Approved':
