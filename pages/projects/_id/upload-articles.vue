@@ -28,7 +28,7 @@
               description="* The curated data given in the file">
               <v-select
                 id="curated-type"
-                v-model="dataType"
+                v-model="dataTypes"
                 multiple
                 placeholder="Select data type"
                 :options="['Sequence Labeling', 'Document Category', 'Sequence Translation']"
@@ -44,7 +44,7 @@
               <v-select
                 id="upload-type"
                 v-model="uploadType"
-                placeholder="Select data type"
+                placeholder="Select upload type"
                 :options="uploadTypes"
                 :reduce="item => item.value"
                 :clearable="false"
@@ -221,7 +221,7 @@ export default {
       progressFiles: [],
       successFiles: [],
       failureFiles: [],
-      dataType: null,
+      dataTypes: [],
       uploadType: null,
       isUploading: false,
       progressCount: 0,
@@ -233,24 +233,27 @@ export default {
       currentProject: 'projects/getCurrentProject'
     }),
     uploadTypes() {
-      switch (this.dataType) {
-        case 'Sequence Labeling':
-          return [{
-            label: 'Use NER format',
-            value: 'SL_NER'
-          }, {
-            label: 'Use JSONL format',
-            value: 'SL_JSONL'
-          }, {
-            label: 'Use ConLL format',
-            value: 'SL_CONLL'
-          }, {
-            label: 'Use Plain text format',
-            value: 'SL_PLAIN'
-          }]
-        default:
-          return []
+      if (!this.dataTypes || !this.dataTypes.length) return []
+
+      const types = [{
+        label: 'Use NER format',
+        value: 'SL_NER'
+      }, {
+        label: 'Use JSONL format',
+        value: 'SL_JSONL'
+      }, {
+        label: 'Use ConLL format',
+        value: 'SL_CONLL'
+      }, {
+        label: 'Use Plain text format',
+        value: 'SL_PLAIN'
+      }]
+
+      if (this.dataTypes.includes('Sequence Labeling')) {
+
       }
+
+      return types
     },
     fileAccept() {
       switch (this.uploadType) {
