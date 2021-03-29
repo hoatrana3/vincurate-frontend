@@ -53,23 +53,6 @@
       </div>
       <div class="col-md-6">
         <b-form-group
-          label="Type"
-          label-for="type"
-          label-class="form-label">
-          <b-select
-            v-model="info.type"
-            id="type"
-            placeholder="Select label"
-            :options="['Concept', 'Category']"
-            :disabled="!forNew">
-            <template #first>
-              <b-form-select-option :value="null" disabled>Please select type of label</b-form-select-option>
-            </template>
-          </b-select>
-        </b-form-group>
-      </div>
-      <div class="col-md-6">
-        <b-form-group
           label="Color"
           label-for="color"
           label-class="form-label">
@@ -108,8 +91,7 @@ export default {
         name: '',
         shortcut: '',
         icon: '',
-        color: '',
-        type: null
+        color: ''
       }
     }
   },

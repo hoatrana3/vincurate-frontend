@@ -15,7 +15,9 @@
       </template>
 
       <template #cell(preview)="data">
-        <span :class="$helpers.getLabelPreviewClass(data.item)">Example {{ data.item.type }}</span>
+        <span :class="`has-concept concept-${data.item.value} is-active`">
+          Example Label
+        </span>
       </template>
 
       <template #cell(actions)="data">
@@ -90,9 +92,6 @@ export default {
       }, {
         key: 'value',
         label: 'Code'
-      }, {
-        key: 'type',
-        label: 'Type'
       }, {
         key: 'color',
         label: 'Color'

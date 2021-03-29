@@ -11,14 +11,6 @@
       </b-form-group>
       <div class="d-flex justify-content-between align-item-center flex-wrap mb-32pt">
         <b-form-group
-          label="Type"
-          class="mr-3"
-          label-class="form-label">
-          <span class="text-black-70">
-            {{ currentProject.type }}
-          </span>
-        </b-form-group>
-        <b-form-group
           label="Created at"
           class="mr-3"
           label-class="form-label">

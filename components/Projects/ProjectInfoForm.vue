@@ -13,22 +13,6 @@
           placeholder="Enter project title"
           size="lg" />
       </b-form-group>
-      <b-form-group
-        label="Type"
-        label-for="type"
-        class="mb-32pt"
-        label-class="form-label">
-        <b-select
-          v-model="type"
-          :disabled="!forNew"
-          id="type"
-          placeholder="Select project type"
-          :options="['Sequence to Sequence', 'Sequence Labeling', 'Document Classification']">
-          <template #first>
-            <b-form-select-option :value="null" disabled>Please select a project type</b-form-select-option>
-          </template>
-        </b-select>
-      </b-form-group>
 
       <page-separator title="Roles" />
       <project-roles-table
@@ -44,11 +28,8 @@
         </template>
       </project-roles-table>
 
-      <page-separator
-        v-if="type !== 'Sequence to Sequence'"
-        title="Labels" />
+      <page-separator title="Labels" />
       <project-labels-table
-        v-if="type !== 'Sequence to Sequence'"
         :labels="labels"
         class="mb-32pt"
         @removeLabel="removeLabel">
@@ -98,9 +79,7 @@
     </div>
 
     <add-project-role-modal @onSubmit="addNewRole" />
-    <add-project-label-modal
-      :project-type="type"
-      @onSubmit="addNewLabels" />
+    <add-project-label-modal @onSubmit="addNewLabels" />
   </div>
 </template>
 
@@ -122,7 +101,6 @@ export default {
   data() {
     return {
       projectTitle: '',
-      type: 'Sequence Labeling',
       roles: [],
       labels: []
     }
@@ -146,15 +124,11 @@ export default {
       handler(val) {
         if (!this.forNew) {
           this.projectTitle = val.title
-          this.type = val.type
           this.roles = this.currentProjectRoles
           this.labels = this.currentProject.labels
         }
       }
     },
-    type() {
-      this.labels = []
-    }
   },
   methods: {
     ...mapMutations({
@@ -182,7 +156,6 @@ export default {
     saveProject() {
       const data = {
         title: this.projectTitle,
-        type: this.type,
         owner: this.currentUser.id,
         roles: this.roles.map(r => ({
           user: r.id,

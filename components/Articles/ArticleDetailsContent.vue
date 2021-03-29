@@ -81,33 +81,6 @@ export default {
 
       this.exportArticle(handler)
     },
-    doOnUnitConceptRemoved(oldCu, newCu, index) {
-      this.groupNoneConceptUnits(newCu, index)
-      this.$emit('onArticleContentEdited', this.article)
-    },
-    groupNoneConceptUnits(newCu, index) {
-      const unitBef = this.article.combinedUnits[index - 1]
-      const unitAft = this.article.combinedUnits[index + 1]
-      let unitsToGroup = []
-      let indexToInsert = index
-      let countToRemove = 1
-
-      if (unitBef && unitBef.type === 'O') {
-        unitsToGroup.push(unitBef)
-        indexToInsert = index - 1
-        countToRemove++
-      }
-
-      unitsToGroup.push(newCu)
-
-      if (unitAft && unitAft.type === 'O') {
-        unitsToGroup.push(unitAft)
-        countToRemove++
-      }
-
-      const groupedUnit = this.$helpers.groupCombinedUnits(unitsToGroup)
-      this.article.combinedUnits.splice(indexToInsert, countToRemove, groupedUnit)
-    }
   }
 }
 </script>

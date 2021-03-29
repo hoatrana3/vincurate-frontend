@@ -5,7 +5,7 @@
       :breadcrumb="breadcrumb" />
 
     <div class="page-section">
-      <page-separator :title="currentArticle.project.type" />
+      <page-separator title="Sequence Labeling" />
       <article-seq-label-version-form
         ref="articleSeqLabelVersionForm"
         :article="currentArticle" />
