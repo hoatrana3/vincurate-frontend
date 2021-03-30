@@ -5,7 +5,7 @@
       :breadcrumb="breadcrumb" />
 
     <div class="page-section">
-      <page-separator title="Sequence Labeling" />
+      <page-separator title="Curate new data" />
       <article-seq-label-version-form
         ref="articleSeqLabelVersionForm"
         :article="currentArticle" />
@@ -57,7 +57,7 @@ export default {
   },
   data() {
     return {
-      title: 'Curate Article',
+      title: 'Labeling Article',
       info: null
     }
   },

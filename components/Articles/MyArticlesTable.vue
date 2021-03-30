@@ -51,7 +51,7 @@
 
           <b-dd-item :to='`/articles/${data.item.id}/details`'>Details</b-dd-item>
           <b-dd-item :to='`/articles/${data.item.id}/edit-basic`'>Edit</b-dd-item>
-          <b-dd-item :to='`/articles/${data.item.id}/curate-data`'>Curate</b-dd-item>
+          <b-dd-item :to='`/articles/${data.item.id}/labeling`'>Labeling</b-dd-item>
           <b-dd-item :to='`/articles/${data.item.id}`'>Guest view</b-dd-item>
           <b-dd-divider />
           <b-dd-item variant='danger' @click="() => doDelete(data.item)">Delete</b-dd-item>

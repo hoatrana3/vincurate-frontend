@@ -57,10 +57,10 @@
       <b-btn
         block
         variant="primary"
-        :to="`/articles/${currentArticle.id}/curate-data`"
+        :to="`/articles/${currentArticle.id}/labeling`"
         class="mb-2">
         <md-icon v-text="'ballot'" class="mr-2" />
-        Curate
+        Labeling
       </b-btn>
 
       <div class="d-flex align-items-center mb-2">
