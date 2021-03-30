@@ -26,8 +26,8 @@
         {{ data.item.annotations.length }}
       </template>
 
-      <template #cell(editVersionCount)='data'>
-        {{ data.item.editVersions.length }}
+      <template #cell(seqLabelVersionCount)='data'>
+        {{ data.item.seqLabelVersions.length }}
       </template>
 
       <template #cell(project)='{item: {project: {id, title}}}'>
@@ -51,7 +51,7 @@
 
           <b-dd-item :to='`/articles/${data.item.id}/details`'>Details</b-dd-item>
           <b-dd-item :to='`/articles/${data.item.id}/edit-basic`'>Edit</b-dd-item>
-          <b-dd-item :to='`/articles/${data.item.id}/curate-data`'>Curate</b-dd-item>
+          <b-dd-item :to='`/articles/${data.item.id}/labeling`'>Labeling</b-dd-item>
           <b-dd-item :to='`/articles/${data.item.id}`'>Guest view</b-dd-item>
           <b-dd-divider />
           <b-dd-item variant='danger' @click="() => doDelete(data.item)">Delete</b-dd-item>
@@ -122,8 +122,8 @@ export default {
         key: 'annotationsCount',
         label: 'Annotations Count'
       }, {
-        key: 'editVersionCount',
-        label: 'Edit Versions Count'
+        key: 'seqLabelVersionCount',
+        label: 'Labeling Versions Count'
       }, {
         key: 'project',
         label: 'Project'

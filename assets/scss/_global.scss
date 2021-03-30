@@ -39,7 +39,7 @@
   }
 
   &.is-disabled {
-    background-color: rgba($dark,.2);
+    background-color: rgba($dark, .2);
   }
 
   &.is-editable {
@@ -70,4 +70,31 @@
   left: 0;
   bottom: 0;
   right: 0;
+}
+
+.custom-v-select {
+  .vs__dropdown-toggle {
+    @extend .custom-select;
+
+    display: flex;
+    padding: 0.5rem 0.75rem;
+    height: auto;
+    min-height: calc(1.5em + 1rem + 2px);
+
+    .vs__search {
+      margin: 0;
+    }
+
+    .vs__selected-options {
+      gap: 4px 4px;
+
+      .vs__selected {
+        margin: 0;
+      }
+    }
+  }
+
+  .vs__dropdown-option.vs__dropdown-option--highlight {
+    background: $primary;
+  }
 }

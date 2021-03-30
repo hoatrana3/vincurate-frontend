@@ -84,6 +84,7 @@ module.exports = {
     { src: '~/plugins/utils', mode: 'client' },
     { src: '~/plugins/vuesax', mode: 'client' },
     { src: '~/plugins/init-data', mode: 'client' },
+    '~/plugins/vue-select',
 
     // Settings client middleware (handles dynamic layout route settings client side)
     '~/plugins/settings.client'

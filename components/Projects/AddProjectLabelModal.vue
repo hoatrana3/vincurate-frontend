@@ -4,16 +4,14 @@
       label="Label"
       label-for="label"
       label-class="form-label">
-      <b-select
-        v-model="labelId"
+      <v-select
         id="label"
+        v-model="labelId"
         placeholder="Select label"
-        :options="labelOptions">
-        <template #first>
-          <b-form-select-option :value="null" disabled>Please select a label</b-form-select-option>
-          <b-form-select-option :value="-1">Select All</b-form-select-option>
-        </template>
-      </b-select>
+        :options="labelOptions"
+        :reduce="item => item.value"
+        :clearable="false"
+        class="custom-v-select" />
     </b-form-group>
     <b-form-group
       label="Color"
@@ -42,10 +40,6 @@ import { mapGetters, mapMutations } from 'vuex'
 
 export default {
   props: {
-    projectType: {
-      type: String,
-      required: true
-    },
     onClose: {
       type: Function,
       default: () => {
@@ -68,14 +62,16 @@ export default {
       isOpenProjectLabelModal: 'projects/isOpenProjectLabelModal',
       allLabels: 'labels/getAllLabels'
     }),
-    filteredLabels() {
-      return this.allLabels.filter(l => l.type === (this.projectType === 'Sequence Labeling' ? 'Concept' : 'Category'))
-    },
     labelOptions() {
-      return this.filteredLabels.map(label => ({
-        text: `${label.name} | ${label.value}`,
+      const options = this.allLabels.map(label => ({
+        label: `${label.name} | ${label.value}`,
         value: label.id
-      })).sort((o1, o2) => o1.text.localeCompare(o2.text))
+      })).sort((o1, o2) => o1.label.localeCompare(o2.label))
+
+      return [
+        { label: 'Select All', value: -1 },
+        ...options
+      ]
     },
     isOpen: {
       get() {
@@ -93,7 +89,7 @@ export default {
         return
       }
 
-      const label = this.filteredLabels.find(l => l.id === val)
+      const label = this.allLabels.find(l => l.id === val)
       this.color = label.color
     }
   },
@@ -107,8 +103,8 @@ export default {
     },
     submit() {
       let labels = []
-      if (this.labelId === -1) labels = this.filteredLabels
-      else labels = [this.filteredLabels.find(l => l.id === this.labelId)]
+      if (this.labelId === -1) labels = this.allLabels
+      else labels = [this.allLabels.find(l => l.id === this.labelId)]
 
       this.labelId = null
       this.isOpen = false

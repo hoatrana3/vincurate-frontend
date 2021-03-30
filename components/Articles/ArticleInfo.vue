@@ -9,35 +9,41 @@
           {{ articleTitle }}
         </h2>
       </b-form-group>
-      <div class="d-flex justify-content-between align-item-center flex-wrap mb-32pt">
-        <b-form-group
-          label="Project"
-          class="mr-3"
-          label-class="form-label">
-          <span class="text-black-70">
-            <b-link :to="`/projects/${currentArticle.project.id}`">{{ currentArticle.project.title }}</b-link>
-          </span>
-        </b-form-group>
-        <b-form-group
-          label="Created at"
-          class="mr-3"
-          label-class="form-label">
-          <span class="text-black-70">
-            {{ $helpers.formatTimeAgo(currentArticle.createdAt) }}
-          </span>
-        </b-form-group>
-        <b-form-group
-          label="Last updated"
-          label-class="form-label">
-          <span class="text-black-70">
-            {{ $helpers.formatTimeAgo(currentArticle.updatedAt) }}
-          </span>
-        </b-form-group>
+      <div class="row mb-32pt">
+        <div class="col-md-4">
+          <b-form-group
+            label="Project"
+            class="mr-3"
+            label-class="form-label">
+            <span class="text-black-70">
+              <b-link :to="`/projects/${currentArticle.project.id}`">{{ currentArticle.project.title }}</b-link>
+            </span>
+          </b-form-group>
+        </div>
+        <div class="col-md-4">
+          <b-form-group
+            label="Created at"
+            class="mr-3"
+            label-class="form-label">
+            <span class="text-black-70">
+              {{ $helpers.formatTimeAgo(currentArticle.createdAt) }}
+            </span>
+          </b-form-group>
+        </div>
+        <div class="col-md-4">
+          <b-form-group
+            label="Last updated"
+            label-class="form-label">
+            <span class="text-black-70">
+              {{ $helpers.formatTimeAgo(currentArticle.updatedAt) }}
+            </span>
+          </b-form-group>
+        </div>
       </div>
 
-      <page-separator title="Edit versions" />
-      <article-edit-verions-table
-        :edit-versions="currentArticle.editVersions"
+      <page-separator title="Labeling versions" />
+      <article-seq-label-version-table
+        :seq-label-versions="currentArticle.seqLabelVersions"
         class="mb-32pt" />
     </div>
     <div class="col-md-4">
@@ -51,10 +57,10 @@
       <b-btn
         block
         variant="primary"
-        :to="`/articles/${currentArticle.id}/curate-data`"
+        :to="`/articles/${currentArticle.id}/labeling`"
         class="mb-2">
         <md-icon v-text="'ballot'" class="mr-2" />
-        Curate
+        Labeling
       </b-btn>
 
       <div class="d-flex align-items-center mb-2">
@@ -114,10 +120,10 @@
 
 <script>
 import { mapActions, mapGetters } from 'vuex'
-import ArticleEditVerionsTable from '@/components/Articles/ArticleEditVerionsTable'
+import ArticleSeqLabelVersionTable from '@/components/Articles/ArticleSeqLabelVersionTable'
 
 export default {
-  components: { ArticleEditVerionsTable },
+  components: { ArticleSeqLabelVersionTable },
   computed: {
     ...mapGetters({
       currentArticle: 'articles/getCurrentArticle'

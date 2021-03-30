@@ -20,14 +20,6 @@ export default ($context) => ({
       )
     })
   },
-  getLabelPreviewClass(label) {
-    switch (label.type) {
-      case 'Concept':
-        return `has-concept concept-${label.value} is-active`;
-      default:
-        return `has-category category-${label.value}`
-    }
-  },
   setGlobalCssClasses(labels) {
     labels.forEach(({ value, color }) => {
       const bgColor = hexRgb(color, { format: 'array' });

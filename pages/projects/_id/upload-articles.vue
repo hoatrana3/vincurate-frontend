@@ -21,29 +21,34 @@
           </div>
           <div class="col-md-4">
             <b-form-group
-              label="Project type"
+              label="Curated type"
+              label-for="curated-type"
               class="mb-32pt"
-              label-class="form-label">
-              <b-form-input
-                :value="currentProject.type"
-                disabled />
+              label-class="form-label"
+              description="* The curated data given in the file">
+              <v-select
+                id="curated-type"
+                v-model="dataTypes"
+                multiple
+                placeholder="Select data type"
+                :options="['Sequence Labeling', 'Document Category', 'Sequence Translation']"
+                class="custom-v-select" />
             </b-form-group>
           </div>
           <div class="col-md-4">
             <b-form-group
               label="Upload type"
-              label-for="type"
+              label-for="upload-type"
               label-class="form-label"
               description="* Please select upload type to choose files">
-              <b-select
+              <v-select
+                id="upload-type"
                 v-model="uploadType"
-                id="type"
                 placeholder="Select upload type"
-                :options="uploadTypes">
-                <template #first>
-                  <b-form-select-option :value="null" disabled>Please select an upload type</b-form-select-option>
-                </template>
-              </b-select>
+                :options="uploadTypes"
+                :reduce="item => item.value"
+                :clearable="false"
+                class="custom-v-select" />
             </b-form-group>
           </div>
         </div>
@@ -216,6 +221,7 @@ export default {
       progressFiles: [],
       successFiles: [],
       failureFiles: [],
+      dataTypes: [],
       uploadType: null,
       isUploading: false,
       progressCount: 0,
@@ -227,23 +233,27 @@ export default {
       currentProject: 'projects/getCurrentProject'
     }),
     uploadTypes() {
-      switch (this.currentProject.type) {
-        case 'Sequence Labeling':
-          return [{
-            text: 'Use NER format',
-            value: 'SL_NER'
-          }, {
-            text: 'Use JSONL format',
-            value: 'SL_JSONL'
-          }, {
-            text: 'Use ConLL format',
-            value: 'SL_CONLL'
-          }, {
-            text: 'Use Plain text format',
-            value: 'SL_PLAIN'
-          }]
+      if (!this.dataTypes || !this.dataTypes.length) return []
+
+      const types = [{
+        label: 'Use NER format',
+        value: 'SL_NER'
+      }, {
+        label: 'Use JSONL format',
+        value: 'SL_JSONL'
+      }, {
+        label: 'Use ConLL format',
+        value: 'SL_CONLL'
+      }, {
+        label: 'Use Plain text format',
+        value: 'SL_PLAIN'
+      }]
+
+      if (this.dataTypes.includes('Sequence Labeling')) {
+
       }
-      return []
+
+      return types
     },
     fileAccept() {
       switch (this.uploadType) {
@@ -291,7 +301,7 @@ export default {
       )
       this.isUploading = false
     },
-    async * uploadAsyncGenerator(files) {
+    async* uploadAsyncGenerator(files) {
       const step = 5
       let index = 0
 

@@ -4,30 +4,27 @@
       label="User"
       label-for="user"
       label-class="form-label">
-      <b-select
-        v-model="userId"
+      <v-select
         id="user"
+        v-model="userId"
         placeholder="Select user"
-        :options="userOptions">
-        <template #first>
-          <b-form-select-option :value="null" disabled>Please select an user</b-form-select-option>
-        </template>
-      </b-select>
+        :options="userOptions"
+        :reduce="item => item.value"
+        :clearable="false"
+        class="custom-v-select" />
     </b-form-group>
     <b-form-group
       label="Role"
       label-for="role"
       class="mb-32pt"
       label-class="form-label">
-      <b-select
-        v-model="role"
+      <v-select
         id="role"
+        v-model="role"
         placeholder="Select role"
-        :options="roleOptions">
-        <template #first>
-          <b-form-select-option :value="null" disabled>Please select a role</b-form-select-option>
-        </template>
-      </b-select>
+        :options="roleOptions"
+        :clearable="false"
+        class="custom-v-select" />
     </b-form-group>
     <div class="d-flex justify-content-end">
       <b-button class="mr-3" variant="outline-danger" @click="hideModal">Close</b-button>
@@ -65,9 +62,9 @@ export default {
     }),
     userOptions() {
       return this.allUsers.map(user => ({
-        text: user.name,
+        label: user.name,
         value: user.id
-      })).sort((o1, o2) => o1.text.localeCompare(o2.text))
+      })).sort((o1, o2) => o1.label.localeCompare(o2.label))
     },
     roleOptions() {
       return ['Annotator', 'Approver', 'Project Admin']

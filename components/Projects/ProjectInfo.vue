@@ -9,30 +9,26 @@
           {{ currentProject.title }}
         </h2>
       </b-form-group>
-      <div class="d-flex justify-content-between align-item-center flex-wrap mb-32pt">
-        <b-form-group
-          label="Type"
-          class="mr-3"
-          label-class="form-label">
-          <span class="text-black-70">
-            {{ currentProject.type }}
-          </span>
-        </b-form-group>
-        <b-form-group
-          label="Created at"
-          class="mr-3"
-          label-class="form-label">
-          <span class="text-black-70">
-            {{ $helpers.formatTimeAgo(currentProject.createdAt) }}
-          </span>
-        </b-form-group>
-        <b-form-group
-          label="Last updated"
-          label-class="form-label">
-          <span class="text-black-70">
-            {{ $helpers.formatTimeAgo(currentProject.updatedAt) }}
-          </span>
-        </b-form-group>
+      <div class="row mb-32pt">
+        <div class="col-md-6">
+          <b-form-group
+            label="Created at"
+            class="mr-5"
+            label-class="form-label">
+            <span class="text-black-70">
+              {{ $helpers.formatTimeAgo(currentProject.createdAt) }}
+            </span>
+          </b-form-group>
+        </div>
+        <div class="col-md-6">
+          <b-form-group
+            label="Last updated"
+            label-class="form-label">
+            <span class="text-black-70">
+              {{ $helpers.formatTimeAgo(currentProject.updatedAt) }}
+            </span>
+          </b-form-group>
+        </div>
       </div>
 
       <page-separator title="Roles" />

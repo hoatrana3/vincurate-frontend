@@ -46,7 +46,7 @@ export default {
   },
   computed: {
     ...mapGetters({
-      onlyShowDiff: 'editVersions/getOnlyShowDiff'
+      onlyShowDiff: 'seqLabelVersions/getOnlyShowDiff'
     }),
     diffAnnotations() {
       return this.annotations.filter(anno => {

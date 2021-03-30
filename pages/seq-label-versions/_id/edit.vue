@@ -6,14 +6,14 @@
 
     <div class="page-section">
       <page-separator title="Project concepts" />
-      <article-edit-version-form
-        ref="articleEditVersionForm"
+      <article-seq-label-version-form
+        ref="articleSeqLabelVersionForm"
         :article="editedArticle" />
       <b-btn
         variant="primary"
         class="mr-2"
         @click="doSave">
-        Save edit version
+        Save labeling version
       </b-btn>
     </div>
   </div>
@@ -27,11 +27,11 @@ import {
   PageSeparator
 } from 'vue-luma'
 import Page from '@/components/Page'
-import ArticleEditVersionForm from '@/components/Articles/ArticleEditVersionForm'
+import ArticleSeqLabelVersionForm from '@/components/Articles/ArticleSeqLabelVersionForm'
 
 export default {
   components: {
-    ArticleEditVersionForm,
+    ArticleSeqLabelVersionForm,
     PageHeader,
     PageSeparator
   },
@@ -43,17 +43,17 @@ export default {
       .setData({ params: [params.id] })
       .addOnError((e) => {
         $notify.error(
-          'Article edit version not found',
-          'We can not find the article edit version you want'
+          'Article labeling version not found',
+          'We can not find the article labeling version you want'
         )
         redirect('/articles')
       })
-    await store.dispatch('editVersions/fetchEditVersion', handler)
+    await store.dispatch('seqLabelVersions/fetchSeqLabelVersion', handler)
 
-    const currentEditVersion = store.getters['editVersions/getCurrentEditVersion']
+    const currentSeqLabelVersion = store.getters['seqLabelVersions/getCurrentSeqLabelVersion']
     const handlerArticle = $apiHandler
       .build()
-      .setData({ params: [currentEditVersion.article.id] })
+      .setData({ params: [currentSeqLabelVersion.article.id] })
       .addOnError((e) => {
         $notify.error(
           'Article not found',
@@ -65,19 +65,19 @@ export default {
   },
   data() {
     return {
-      title: 'Update Edit Version',
+      title: 'Update Labeling Version',
       info: null
     }
   },
   computed: {
     ...mapGetters({
       currentArticle: 'articles/getCurrentArticle',
-      currentEditVersion: 'editVersions/getCurrentEditVersion'
+      currentSeqLabelVersion: 'seqLabelVersions/getCurrentSeqLabelVersion'
     }),
     editedArticle() {
       return {
         ...this.currentArticle,
-        annotations: this.currentEditVersion.annotations
+        annotations: this.currentSeqLabelVersion.annotations
       }
     }
   },
@@ -87,34 +87,34 @@ export default {
   },
   methods: {
     ...mapActions({
-      updateEditVersion: 'editVersions/updateEditVersion'
+      updateSeqLabelVersion: 'seqLabelVersions/updateSeqLabelVersion'
     }),
     ...mapMutations({
       setPickedFilters: 'articles/setPickedFilters'
     }),
     doSave() {
       const data = {
-        annotations: this.$refs.articleEditVersionForm.getEditedAnnotations()
+        annotations: this.$refs.articleSeqLabelVersionForm.getEditedAnnotations()
       }
 
       const handler = this.$apiHandler
         .build()
         .setData({
-          params: [this.currentEditVersion.id],
+          params: [this.currentSeqLabelVersion.id],
           data
         })
         .addOnResponse((response) => {
           this.$notify.success(
-            'Updated edit version',
-            'Your edit version is successfully updated'
+            'Updated labeling version',
+            'Your labeling version is successfully updated'
           )
           this.$router.push(`/articles/${response.getData().article.id}/details`)
         })
 
-      this.updateEditVersion(handler)
+      this.updateSeqLabelVersion(handler)
     },
     doSaveForReview() {
-      this.createArticleEditVersion(this.saveHandler)
+      this.createArticleSeqLabelVersion(this.saveHandler)
     }
   }
 }
