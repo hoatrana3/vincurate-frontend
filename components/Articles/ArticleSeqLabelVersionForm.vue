@@ -35,7 +35,6 @@ import { mapGetters } from 'vuex'
 import ArticleContentRenderer from '@/components/Articles/ArticleContentRenderer'
 
 export default {
-  name: 'ArticleSeqLabelVersionForm',
   components: { ArticleContentRenderer },
   props: {
     article: {

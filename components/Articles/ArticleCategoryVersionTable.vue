@@ -40,23 +40,23 @@
         <b-link to="#">{{ data.item.user.name }}</b-link>
       </template>
 
-      <template #cell(annotationsCount)="data">
-        {{ data.item.annotations.length }}
+      <template #cell(categoriesCount)="data">
+        {{ data.item.categories.length }}
       </template>
 
       <template #cell(actions)="{item: {id}}">
         <b-dd
-          variant='flush'
-          toggle-class='text-muted'
+          variant="flush"
+          toggle-class="text-muted"
           no-caret
           right>
 
           <template v-slot:button-content>
-            <md-icon class='icon-24pt'>more_vert</md-icon>
+            <md-icon class="icon-24pt">more_vert</md-icon>
           </template>
 
-          <b-dd-item :to="`/seq-label-versions/${id}`">Review</b-dd-item>
-          <b-dd-item :to="`/seq-label-versions/${id}/edit`">Edit</b-dd-item>
+          <b-dd-item :to="`/category-versions/${id}`">Review</b-dd-item>
+          <b-dd-item :to="`/category-versions/${id}/edit`">Edit</b-dd-item>
         </b-dd>
       </template>
     </b-table>
@@ -64,13 +64,13 @@
     <div class="card-footer d-flex align-items-center">
       <custom-pager
         v-model="page"
-        :rows="seqLabelVersions.length"
+        :rows="categoryVersions.length"
         :per-page="per"
         class="m-0" />
       <div class="ml-auto">
-        Total Labeling Versions
+        Total Category Versions
         <md-icon>remove</md-icon>
-        <strong>{{ seqLabelVersions.length }}</strong>
+        <strong>{{ categoryVersions.length }}</strong>
       </div>
     </div>
   </div>
@@ -94,7 +94,7 @@ export default {
     tableSortMixin
   ],
   props: {
-    seqLabelVersions: {
+    categoryVersions: {
       type: Array,
       default: () => []
     }
@@ -114,8 +114,8 @@ export default {
         key: 'user',
         label: 'User'
       }, {
-        key: 'annotationsCount',
-        label: 'Annotations Count'
+        key: 'categoriesCount',
+        label: 'Category Count'
       }, {
         key: 'status',
         label: 'Status'
@@ -128,7 +128,7 @@ export default {
     },
     paginatedItems() {
       const start = (this.page - 1) * this.per
-      let items = this.seqLabelVersions.slice(start, start + this.per)
+      let items = this.categoryVersions.slice(start, start + this.per)
 
       return items || []
     }

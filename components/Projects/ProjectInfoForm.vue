@@ -27,20 +27,6 @@
             v-text="'Add role'" />
         </template>
       </project-roles-table>
-
-      <page-separator title="Labels" />
-      <project-labels-table
-        :labels="labels"
-        class="mb-32pt"
-        @removeLabel="removeLabel">
-        <template v-slot:table-left-header>
-          <b-btn
-            exact
-            variant="accent"
-            @click="() => setOpenAddProjectLabelModal(true)"
-            v-text="'Add label'" />
-        </template>
-      </project-labels-table>
     </div>
     <div class="col-md-4">
       <b-btn
@@ -78,8 +64,43 @@
       </div>
     </div>
 
+    <div class="col-12 row">
+      <div class="col-md-6">
+        <page-separator title="Labels" />
+        <project-labels-table
+          :labels="labels"
+          class="mb-32pt"
+          @removeLabel="removeLabel">
+          <template v-slot:table-left-header>
+            <b-btn
+              exact
+              variant="accent"
+              @click="() => setOpenAddProjectLabelModal(true)"
+              v-text="'Add label'" />
+          </template>
+        </project-labels-table>
+      </div>
+      <div class="col-md-6">
+        <page-separator title="Categories" />
+        <project-categories-table
+          :categories="categories"
+          class="mb-32pt"
+          @removeCategory="removeCategory">
+          <template v-slot:table-left-header>
+            <b-btn
+              exact
+              variant="accent"
+              @click="() => setOpenAddProjectCategoryModal(true)"
+              v-text="'Add Category'" />
+          </template>
+        </project-categories-table>
+      </div>
+    </div>
+
+
     <add-project-role-modal @onSubmit="addNewRole" />
     <add-project-label-modal @onSubmit="addNewLabels" />
+    <add-project-category-modal @onSubmit="addNewCategories" />
   </div>
 </template>
 
@@ -89,9 +110,18 @@ import ProjectRolesTable from '@/components/Projects/ProjectRolesTable'
 import AddProjectRoleModal from '@/components/Projects/AddProjectRoleModal'
 import ProjectLabelsTable from '@/components/Projects/ProjectLabelsTable'
 import AddProjectLabelModal from '@/components/Projects/AddProjectLabelModal'
+import ProjectCategoriesTable from '@/components/Projects/ProjectCategoriesTable'
+import AddProjectCategoryModal from '@/components/Projects/AddProjectCategoryModal'
 
 export default {
-  components: { AddProjectLabelModal, ProjectLabelsTable, AddProjectRoleModal, ProjectRolesTable },
+  components: {
+    AddProjectCategoryModal,
+    ProjectCategoriesTable,
+    AddProjectLabelModal,
+    ProjectLabelsTable,
+    AddProjectRoleModal,
+    ProjectRolesTable
+  },
   props: {
     forNew: {
       type: Boolean,
@@ -102,7 +132,8 @@ export default {
     return {
       projectTitle: '',
       roles: [],
-      labels: []
+      labels: [],
+      categories: []
     }
   },
   computed: {
@@ -126,14 +157,16 @@ export default {
           this.projectTitle = val.title
           this.roles = this.currentProjectRoles
           this.labels = this.currentProject.labels
+          this.categories = this.currentProject.categories
         }
       }
-    },
+    }
   },
   methods: {
     ...mapMutations({
       setOpenAddProjectRoleModal: 'projects/setOpenAddProjectRoleModal',
-      setOpenAddProjectLabelModal: 'projects/setOpenAddProjectLabelModal'
+      setOpenAddProjectLabelModal: 'projects/setOpenAddProjectLabelModal',
+      setOpenAddProjectCategoryModal: 'projects/setOpenAddProjectCategoryModal'
     }),
     addNewRole(newRole) {
       const role = this.roles.find(r => r.id === newRole.id)
@@ -153,6 +186,16 @@ export default {
       const index = this.labels.findIndex(l => l.id === item.id)
       if (index >= 0) this.labels.splice(index, 1)
     },
+    addNewCategories(newCategories) {
+      this.categories.push(
+        ...newCategories.filter(l => this.categories.findIndex(_l => _l.id === l.id) < 0)
+      )
+    },
+    removeCategory(item) {
+      console.log(item)
+      const index = this.categories.findIndex(l => l.id === item.id)
+      if (index >= 0) this.categories.splice(index, 1)
+    },
     saveProject() {
       const data = {
         title: this.projectTitle,
@@ -161,7 +204,8 @@ export default {
           user: r.id,
           role: r.role
         })),
-        labels: this.labels.map(l => l.id)
+        labels: this.labels.map(l => l.id),
+        categories: this.categories.map(l => l.id)
       }
       this.$emit('onSubmit', data)
     }

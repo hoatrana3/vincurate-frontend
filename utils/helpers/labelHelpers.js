@@ -3,7 +3,6 @@ import hexRgb from 'hex-rgb'
 
 export default ($context) => ({
   async initLabelCofigs() {
-    console.log('asdsd')
     const handler = $context.$apiHandler
       .build()
       .addOnResponse((response) => {
@@ -52,12 +51,6 @@ export default ($context) => ({
         .has-concept-checkbox.concept-${value} .checkbox-concept-text,
         .text-concept-${value} {
           color: ${color};
-        }
-        .has-category.category-${value} {
-          border: 2px solid ${color};
-          color: ${color};
-          background-color: rgba(${bgColorStr});
-          text-align: center;
         }
       `)
     })

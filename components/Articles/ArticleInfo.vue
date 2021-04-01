@@ -45,23 +45,38 @@
       <article-seq-label-version-table
         :seq-label-versions="currentArticle.seqLabelVersions"
         class="mb-32pt" />
+
+      <page-separator title="Category versions" />
+      <article-category-version-table
+        :category-versions="currentArticle.categoryVersions"
+        class="mb-32pt" />
     </div>
     <div class="col-md-4">
       <b-btn
         block
         :to="`/articles/${currentArticle.id}/edit-basic`"
-        variant="dark">
+        variant="dark"
+        class="mb-2">
         <md-icon v-text="'mode_edit'" class="mr-2" />
         Edit article
       </b-btn>
-      <b-btn
-        block
-        variant="primary"
-        :to="`/articles/${currentArticle.id}/labeling`"
-        class="mb-2">
-        <md-icon v-text="'ballot'" class="mr-2" />
-        Labeling
-      </b-btn>
+
+      <div class="d-flex align-items-center mb-2">
+        <b-btn
+          variant="primary"
+          :to="`/articles/${currentArticle.id}/labeling`"
+          class="flex mr-2">
+          <md-icon v-text="'label'" class="mr-2" />
+          Labeling
+        </b-btn>
+        <b-btn
+          variant="primary"
+          :to="`/articles/${currentArticle.id}/classify`"
+          class="flex">
+          <md-icon v-text="'filter_list'" class="mr-2" />
+          Classify
+        </b-btn>
+      </div>
 
       <div class="d-flex align-items-center mb-2">
         <b-dropdown
@@ -121,9 +136,10 @@
 <script>
 import { mapActions, mapGetters } from 'vuex'
 import ArticleSeqLabelVersionTable from '@/components/Articles/ArticleSeqLabelVersionTable'
+import ArticleCategoryVersionTable from '@/components/Articles/ArticleCategoryVersionTable'
 
 export default {
-  components: { ArticleSeqLabelVersionTable },
+  components: { ArticleCategoryVersionTable, ArticleSeqLabelVersionTable },
   computed: {
     ...mapGetters({
       currentArticle: 'articles/getCurrentArticle'

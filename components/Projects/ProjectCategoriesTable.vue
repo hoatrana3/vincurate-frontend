@@ -9,7 +9,7 @@
             class="search-form search-form--light d-lg-inline-flex mb-8pt mb-lg-0">
             <b-form-input
               class="w-lg-auto"
-              placeholder="Search versions" />
+              placeholder="Search categories" />
             <b-btn
               variant="flush"
               type="submit">
@@ -36,41 +36,29 @@
         {{ (data.index + 1) + (page - 1) * per }}
       </template>
 
-      <template #cell(user)="data">
-        <b-link to="#">{{ data.item.user.name }}</b-link>
+      <template #cell(preview)="data">
+        <span class="has-category">
+          {{ data.item.value }}
+        </span>
       </template>
 
-      <template #cell(annotationsCount)="data">
-        {{ data.item.annotations.length }}
-      </template>
-
-      <template #cell(actions)="{item: {id}}">
-        <b-dd
-          variant='flush'
-          toggle-class='text-muted'
-          no-caret
-          right>
-
-          <template v-slot:button-content>
-            <md-icon class='icon-24pt'>more_vert</md-icon>
-          </template>
-
-          <b-dd-item :to="`/seq-label-versions/${id}`">Review</b-dd-item>
-          <b-dd-item :to="`/seq-label-versions/${id}/edit`">Edit</b-dd-item>
-        </b-dd>
+      <template #cell(actions)="data">
+        <b-btn variant="light" size="sm" pill @click="() => removeCategory(data.item)">
+          <md-icon v-text="'close'" />
+        </b-btn>
       </template>
     </b-table>
 
     <div class="card-footer d-flex align-items-center">
       <custom-pager
         v-model="page"
-        :rows="seqLabelVersions.length"
+        :rows="categories.length"
         :per-page="per"
         class="m-0" />
       <div class="ml-auto">
-        Total Labeling Versions
+        Total Categories
         <md-icon>remove</md-icon>
-        <strong>{{ seqLabelVersions.length }}</strong>
+        <strong>{{ categories.length }}</strong>
       </div>
     </div>
   </div>
@@ -94,9 +82,13 @@ export default {
     tableSortMixin
   ],
   props: {
-    seqLabelVersions: {
+    categories: {
       type: Array,
       default: () => []
+    },
+    noActions: {
+      type: Boolean,
+      default: false
     }
   },
   data() {
@@ -111,26 +103,30 @@ export default {
         key: 'index',
         label: '#'
       }, {
-        key: 'user',
-        label: 'User'
+        key: 'value',
+        label: 'Value'
       }, {
-        key: 'annotationsCount',
-        label: 'Annotations Count'
-      }, {
-        key: 'status',
-        label: 'Status'
-      }, {
+        key: 'preview',
+        label: 'Preview'
+      }]
+
+      if (!this.noActions) fields.push({
         key: 'actions',
         label: ''
-      }]
+      })
 
       return fields
     },
     paginatedItems() {
       const start = (this.page - 1) * this.per
-      let items = this.seqLabelVersions.slice(start, start + this.per)
+      let items = this.categories.slice(start, start + this.per)
 
       return items || []
+    }
+  },
+  methods: {
+    removeCategory(role) {
+      this.$emit('removeCategory', role)
     }
   }
 }

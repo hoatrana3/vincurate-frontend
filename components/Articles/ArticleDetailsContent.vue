@@ -2,30 +2,14 @@
   <div>
     <div class="card stack stack--2">
       <ul class="nav card-header d-flex align-items-center">
-        <li class="nav-item navbar-list__item mr-3">
-          <md-icon
-            left
-            class="text-muted icon--left">
-            inbox
-          </md-icon>
-          {{ articleSource }}
-        </li>
-        <li class="nav-item navbar-list__item mr-3">
-          <md-icon
-            left
-            class="text-muted">
-            filter_list
-          </md-icon>
-          {{ article.category }}
-        </li>
-        <li class="nav-item navbar-list__item mr-3">
-          <md-icon
-            left
-            class="text-muted icon--left">
-            remove_red_eye
-          </md-icon>
-          {{ article.visibility }}
-        </li>
+        <div class="d-flex flex-wrap align-items-center">
+          <span
+            v-for="category in article.categories"
+            :key="category.id"
+            class="has-category mr-2">
+            {{ category.value }}
+          </span>
+        </div>
         <li class="nav-item navbar-list__item ml-auto">
           <b-dd
             variant="flush"
@@ -80,7 +64,7 @@ export default {
         .setData({ params: [this.article.id] })
 
       this.exportArticle(handler)
-    },
+    }
   }
 }
 </script>
