@@ -55,6 +55,7 @@
           <b-dd-divider />
           <b-dd-item :to="`/articles/${data.item.id}/labeling`">Labeling</b-dd-item>
           <b-dd-item :to="`/articles/${data.item.id}/classify`">Classify</b-dd-item>
+          <b-dd-item :to="`/articles/${data.item.id}/translate`">Translate</b-dd-item>
           <b-dd-divider />
           <b-dd-item variant="danger" @click="() => doDelete(data.item)">Delete</b-dd-item>
         </b-dd>

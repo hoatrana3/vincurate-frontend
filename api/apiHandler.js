@@ -50,6 +50,7 @@ export default ({ $notify, $loader }) => {
         const response = await this.onRequest()
         this.onResponses.forEach((onResponse) => onResponse(response))
       } catch (err) {
+        console.log(err)
         if (this.onErrors.length === 0)
           this.notifyError({
             title: err.title || 'Oops, somethings went wrong!',
