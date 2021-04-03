@@ -14,9 +14,9 @@
         {{ (data.index + 1) + (page - 1) * per }}
       </template>
 
-      <template #cell(preview)="{ item: {value, name}}">
-        <span :class="`has-concept concept-${value} is-active`">
-          {{ name }}
+      <template #cell(preview)="data">
+        <span class="has-category">
+          {{ data.item.value }}
         </span>
       </template>
 
@@ -31,9 +31,9 @@
             <md-icon class="icon-24pt">more_vert</md-icon>
           </template>
 
-          <b-dd-item :to="`/labels/${data.item.id}/edit`">Edit</b-dd-item>
-<!--          <b-dd-divider />-->
-<!--          <b-dd-item variant="danger" @click="() => doDelete(data.item)">Delete</b-dd-item>-->
+          <b-dd-item :to="`/categories/${data.item.id}/edit`">Edit</b-dd-item>
+          <!--          <b-dd-divider />-->
+          <!--          <b-dd-item variant="danger" @click="() => doDelete(data.item)">Delete</b-dd-item>-->
         </b-dd>
       </template>
     </b-table>
@@ -41,13 +41,13 @@
     <div class="card-footer d-flex align-items-center">
       <custom-pager
         v-model="page"
-        :rows="labels.length"
+        :rows="categories.length"
         :per-page="per"
         class="m-0" />
       <div class="ml-auto">
-        Total Labels
+        Total Categories
         <md-icon>remove</md-icon>
-        <strong>{{ labels.length }}</strong>
+        <strong>{{ categories.length }}</strong>
       </div>
     </div>
   </div>
@@ -73,7 +73,7 @@ export default {
   ],
   data() {
     return {
-      labels: [],
+      categories: [],
       page: 1,
       per: 10
     }
@@ -87,14 +87,8 @@ export default {
         key: 'index',
         label: '#'
       }, {
-        key: 'name',
-        label: 'Name'
-      }, {
         key: 'value',
-        label: 'Code'
-      }, {
-        key: 'color',
-        label: 'Color'
+        label: 'Value'
       }, {
         key: 'preview',
         label: 'Preview'
@@ -105,43 +99,43 @@ export default {
     },
     paginatedItems() {
       const start = (this.page - 1) * this.per
-      let items = this.labels.slice(start, start + this.per)
+      let items = this.categories.slice(start, start + this.per)
 
       return items || []
     }
   },
   created() {
-    this.fetchUserLabels()
+    this.fetchUserCategories()
   },
   methods: {
     ...mapActions({
-      getUserLabels: 'users/getUserLabels',
-      deleteLabel: 'labels/deleteLabel'
+      getUserCategories: 'users/getUserCategories',
+      deleteCategory: 'categories/deleteCategory'
     }),
-    async fetchUserLabels() {
+    async fetchUserCategories() {
       const userId = this.userId
       const handler = this.$apiHandler
         .build()
         .setData({ params: [userId] })
         .addOnResponse((response) => {
-          this.labels = response.getData()
+          this.categories = response.getData()
         })
-      await this.getUserLabels(handler)
+      await this.getUserCategories(handler)
     },
-    doDelete(label) {
+    doDelete(category) {
       const handler = this.$apiHandler
         .build()
-        .setData({ params: [label.id] })
+        .setData({ params: [category.id] })
         .addOnResponse(() => {
           this.$notify.success(
-            'Successfully delete label',
-            'Your label is deleted'
+            'Successfully delete category',
+            'Your category is deleted'
           )
 
-          const index = this.labels.findIndex(a => a.id === label.id)
-          this.labels.splice(index, 1)
+          const index = this.categories.findIndex(a => a.id === category.id)
+          this.categories.splice(index, 1)
         })
-      this.deleteLabel(handler)
+      this.deleteCategory(handler)
     }
   }
 }

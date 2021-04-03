@@ -4,7 +4,8 @@ import CustomError from '@/api/CustomError'
 export const state = () => ({
   currentProject: null,
   openAddProjectRoleModal: false,
-  openAddProjectLabelModal: false
+  openAddProjectLabelModal: false,
+  openAddProjectCategoryModal: false
 })
 
 export const getters = {
@@ -16,6 +17,9 @@ export const getters = {
   },
   isOpenProjectLabelModal(state) {
     return state.openAddProjectLabelModal
+  },
+  isOpenProjectCategoryModal(state) {
+    return state.openAddProjectCategoryModal
   }
 }
 
@@ -28,6 +32,9 @@ export const mutations = {
   },
   setOpenAddProjectLabelModal(state, val) {
     state.openAddProjectLabelModal = val
+  },
+  setOpenAddProjectCategoryModal(state, val) {
+    state.openAddProjectCategoryModal = val
   }
 }
 

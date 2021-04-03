@@ -36,9 +36,9 @@
         {{ (data.index + 1) + (page - 1) * per }}
       </template>
 
-      <template #cell(preview)="data">
-        <span :class="`has-concept concept-${data.item.value} is-active`">
-          Example Label
+      <template #cell(preview)="{ item: {value, name}}">
+        <span :class="`has-concept concept-${value} is-active`">
+          {{ name }}
         </span>
       </template>
 
@@ -131,8 +131,8 @@ export default {
     }
   },
   methods: {
-    removeLabel(role) {
-      this.$emit('removeLabel', role)
+    removeLabel(label) {
+      this.$emit('removeLabel', label)
     }
   }
 }

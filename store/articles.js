@@ -200,6 +200,25 @@ export const actions = {
 
     return await handler.setOnRequest(onRequest).execute()
   },
+  async updateArticleCategories({ commit }, handler) {
+    const onRequest = async () => {
+      const rawData = await this.$articlesService.updateArticleCategories(handler.data)
+      const response = new ResponseWrapper(rawData)
+
+      if (response.isError()) {
+        throw new CustomError(
+          'Failed to update article categories',
+          response.getMessage()
+        )
+      } else {
+        commit('setCurrentArticle', response.getData())
+      }
+
+      return response
+    }
+
+    return await handler.setOnRequest(onRequest).execute()
+  },
   async createArticleSeqLabelVersion({ commit }, handler) {
     const onRequest = async () => {
       const rawData = await this.$articlesService.createArticleSeqLabelVersion(handler.data)
@@ -208,6 +227,25 @@ export const actions = {
       if (response.isError()) {
         throw new CustomError(
           'Failed to create article labeling version',
+          response.getMessage()
+        )
+      } else {
+        commit('setCurrentArticle', response.getData())
+      }
+
+      return response
+    }
+
+    return await handler.setOnRequest(onRequest).execute()
+  },
+  async createArticleCategoryVersion({ commit }, handler) {
+    const onRequest = async () => {
+      const rawData = await this.$articlesService.createArticleCategoryVersion(handler.data)
+      const response = new ResponseWrapper(rawData)
+
+      if (response.isError()) {
+        throw new CustomError(
+          'Failed to create article category version',
           response.getMessage()
         )
       } else {

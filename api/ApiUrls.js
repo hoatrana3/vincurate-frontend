@@ -17,8 +17,11 @@ export const GET_ARTICLE = ApiUrl.build(`${BASE_API_V1_URL}/articles/:id`)
 export const UPDATE_ARTICLE = ApiUrl.build(`${BASE_API_V1_URL}/articles/:id`)
 export const DELETE_ARTICLE = ApiUrl.build(`${BASE_API_V1_URL}/articles/:id`)
 export const UPDATE_ARTICLE_ANNOTATIONS = ApiUrl.build(`${BASE_API_V1_URL}/articles/:id/update-annotations`)
+export const UPDATE_ARTICLE_CATEGORIES = ApiUrl.build(`${BASE_API_V1_URL}/articles/:id/update-categories`)
 export const CREATE_ARTICLE_SEQ_LABEL_VERSION = ApiUrl.build(
   `${BASE_API_V1_URL}/articles/:id/create-seq-label-version`)
+export const CREATE_ARTICLE_CATEGORY_VERSION = ApiUrl.build(
+  `${BASE_API_V1_URL}/articles/:id/create-category-version`)
 export const GET_NEXT_OLDER_ARTICLE = ApiUrl.build(`${BASE_API_V1_URL}/articles/:id/next`)
 export const EXPORT_ARTICLE = ApiUrl.build(`${BASE_API_V1_URL}/articles/:id/export`)
 export const UPLOAD_ARTICLE = ApiUrl.build(`${BASE_API_V1_URL}/articles/upload`)
@@ -27,12 +30,23 @@ export const GET_SEQ_LABEL_VERSION = ApiUrl.build(`${BASE_API_V1_URL}/seq-label-
 export const UPDATE_SEQ_LABEL_VERSION = ApiUrl.build(`${BASE_API_V1_URL}/seq-label-versions/:id`)
 export const APPLY_SEQ_LABEL_VERSION = ApiUrl.build(`${BASE_API_V1_URL}/seq-label-versions/:id/apply`)
 
+export const GET_CATEGORY_VERSION = ApiUrl.build(`${BASE_API_V1_URL}/category-versions/:id`)
+export const UPDATE_CATEGORY_VERSION = ApiUrl.build(`${BASE_API_V1_URL}/category-versions/:id`)
+export const APPLY_CATEGORY_VERSION = ApiUrl.build(`${BASE_API_V1_URL}/category-versions/:id/apply`)
+
 export const GET_ALL_LABELS = ApiUrl.build(`${BASE_API_V1_URL}/labels`)
 export const GET_USER_LABELS = ApiUrl.build(`${BASE_API_V1_URL}/users/:id/labels`)
 export const CREATE_LABEL = ApiUrl.build(`${BASE_API_V1_URL}/labels`)
 export const GET_LABEL = ApiUrl.build(`${BASE_API_V1_URL}/labels/:id`)
 export const UPDATE_LABEL = ApiUrl.build(`${BASE_API_V1_URL}/labels/:id`)
 export const DELETE_LABEL = ApiUrl.build(`${BASE_API_V1_URL}/labels/:id`)
+
+export const GET_ALL_CATEGORIES = ApiUrl.build(`${BASE_API_V1_URL}/categories`)
+export const GET_USER_CATEGORIES = ApiUrl.build(`${BASE_API_V1_URL}/users/:id/categories`)
+export const CREATE_CATEGORY = ApiUrl.build(`${BASE_API_V1_URL}/categories`)
+export const GET_CATEGORY = ApiUrl.build(`${BASE_API_V1_URL}/categories/:id`)
+export const UPDATE_CATEGORY = ApiUrl.build(`${BASE_API_V1_URL}/categories/:id`)
+export const DELETE_CATEGORY = ApiUrl.build(`${BASE_API_V1_URL}/categories/:id`)
 
 export const GET_USER_PROJECTS = ApiUrl.build(`${BASE_API_V1_URL}/users/:id/projects`)
 export const CREATE_PROJECT = ApiUrl.build(`${BASE_API_V1_URL}/projects`)

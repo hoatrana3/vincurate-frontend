@@ -28,6 +28,13 @@ export const articleRoutes = ({ routes }) => [{
     type: 'md-icon',
     id: 'label'
   }
+}, {
+  label: 'My Categories',
+  route: routes.myCategories,
+  icon: {
+    type: 'md-icon',
+    id: 'filter_list'
+  }
 }]
 
 export const projectRoutes = ({ routes }) => [{

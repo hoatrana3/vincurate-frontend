@@ -36,12 +36,6 @@
         :roles="projectRoles"
         class="mb-32pt"
         no-actions />
-
-      <page-separator title="Labels" />
-      <project-labels-table
-        :labels="currentProject.labels"
-        class="mb-32pt"
-        no-actions />
     </div>
     <div class="col-md-4">
       <b-btn
@@ -104,6 +98,23 @@
       </div>
     </div>
 
+    <div class="col-12 row">
+      <div class="col-md-6">
+        <page-separator title="Labels" />
+        <project-labels-table
+          :labels="currentProject.labels"
+          class="mb-32pt"
+          no-actions />
+      </div>
+      <div class="col-md-6">
+        <page-separator title="Categories" />
+        <project-categories-table
+          :categories="currentProject.categories"
+          class="mb-32pt"
+          no-actions />
+      </div>
+    </div>
+
     <div class="col-12">
       <page-separator title="Project Articles" />
       <articles-explore
@@ -118,9 +129,10 @@ import { mapActions, mapGetters } from 'vuex'
 import ProjectRolesTable from '@/components/Projects/ProjectRolesTable'
 import ArticlesExplore from '@/components/Articles/ArticlesExplore'
 import ProjectLabelsTable from '@/components/Projects/ProjectLabelsTable'
+import ProjectCategoriesTable from '@/components/Projects/ProjectCategoriesTable'
 
 export default {
-  components: { ProjectLabelsTable, ArticlesExplore, ProjectRolesTable },
+  components: { ProjectCategoriesTable, ProjectLabelsTable, ArticlesExplore, ProjectRolesTable },
   computed: {
     ...mapGetters({
       currentProject: 'projects/getCurrentProject'
