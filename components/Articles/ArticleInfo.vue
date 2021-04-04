@@ -88,7 +88,7 @@
             <md-icon v-text="'file_download'" class="mr-2" />
             Download
           </template>
-          <b-dropdown-item @click="() => downloadArticle('SL_JSONL')">JSONL format</b-dropdown-item>
+          <b-dropdown-item @click="() => downloadArticle('FORMAT_JSONL')">JSONL format</b-dropdown-item>
         </b-dropdown>
         <b-btn
           variant="light"

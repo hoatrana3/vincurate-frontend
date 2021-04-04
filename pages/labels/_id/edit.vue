@@ -43,7 +43,7 @@ export default {
   },
   data() {
     return {
-      title: 'New Label'
+      title: 'Edit Label'
     }
   },
   methods: {

@@ -16,8 +16,8 @@
         label-for="full-name"
         label-class="form-label">
         <b-form-input
-          v-model="profile.name"
           id="full-name"
+          v-model="profile.name"
           placeholder="Your full name" />
       </b-form-group>
 
@@ -27,8 +27,8 @@
         label-for="email"
         label-class="form-label">
         <fmv-input-group-merge
-          v-model="profile.email"
           id="email"
+          v-model="profile.email"
           placeholder="Your email address"
           type="email"
           prepend>
@@ -36,7 +36,9 @@
         </fmv-input-group-merge>
       </b-form-group>
 
-      <b-btn type="submit" variant="primary">
+      <b-btn
+        type="submit"
+        variant="primary">
         Save Changes
       </b-btn>
     </b-form>

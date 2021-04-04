@@ -31,7 +31,7 @@
                 v-model="dataTypes"
                 multiple
                 placeholder="Select data type"
-                :options="['Sequence Labeling', 'Document Category', 'Sequence Translation']"
+                :options="['Sequence Labeling', 'Document Category', 'Document Translation']"
                 class="custom-v-select" />
             </b-form-group>
           </div>
@@ -233,35 +233,33 @@ export default {
       currentProject: 'projects/getCurrentProject'
     }),
     uploadTypes() {
-      if (!this.dataTypes || !this.dataTypes.length) return []
-
       const types = [{
         label: 'Use NER format',
-        value: 'SL_NER'
+        value: 'FORMAT_NER'
       }, {
         label: 'Use JSONL format',
-        value: 'SL_JSONL'
+        value: 'FORMAT_JSONL'
       }, {
         label: 'Use ConLL format',
-        value: 'SL_CONLL'
+        value: 'FORMAT_CONLL'
       }, {
         label: 'Use Plain text format',
-        value: 'SL_PLAIN'
+        value: 'FORMAT_PLAIN'
       }]
 
-      if (this.dataTypes.includes('Sequence Labeling')) {
+      if (!this.dataTypes || !this.dataTypes.length) return [types[3]]
+      if (this.dataTypes.length > 1) return [types[1], types[3]]
+      if (this.dataTypes.includes('Sequence Labeling')) return types
 
-      }
-
-      return types
+      return [types[1], types[3]]
     },
     fileAccept() {
       switch (this.uploadType) {
-        case 'SL_NER':
+        case 'FORMAT_NER':
           return '.csv'
-        case 'SL_JSONL':
+        case 'FORMAT_JSONL':
           return '.json,.jsonl'
-        case 'SL_CONLL':
+        case 'FORMAT_CONLL':
           return '.csv,.conll'
         default:
           return '*'
@@ -301,7 +299,7 @@ export default {
       )
       this.isUploading = false
     },
-    async* uploadAsyncGenerator(files) {
+    async * uploadAsyncGenerator(files) {
       const step = 5
       let index = 0
 

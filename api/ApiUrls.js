@@ -21,6 +21,8 @@ export const UPDATE_ARTICLE_CATEGORIES = ApiUrl.build(`${BASE_API_V1_URL}/articl
 export const UPDATE_ARTICLE_TRANSLATION = ApiUrl.build(`${BASE_API_V1_URL}/articles/:id/update-translation`)
 export const CREATE_ARTICLE_SEQ_LABEL_VERSION = ApiUrl.build(
   `${BASE_API_V1_URL}/articles/:id/create-seq-label-version`)
+export const CREATE_ARTICLE_CATEGORY_VERSION = ApiUrl.build(
+  `${BASE_API_V1_URL}/articles/:id/create-category-version`)
 export const CREATE_ARTICLE_TRANSLATION_VERSION = ApiUrl.build(
   `${BASE_API_V1_URL}/articles/:id/create-translation-version`)
 export const GET_NEXT_OLDER_ARTICLE = ApiUrl.build(`${BASE_API_V1_URL}/articles/:id/next`)

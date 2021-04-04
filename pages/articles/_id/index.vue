@@ -15,7 +15,17 @@
           <article-details-text-filter-nav />
         </div>
         <div class="col-md-6">
-          <article-details-content :article="currentArticle" />
+          <div class="row">
+            <div class="col-12">
+              <article-details-content :article="currentArticle" />
+            </div>
+            <div class="col-12" v-if="currentArticle.translation">
+              <page-separator title="Translation" />
+              <b-card class="stack stack--1">
+                <div>{{ currentArticle.translation.content }}</div>
+              </b-card>
+            </div>
+          </div>
         </div>
         <div class="col-md-2">
           <div class="d-flex align-items-center mb-3">
