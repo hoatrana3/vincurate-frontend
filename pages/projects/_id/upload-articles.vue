@@ -31,7 +31,7 @@
                 v-model="dataTypes"
                 multiple
                 placeholder="Select data type"
-                :options="['Sequence Labeling', 'Document Category', 'Document Translation']"
+                :options="['Sequence Labeling', 'Document Classification', 'Sequence Translation']"
                 class="custom-v-select" />
             </b-form-group>
           </div>

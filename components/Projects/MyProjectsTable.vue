@@ -50,7 +50,7 @@
         :per-page="per"
         class="m-0" />
       <div class="ml-auto">
-        Total Articles
+        Total Projects
         <md-icon>remove</md-icon>
         <strong>{{ projects.length }}</strong>
       </div>

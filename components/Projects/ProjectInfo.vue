@@ -9,6 +9,13 @@
           {{ currentProject.title }}
         </h2>
       </b-form-group>
+      <b-form-group
+        label="Project types"
+        label-class="form-label">
+        <span class="text-black-70">
+          {{ currentProject.types.join(', ') }}
+        </span>
+      </b-form-group>
       <div class="row mb-32pt">
         <div class="col-md-6">
           <b-form-group
