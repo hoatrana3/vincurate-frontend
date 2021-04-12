@@ -5,15 +5,16 @@
       :breadcrumb="breadcrumb" />
 
     <div class="page-section">
-      <page-separator title="Project concepts" />
-      <article-seq-label-version-form
-        ref="articleSeqLabelVersionForm"
-        :article="editedArticle" />
+      <page-separator title="Fill your translation" />
+      <article-translation-version-form
+        ref="articleTranslationVersionForm"
+        :article="editedArticle"
+        :for-new="false" />
       <b-btn
         variant="primary"
         class="mr-2"
         @click="doSave">
-        Save labeling version
+        Save translation version
       </b-btn>
     </div>
   </div>
@@ -21,17 +22,17 @@
 
 <script>
 import cloneDeep from 'lodash/cloneDeep'
-import { mapGetters, mapActions, mapMutations } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 import {
   PageHeader,
   PageSeparator
 } from 'vue-luma'
 import Page from '@/components/Page'
-import ArticleSeqLabelVersionForm from '@/components/Articles/ArticleSeqLabelVersionForm'
+import ArticleTranslationVersionForm from '@/components/Articles/ArticleTranslationVersionForm'
 
 export default {
   components: {
-    ArticleSeqLabelVersionForm,
+    ArticleTranslationVersionForm,
     PageHeader,
     PageSeparator
   },
@@ -43,17 +44,17 @@ export default {
       .setData({ params: [params.id] })
       .addOnError((e) => {
         $notify.error(
-          'Article labeling version not found',
-          'We can not find the article labeling version you want'
+          'Article translation version not found',
+          'We can not find the article translation version you want'
         )
         redirect('/articles')
       })
-    await store.dispatch('seqLabelVersions/fetchSeqLabelVersion', handler)
+    await store.dispatch('translationVersions/fetchTranslationVersion', handler)
 
-    const currentSeqLabelVersion = store.getters['seqLabelVersions/getCurrentSeqLabelVersion']
+    const currentTranslationVersion = store.getters['translationVersions/getCurrentTranslationVersion']
     const handlerArticle = $apiHandler
       .build()
-      .setData({ params: [currentSeqLabelVersion.article.id] })
+      .setData({ params: [currentTranslationVersion.article.id] })
       .addOnError((e) => {
         $notify.error(
           'Article not found',
@@ -65,53 +66,49 @@ export default {
   },
   data() {
     return {
-      title: 'Update Labeling Version',
+      title: 'Update Translation Version',
       info: null
     }
   },
   computed: {
     ...mapGetters({
       currentArticle: 'articles/getCurrentArticle',
-      currentSeqLabelVersion: 'seqLabelVersions/getCurrentSeqLabelVersion'
+      currentTranslationVersion: 'translationVersions/getCurrentTranslationVersion'
     }),
     editedArticle() {
       return {
         ...this.currentArticle,
-        annotations: this.currentSeqLabelVersion.annotations
+        translation: this.currentTranslationVersion.translation
       }
     }
   },
   created() {
     this.info = cloneDeep(this.currentArticle)
-    this.setPickedFilters([])
   },
   methods: {
     ...mapActions({
-      updateSeqLabelVersion: 'seqLabelVersions/updateSeqLabelVersion'
-    }),
-    ...mapMutations({
-      setPickedFilters: 'articles/setPickedFilters'
+      updateTranslationVersion: 'translationVersions/updateTranslationVersion'
     }),
     doSave() {
       const data = {
-        annotations: this.$refs.articleSeqLabelVersionForm.getEditedAnnotations()
+        translation: this.$refs.articleTranslationVersionForm.getEditedTranslation()
       }
 
       const handler = this.$apiHandler
         .build()
         .setData({
-          params: [this.currentSeqLabelVersion.id],
+          params: [this.currentTranslationVersion.id],
           data
         })
         .addOnResponse((response) => {
           this.$notify.success(
-            'Updated labeling version',
-            'Your labeling version is successfully updated'
+            'Updated translation version',
+            'Your translation version is successfully updated'
           )
           this.$router.push(`/articles/${response.getData().article.id}/details`)
         })
 
-      this.updateSeqLabelVersion(handler)
+      this.updateTranslationVersion(handler)
     }
   }
 }

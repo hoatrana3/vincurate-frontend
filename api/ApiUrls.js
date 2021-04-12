@@ -18,10 +18,13 @@ export const UPDATE_ARTICLE = ApiUrl.build(`${BASE_API_V1_URL}/articles/:id`)
 export const DELETE_ARTICLE = ApiUrl.build(`${BASE_API_V1_URL}/articles/:id`)
 export const UPDATE_ARTICLE_ANNOTATIONS = ApiUrl.build(`${BASE_API_V1_URL}/articles/:id/update-annotations`)
 export const UPDATE_ARTICLE_CATEGORIES = ApiUrl.build(`${BASE_API_V1_URL}/articles/:id/update-categories`)
+export const UPDATE_ARTICLE_TRANSLATION = ApiUrl.build(`${BASE_API_V1_URL}/articles/:id/update-translation`)
 export const CREATE_ARTICLE_SEQ_LABEL_VERSION = ApiUrl.build(
   `${BASE_API_V1_URL}/articles/:id/create-seq-label-version`)
 export const CREATE_ARTICLE_CATEGORY_VERSION = ApiUrl.build(
   `${BASE_API_V1_URL}/articles/:id/create-category-version`)
+export const CREATE_ARTICLE_TRANSLATION_VERSION = ApiUrl.build(
+  `${BASE_API_V1_URL}/articles/:id/create-translation-version`)
 export const GET_NEXT_OLDER_ARTICLE = ApiUrl.build(`${BASE_API_V1_URL}/articles/:id/next`)
 export const EXPORT_ARTICLE = ApiUrl.build(`${BASE_API_V1_URL}/articles/:id/export`)
 export const UPLOAD_ARTICLE = ApiUrl.build(`${BASE_API_V1_URL}/articles/upload`)
@@ -33,6 +36,10 @@ export const APPLY_SEQ_LABEL_VERSION = ApiUrl.build(`${BASE_API_V1_URL}/seq-labe
 export const GET_CATEGORY_VERSION = ApiUrl.build(`${BASE_API_V1_URL}/category-versions/:id`)
 export const UPDATE_CATEGORY_VERSION = ApiUrl.build(`${BASE_API_V1_URL}/category-versions/:id`)
 export const APPLY_CATEGORY_VERSION = ApiUrl.build(`${BASE_API_V1_URL}/category-versions/:id/apply`)
+
+export const GET_TRANSLATION_VERSION = ApiUrl.build(`${BASE_API_V1_URL}/translation-versions/:id`)
+export const UPDATE_TRANSLATION_VERSION = ApiUrl.build(`${BASE_API_V1_URL}/translation-versions/:id`)
+export const APPLY_TRANSLATION_VERSION = ApiUrl.build(`${BASE_API_V1_URL}/translation-versions/:id/apply`)
 
 export const GET_ALL_LABELS = ApiUrl.build(`${BASE_API_V1_URL}/labels`)
 export const GET_USER_LABELS = ApiUrl.build(`${BASE_API_V1_URL}/users/:id/labels`)

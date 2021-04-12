@@ -108,9 +108,6 @@ export default {
         })
 
       this.updateCategoryVersion(handler)
-    },
-    doSaveForReview() {
-      this.createArticleCategoryVersion(this.saveHandler)
     }
   }
 }

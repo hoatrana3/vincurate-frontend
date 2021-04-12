@@ -7,6 +7,11 @@
   }
 }
 
+table tr td {
+  word-break: break-word;
+  word-wrap: break-word;
+}
+
 .custom-vs-notification .vs-notification__content__header h4 {
   color: white !important;
 }

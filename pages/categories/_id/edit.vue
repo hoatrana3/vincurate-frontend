@@ -43,7 +43,7 @@ export default {
   },
   data() {
     return {
-      title: 'New Category'
+      title: 'Edit Category'
     }
   },
   methods: {

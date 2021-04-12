@@ -44,7 +44,7 @@ export default {
       }
     },
     shownConceptLabels() {
-      if (this.conceptLabels && this.conceptLabels.length) return this.conceptLabels
+      if (this.conceptLabels) return this.conceptLabels
       return this.allConceptLabels
     },
     allShownConceptLabelValues() {
