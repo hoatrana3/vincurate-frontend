@@ -14,6 +14,10 @@
         {{ (data.index + 1) + (page - 1) * per }}
       </template>
 
+      <template #cell(types)="data">
+        {{ data.item.types.join(', ') }}
+      </template>
+
       <template #cell(articlesCount)="data">
         {{ data.item.articles.length }}
       </template>
@@ -97,8 +101,8 @@ export default {
         thClass: 'text-right',
         tdClass: 'text-right'
       }, {
-        key: 'type',
-        label: 'Type',
+        key: 'types',
+        label: 'Types',
         thClass: 'text-right',
         tdClass: 'text-right'
       }, {

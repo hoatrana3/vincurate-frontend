@@ -31,7 +31,7 @@
                 v-model="dataTypes"
                 multiple
                 placeholder="Select data type"
-                :options="['Sequence Labeling', 'Document Classification', 'Sequence Translation']"
+                :options="Object.values($helpers.PROJECT_TYPES)"
                 class="custom-v-select" />
             </b-form-group>
           </div>
@@ -249,7 +249,7 @@ export default {
 
       if (!this.dataTypes || !this.dataTypes.length) return [types[3]]
       if (this.dataTypes.length > 1) return [types[1], types[3]]
-      if (this.dataTypes.includes('Sequence Labeling')) return types
+      if (this.$helpers.isSeqLabelProject({ types: this.dataTypes })) return types
 
       return [types[1], types[3]]
     },

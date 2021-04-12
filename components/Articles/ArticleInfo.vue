@@ -41,10 +41,26 @@
         </div>
       </div>
 
-      <page-separator title="Labeling versions" />
-      <article-seq-label-version-table
-        :seq-label-versions="currentArticle.seqLabelVersions"
-        class="mb-32pt" />
+      <template v-if="$helpers.isSeqLabelProject(currentArticle.project)">
+        <page-separator title="Labeling versions" />
+        <article-seq-label-version-table
+          :seq-label-versions="currentArticle.seqLabelVersions"
+          class="mb-32pt" />
+      </template>
+
+      <template v-if="$helpers.isDocClassProject(currentArticle.project)">
+        <page-separator title="Category versions" />
+        <article-category-version-table
+          :category-versions="currentArticle.categoryVersions"
+          class="mb-32pt" />
+      </template>
+
+      <template v-if="$helpers.isSeqTransProject(currentArticle.project)">
+        <page-separator title="Translation versions" />
+        <article-translation-version-table
+          :translation-versions="currentArticle.translationVersions"
+          class="mb-32pt" />
+      </template>
     </div>
     <div class="col-md-4">
       <b-btn
@@ -56,57 +72,52 @@
       </b-btn>
       <b-btn
         block
-        :to="`/articles/${currentArticle.id}/labeling`"
-        variant="primary"
-        class="mb-2">
-        <md-icon v-text="'label'" class="mr-2" />
-        Labeling
-      </b-btn>
-
-      <div class="d-flex align-items-center mb-2">
-        <b-btn
-          variant="primary"
-          :to="`/articles/${currentArticle.id}/classify`"
-          class="flex mr-2">
-          <md-icon v-text="'filter_list'" class="mr-2" />
-          Classify
-        </b-btn>
-        <b-btn
-          variant="primary"
-          :to="`/articles/${currentArticle.id}/translate`"
-          class="flex">
-          <md-icon v-text="'translate'" class="mr-2" />
-          Translate
-        </b-btn>
-      </div>
-
-      <div class="d-flex align-items-center mb-2">
-        <b-dropdown
-          variant="info"
-          class="flex mr-2">
-          <template #button-content>
-            <md-icon v-text="'file_download'" class="mr-2" />
-            Download
-          </template>
-          <b-dropdown-item @click="() => downloadArticle('FORMAT_JSONL')">JSONL format</b-dropdown-item>
-        </b-dropdown>
-        <b-btn
-          variant="light"
-          :to="`/articles/${currentArticle.id}`"
-          class="flex">
-          <md-icon v-text="'remove_red_eye'" class="mr-2" />
-          Guest view
-        </b-btn>
-      </div>
-
-      <b-btn
-        block
         variant="accent"
-        class="mb-4"
         @click="doDelete">
         <md-icon v-text="'delete'" class="mr-2" />
         Delete
       </b-btn>
+      <b-btn
+        v-if="$helpers.isSeqLabelProject(currentArticle.project)"
+        block
+        :to="`/articles/${currentArticle.id}/labeling`"
+        variant="primary">
+        <md-icon v-text="'label'" class="mr-2" />
+        Labeling
+      </b-btn>
+      <b-btn
+        v-if="$helpers.isDocClassProject(currentArticle.project)"
+        block
+        variant="primary"
+        :to="`/articles/${currentArticle.id}/classify`">
+        <md-icon v-text="'filter_list'" class="mr-2" />
+        Classify
+      </b-btn>
+      <b-btn
+        v-if="$helpers.isSeqTransProject(currentArticle.project)"
+        block
+        variant="primary"
+        :to="`/articles/${currentArticle.id}/translate`">
+        <md-icon v-text="'translate'" class="mr-2" />
+        Translate
+      </b-btn>
+      <b-btn
+        block
+        variant="light"
+        :to="`/articles/${currentArticle.id}`">
+        <md-icon v-text="'remove_red_eye'" class="mr-2" />
+        Guest view
+      </b-btn>
+      <b-dropdown
+        block
+        variant="light"
+        class="mt-2 mb-4">
+        <template #button-content>
+          <md-icon v-text="'file_download'" class="mr-2" />
+          Download
+        </template>
+        <b-dropdown-item @click="() => downloadArticle('FORMAT_JSONL')">JSONL format</b-dropdown-item>
+      </b-dropdown>
 
       <page-separator title="Uploaded by" />
       <div class="card">
@@ -130,20 +141,6 @@
             class="card-subtitle text-black-70"
             v-text="currentArticle.user.email" />
         </div>
-      </div>
-    </div>
-    <div class="col-12 row">
-      <div class="col-md-6">
-        <page-separator title="Category versions" />
-        <article-category-version-table
-          :category-versions="currentArticle.categoryVersions"
-          class="mb-32pt" />
-      </div>
-      <div class="col-md-6">
-        <page-separator title="Translation versions" />
-        <article-translation-version-table
-          :translation-versions="currentArticle.translationVersions"
-          class="mb-32pt" />
       </div>
     </div>
   </div>

@@ -2,17 +2,23 @@
   <div
     class="font-size-16pt text-justify static-concepts-container"
     :data-concepts="selectedConcepts.join(', ')">
-    <span
-      v-for="(text, index) in preformatTexts"
-      :key="`${text.text}-${$moment().unix()}-${index}`"
-      :offset-start="text.offsetStart"
-      :class="getTextCustomClass(text)"><!--
+    <template
+      v-if="$helpers.isSeqLabelProject(article.project)">
+      <span
+        v-for="(text, index) in preformatTexts"
+        :key="`${text.text}-${$moment().unix()}-${index}`"
+        :offset-start="text.offsetStart"
+        :class="getTextCustomClass(text)"><!--
       -->{{ text.text }}<!--
       --><i
         v-if="editable && text.value.length"
         class="mdi mdi-close-circle concept-remove-btn"
         @click="removeTextAnnotation(text)" /><!--
     --></span>
+    </template>
+    <template v-else>
+      {{content}}
+    </template>
   </div>
 </template>
 

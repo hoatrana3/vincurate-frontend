@@ -12,14 +12,17 @@
     <div class="page-section border-bottom-2">
       <div class="container-fluid row">
         <div class="col-md-2 offset-md-1">
-          <article-details-text-filter-nav />
+          <article-details-text-filter-nav
+            v-if="$helpers.isSeqLabelProject(currentArticle.project)" />
         </div>
         <div class="col-md-6">
           <div class="row">
             <div class="col-12">
               <article-details-content :article="currentArticle" />
             </div>
-            <div class="col-12" v-if="currentArticle.translation">
+            <div
+              v-if="$helpers.isSeqTransProject(currentArticle.project) && currentArticle.translation"
+              class="col-12">
               <page-separator title="Translation" />
               <b-card class="stack stack--1">
                 <div>{{ currentArticle.translation.content }}</div>
@@ -49,7 +52,9 @@
                 v-text="'arrow_forward_ios'" />
             </b-btn>
           </div>
-          <concepts-picker :concept-labels="shownConceptLabels" />
+          <concepts-picker
+            v-if="$helpers.isSeqLabelProject(currentArticle.project)"
+            :concept-labels="shownConceptLabels" />
         </div>
       </div>
     </div>

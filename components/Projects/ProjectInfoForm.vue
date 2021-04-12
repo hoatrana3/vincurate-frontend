@@ -80,7 +80,7 @@
     <div :class="`${types.length > 1 ? 'col-12' : 'col-md-8'}`">
       <div class="row">
         <div
-          v-if="types.includes('Sequence Labeling')"
+          v-if="$helpers.isSeqLabelProject({types})"
           class="col">
           <page-separator title="Labels" />
           <project-labels-table
@@ -96,7 +96,9 @@
             </template>
           </project-labels-table>
         </div>
-        <div v-if="types.includes('Document Classification')" class="col">
+        <div
+          v-if="$helpers.isDocClassProject({types})"
+          class="col">
           <page-separator title="Categories" />
           <project-categories-table
             :categories="categories"
