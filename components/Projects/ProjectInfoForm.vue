@@ -13,6 +13,19 @@
           placeholder="Enter project title"
           size="lg" />
       </b-form-group>
+      <b-form-group
+        label="Project types"
+        label-for="project-types"
+        class="mb-32pt"
+        label-class="form-label">
+        <v-select
+          id="project-types"
+          v-model="types"
+          multiple
+          placeholder="Select project types"
+          :options="['Sequence Labeling', 'Document Classification', 'Sequence Translation']"
+          class="custom-v-select" />
+      </b-form-group>
 
       <page-separator title="Roles" />
       <project-roles-table
@@ -64,36 +77,42 @@
       </div>
     </div>
 
-    <div class="col-12 row">
-      <div class="col-md-6">
-        <page-separator title="Labels" />
-        <project-labels-table
-          :labels="labels"
-          class="mb-32pt"
-          @removeLabel="removeLabel">
-          <template v-slot:table-left-header>
-            <b-btn
-              exact
-              variant="accent"
-              @click="() => setOpenAddProjectLabelModal(true)"
-              v-text="'Add label'" />
-          </template>
-        </project-labels-table>
-      </div>
-      <div class="col-md-6">
-        <page-separator title="Categories" />
-        <project-categories-table
-          :categories="categories"
-          class="mb-32pt"
-          @removeCategory="removeCategory">
-          <template v-slot:table-left-header>
-            <b-btn
-              exact
-              variant="accent"
-              @click="() => setOpenAddProjectCategoryModal(true)"
-              v-text="'Add Category'" />
-          </template>
-        </project-categories-table>
+    <div :class="`${types.length > 1 ? 'col-12' : 'col-md-8'}`">
+      <div class="row">
+        <div
+          v-if="$helpers.isSeqLabelProject({types})"
+          class="col">
+          <page-separator title="Labels" />
+          <project-labels-table
+            :labels="labels"
+            class="mb-32pt"
+            @removeLabel="removeLabel">
+            <template v-slot:table-left-header>
+              <b-btn
+                exact
+                variant="accent"
+                @click="() => setOpenAddProjectLabelModal(true)"
+                v-text="'Add label'" />
+            </template>
+          </project-labels-table>
+        </div>
+        <div
+          v-if="$helpers.isDocClassProject({types})"
+          class="col">
+          <page-separator title="Categories" />
+          <project-categories-table
+            :categories="categories"
+            class="mb-32pt"
+            @removeCategory="removeCategory">
+            <template v-slot:table-left-header>
+              <b-btn
+                exact
+                variant="accent"
+                @click="() => setOpenAddProjectCategoryModal(true)"
+                v-text="'Add Category'" />
+            </template>
+          </project-categories-table>
+        </div>
       </div>
     </div>
 
@@ -131,6 +150,7 @@ export default {
   data() {
     return {
       projectTitle: '',
+      types: [],
       roles: [],
       labels: [],
       categories: []
@@ -158,6 +178,7 @@ export default {
           this.roles = this.currentProjectRoles
           this.labels = this.currentProject.labels
           this.categories = this.currentProject.categories
+          this.types = this.currentProject.types
         }
       }
     }
@@ -205,7 +226,8 @@ export default {
           role: r.role
         })),
         labels: this.labels.map(l => l.id),
-        categories: this.categories.map(l => l.id)
+        categories: this.categories.map(l => l.id),
+        types: this.types
       }
       this.$emit('onSubmit', data)
     }

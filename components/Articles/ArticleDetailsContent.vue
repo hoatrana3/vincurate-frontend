@@ -2,7 +2,9 @@
   <div>
     <div class="card stack stack--2">
       <ul class="nav card-header d-flex align-items-center">
-        <div class="d-flex flex-wrap align-items-center">
+        <div
+          v-if="$helpers.isDocClassProject(article.project)"
+          class="d-flex flex-wrap align-items-center">
           <span
             v-for="category in article.categories"
             :key="category.id"

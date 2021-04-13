@@ -9,6 +9,13 @@
           {{ currentProject.title }}
         </h2>
       </b-form-group>
+      <b-form-group
+        label="Project types"
+        label-class="form-label">
+        <span class="text-black-70">
+          {{ currentProject.types.join(', ') }}
+        </span>
+      </b-form-group>
       <div class="row mb-32pt">
         <div class="col-md-6">
           <b-form-group
@@ -98,20 +105,26 @@
       </div>
     </div>
 
-    <div class="col-12 row">
-      <div class="col-md-6">
-        <page-separator title="Labels" />
-        <project-labels-table
-          :labels="currentProject.labels"
-          class="mb-32pt"
-          no-actions />
-      </div>
-      <div class="col-md-6">
-        <page-separator title="Categories" />
-        <project-categories-table
-          :categories="currentProject.categories"
-          class="mb-32pt"
-          no-actions />
+    <div :class="`${currentProject.types.length > 1 ? 'col-12' : 'col-md-8'}`">
+      <div class="row">
+        <div
+          v-if="$helpers.isSeqLabelProject(currentProject)"
+          class="col">
+          <page-separator title="Labels" />
+          <project-labels-table
+            :labels="currentProject.labels"
+            class="mb-32pt"
+            no-actions />
+        </div>
+        <div
+          v-if="$helpers.isDocClassProject(currentProject)"
+          class="col">
+          <page-separator title="Categories" />
+          <project-categories-table
+            :categories="currentProject.categories"
+            class="mb-32pt"
+            no-actions />
+        </div>
       </div>
     </div>
 
