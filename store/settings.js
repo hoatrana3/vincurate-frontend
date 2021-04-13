@@ -93,6 +93,10 @@ export const getters = {
         name: 'labels-my-labels',
         params: { layout }
       },
+      myLabelSets: {
+        name: 'label-sets-my-label-sets',
+        params: { layout }
+      },
       myCategories: {
         name: 'categories-my-categories',
         params: { layout }

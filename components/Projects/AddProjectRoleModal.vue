@@ -1,5 +1,5 @@
 <template>
-  <b-modal ref="add-role-model" v-model="isOpen" hide-footer hide-header centered>
+  <b-modal v-model="isOpen" hide-footer hide-header centered>
     <b-form-group
       label="User"
       label-for="user"

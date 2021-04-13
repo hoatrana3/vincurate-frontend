@@ -29,6 +29,13 @@ export const articleRoutes = ({ routes }) => [{
     id: 'label'
   }
 }, {
+  label: 'My Label Sets',
+  route: routes.myLabelSets,
+  icon: {
+    type: 'md-icon',
+    id: 'folder_open'
+  }
+}, {
   label: 'My Categories',
   route: routes.myCategories,
   icon: {

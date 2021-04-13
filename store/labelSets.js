@@ -2,41 +2,34 @@ import ResponseWrapper from '@/api/ResponseWrapper'
 import CustomError from '@/api/CustomError'
 
 export const state = () => ({
-  allLabels: [],
-  openNewLabelModal: false,
+  allLabelSets: []
 })
 
 export const getters = {
-  getAllLabels(state) {
-    return state.allLabels
-  },
-  isOpenNewLabelModal(state) {
-    return state.openNewLabelModal
+  getAllLabelSets(state) {
+    return state.allLabelSets
   }
 }
 
 export const mutations = {
-  setAllLabels(state, val) {
-    state.allLabels = val
-  },
-  setOpenNewLabelModal(state, val) {
-    state.openNewLabelModal = val
+  setAllLabelSets(state, val) {
+    state.allLabelSets = val
   }
 }
 
 export const actions = {
-  async getAllLabels({ commit }, handler) {
+  async getAllLabelSets({ commit }, handler) {
     const onRequest = async () => {
-      const rawData = await this.$labelsService.getAllLabels()
+      const rawData = await this.$labelSetsService.getAllLabelSets()
       const response = new ResponseWrapper(rawData)
 
       if (response.isError()) {
         throw new CustomError(
-          'Failed to get all labels',
+          'Failed to get all label sets',
           response.getMessage()
         )
       } else {
-        commit('setAllLabels', response.getData())
+        commit('setAllLabelSets', response.getData())
       }
 
       return response
@@ -44,14 +37,14 @@ export const actions = {
 
     return await handler.setOnRequest(onRequest).execute()
   },
-  async fetchLabel({ commit, dispatch }, handler) {
+  async fetchLabelSet({ commit, dispatch }, handler) {
     const onRequest = async () => {
-      const rawData = await this.$labelsService.fetchLabel(handler.data)
+      const rawData = await this.$labelSetsService.fetchLabelSet(handler.data)
       const response = new ResponseWrapper(rawData)
 
       if (response.isError()) {
         throw new CustomError(
-          'Failed to fetch label details',
+          'Failed to fetch label set details',
           response.getMessage()
         )
       }
@@ -61,14 +54,14 @@ export const actions = {
 
     return await handler.setOnRequest(onRequest).execute()
   },
-  async createLabel({ commit, dispatch }, handler) {
+  async createLabelSet({ commit, dispatch }, handler) {
     const onRequest = async () => {
-      const rawData = await this.$labelsService.createLabel(handler.data)
+      const rawData = await this.$labelSetsService.createLabelSet(handler.data)
       const response = new ResponseWrapper(rawData)
 
       if (response.isError()) {
         throw new CustomError(
-          'Failed to create new label',
+          'Failed to create new label set',
           response.getMessage()
         )
       }
@@ -78,14 +71,14 @@ export const actions = {
 
     return await handler.setOnRequest(onRequest).execute()
   },
-  async updateLabel({ commit }, handler) {
+  async updateLabelSet({ commit }, handler) {
     const onRequest = async () => {
-      const rawData = await this.$labelsService.updateLabel(handler.data)
+      const rawData = await this.$labelSetsService.updateLabelSet(handler.data)
       const response = new ResponseWrapper(rawData)
 
       if (response.isError()) {
         throw new CustomError(
-          'Failed to update label info',
+          'Failed to update label set info',
           response.getMessage()
         )
       }
@@ -95,14 +88,14 @@ export const actions = {
 
     return await handler.setOnRequest(onRequest).execute()
   },
-  async deleteLabel({ commit, dispatch }, handler) {
+  async deleteLabelSet({ commit, dispatch }, handler) {
     const onRequest = async () => {
-      const rawData = await this.$labelsService.deleteLabel(handler.data)
+      const rawData = await this.$labelSetsService.deleteLabelSet(handler.data)
       const response = new ResponseWrapper(rawData)
 
       if (response.isError()) {
         throw new CustomError(
-          'Failed to delete label',
+          'Failed to delete label set',
           response.getMessage()
         )
       }

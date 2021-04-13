@@ -202,6 +202,20 @@ export const actions = {
 
     return await handler.setOnRequest(onRequest).execute()
   },
+  async getUserLabelSets({ commit, dispatch }, handler) {
+    const onRequest = async () => {
+      const rawData = await this.$usersService.getUserLabelSets(handler.data)
+      const response = new ResponseWrapper(rawData)
+
+      if (response.isError()) {
+        throw new CustomError("Failed to get user's label sets", response.getMessage())
+      }
+
+      return response
+    }
+
+    return await handler.setOnRequest(onRequest).execute()
+  },
   async getUserCategories({ commit, dispatch }, handler) {
     const onRequest = async () => {
       const rawData = await this.$usersService.getUserCategories(handler.data)

@@ -48,6 +48,13 @@ export const GET_LABEL = ApiUrl.build(`${BASE_API_V1_URL}/labels/:id`)
 export const UPDATE_LABEL = ApiUrl.build(`${BASE_API_V1_URL}/labels/:id`)
 export const DELETE_LABEL = ApiUrl.build(`${BASE_API_V1_URL}/labels/:id`)
 
+export const GET_ALL_LABEL_SETS = ApiUrl.build(`${BASE_API_V1_URL}/label-sets`)
+export const GET_USER_LABEL_SETS = ApiUrl.build(`${BASE_API_V1_URL}/users/:id/label-sets`)
+export const CREATE_LABEL_SET = ApiUrl.build(`${BASE_API_V1_URL}/label-sets`)
+export const GET_LABEL_SET = ApiUrl.build(`${BASE_API_V1_URL}/label-sets/:id`)
+export const UPDATE_LABEL_SET = ApiUrl.build(`${BASE_API_V1_URL}/label-sets/:id`)
+export const DELETE_LABEL_SET = ApiUrl.build(`${BASE_API_V1_URL}/label-sets/:id`)
+
 export const GET_ALL_CATEGORIES = ApiUrl.build(`${BASE_API_V1_URL}/categories`)
 export const GET_USER_CATEGORIES = ApiUrl.build(`${BASE_API_V1_URL}/users/:id/categories`)
 export const CREATE_CATEGORY = ApiUrl.build(`${BASE_API_V1_URL}/categories`)
