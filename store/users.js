@@ -6,7 +6,10 @@ export const state = () => ({
   allUsers: [],
   currentUser: null,
   currentToken: '',
-  currentDecodedToken: null
+  currentDecodedToken: null,
+  userLabels: [],
+  userCategories: [],
+  userLabelSets: [],
 })
 
 export const getters = {
@@ -25,6 +28,15 @@ export const getters = {
   getCurrentUserId(state) {
     if (state.currentDecodedToken == null) return null
     return state.currentDecodedToken.sub
+  },
+  getUserLabels(state) {
+    return state.userLabels
+  },
+  getUserCategories(state) {
+    return state.userCategories
+  },
+  getUserLabelSets(state) {
+    return state.userLabelSets
   },
   isLoggedIn(state) {
     return (
@@ -52,7 +64,16 @@ export const mutations = {
     } catch (e) {
       state.currentDecodedToken = null
     }
-  }
+  },
+  setUserLabels(state, val) {
+    state.userLabels = val
+  },
+  setUserCategories(state, val) {
+    state.userCategories = val
+  },
+  setUserLabelSets(state, val) {
+    state.userLabelSets = val
+  },
 }
 
 export const actions = {
@@ -195,6 +216,8 @@ export const actions = {
 
       if (response.isError()) {
         throw new CustomError("Failed to get user's labels", response.getMessage())
+      } else {
+        commit('setUserLabels', response.getData())
       }
 
       return response
@@ -209,6 +232,8 @@ export const actions = {
 
       if (response.isError()) {
         throw new CustomError("Failed to get user's label sets", response.getMessage())
+      } else {
+        commit('setUserLabelSets', response.getData())
       }
 
       return response
@@ -223,6 +248,8 @@ export const actions = {
 
       if (response.isError()) {
         throw new CustomError("Failed to get user's categories", response.getMessage())
+      } else {
+        commit('setUserCategories', response.getData())
       }
 
       return response

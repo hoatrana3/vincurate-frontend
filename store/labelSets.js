@@ -2,18 +2,25 @@ import ResponseWrapper from '@/api/ResponseWrapper'
 import CustomError from '@/api/CustomError'
 
 export const state = () => ({
-  allLabelSets: []
+  allLabelSets: [],
+  currentLabelSet: null
 })
 
 export const getters = {
   getAllLabelSets(state) {
     return state.allLabelSets
+  },
+  getCurrentLabelSet(state) {
+    return state.currentLabelSet
   }
 }
 
 export const mutations = {
   setAllLabelSets(state, val) {
     state.allLabelSets = val
+  },
+  setCurrentLabelSet(state, val) {
+    state.currentLabelSet = val
   }
 }
 
@@ -47,6 +54,8 @@ export const actions = {
           'Failed to fetch label set details',
           response.getMessage()
         )
+      } else {
+        commit('setCurrentLabelSet', response.getData())
       }
 
       return response
@@ -104,5 +113,5 @@ export const actions = {
     }
 
     return await handler.setOnRequest(onRequest).execute()
-  },
+  }
 }

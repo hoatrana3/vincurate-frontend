@@ -19,7 +19,7 @@ const userPerms = [
   '/articles/:id?edit-basic',
   '/articles/:id/labeling',
   '/articles/:id?/labeling',
-  '/labels/my-labels',
+  '/labels/manage',
   '/labels/:id/edit',
   '/labels/:id?/edit',
   '/seq-label-versions/:id',

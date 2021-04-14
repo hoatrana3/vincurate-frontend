@@ -38,7 +38,7 @@ export default {
             'Successfully create label set!',
             'Your label set is created, keep going!'
           )
-          this.$router.push('/label-sets/my-label-sets')
+          this.$router.push('/labels/manage')
         })
       await this.createLabelSet(handler)
     }

@@ -6,8 +6,12 @@
       :container-class="containerClass" />
     <div class="page-section">
       <div :class="containerClass">
+
+        <page-separator
+          :title="title" />
+
         <div class="row mb-3">
-          <div class="col-md-10">
+          <div class="col-md-9">
             <form class="search-form search-form--light w-100 d-lg-inline-flex mb-8pt mb-lg-0">
               <b-form-input
                 v-model="searchInput"
@@ -20,13 +24,13 @@
               </b-btn>
             </form>
           </div>
-          <div class="col-md-2">
+          <div class="col-md-3">
             <b-btn
               block
               variant="primary"
-              to="/label-sets/new">
+              to="/labels/sets/new">
               <md-icon v-text="'add'" class="mr-2" />
-              Add new
+              Add new set
             </b-btn>
           </div>
         </div>
@@ -58,7 +62,7 @@
                   </div>
                   <b-link
                     v-b-tooltip.hover.top="'See details'"
-                    :to="`label-sets/${item.id}`"
+                    :to="`/labels/sets/${item.id}`"
                     class="ml-4pt material-icons text-20 card-course__icon-favorite">
                     arrow_forward_ios
                   </b-link>
@@ -71,22 +75,61 @@
         <custom-pager
           v-model="currentPage"
           :rows="labelSets.length"
-          :per-page="perPage" />
+          :per-page="perPage"
+          class="mb-5" />
+
+        <page-separator title="My Labels" />
+
+        <div class="card mb-0">
+          <div class="card-header">
+            <div
+              class="row align-items-center"
+              style="white-space: nowrap;">
+              <div class="col-lg-auto">
+                <form
+                  class="search-form search-form--light d-lg-inline-flex mb-8pt mb-lg-0">
+                  <b-form-input
+                    class="w-lg-auto"
+                    placeholder="Search labels" />
+                  <b-btn
+                    variant="flush"
+                    type="submit">
+                    <md-icon v-text="'search'" />
+                  </b-btn>
+                </form>
+              </div>
+              <div class="col-lg d-flex flex-wrap align-items-center justify-content-end">
+                <b-btn
+                  exact
+                  :to="`/labels/new`"
+                  variant="primary"
+                  v-text="'Add label'" />
+              </div>
+            </div>
+          </div>
+
+          <labels-table :labels="labels" />
+        </div>
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import {
   MdIcon,
   PageHeader,
+  PageSeparator
 } from 'vue-luma'
 import CustomPager from '@/components/General/CustomPager'
 import Page from '@/components/Page'
+import LabelsTable from '@/components/Label/LabelsTable'
 
 export default {
   components: {
+    LabelsTable,
+    PageSeparator,
     PageHeader,
     CustomPager,
     MdIcon
@@ -98,21 +141,26 @@ export default {
     const handler = $apiHandler
       .build()
       .setData({ params: [userId] })
-      .addOnResponse((response) => {
-        this.labelSets = response.getData()
-      })
     await store.dispatch('users/getUserLabelSets', handler)
+
+    const _handler = $apiHandler
+      .build()
+      .setData({ params: [userId] })
+    await store.dispatch('users/getUserLabels', _handler)
   },
   data() {
     return {
       title: 'My Label Sets',
-      labelSets: [],
       searchInput: '',
       currentPage: 1,
       perPage: 12
     }
   },
   computed: {
+    ...mapGetters({
+      labelSets: 'users/getUserLabelSets',
+      labels: 'users/getUserLabels'
+    }),
     paginatedItems() {
       const start = (this.currentPage - 1) * this.perPage
       const filteredItems = this.labelSets.filter(ls => ls.name.toLowerCase().includes(this.searchInput.toLowerCase()))

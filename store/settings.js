@@ -89,12 +89,8 @@ export const getters = {
         name: 'projects-new',
         params: { layout }
       },
-      myLabels: {
-        name: 'labels-my-labels',
-        params: { layout }
-      },
-      myLabelSets: {
-        name: 'label-sets-my-label-sets',
+      manageMyLabels: {
+        name: 'labels-manage',
         params: { layout }
       },
       myCategories: {

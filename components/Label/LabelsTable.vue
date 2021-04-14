@@ -32,8 +32,8 @@
           </template>
 
           <b-dd-item :to="`/labels/${data.item.id}/edit`">Edit</b-dd-item>
-<!--          <b-dd-divider />-->
-<!--          <b-dd-item variant="danger" @click="() => doDelete(data.item)">Delete</b-dd-item>-->
+          <!--          <b-dd-divider />-->
+          <!--          <b-dd-item variant="danger" @click="() => doDelete(data.item)">Delete</b-dd-item>-->
         </b-dd>
       </template>
     </b-table>
@@ -71,9 +71,14 @@ export default {
     routeToMixin,
     tableSortMixin
   ],
+  props: {
+    labels: {
+      type: Array,
+      required: true
+    }
+  },
   data() {
     return {
-      labels: [],
       page: 1,
       per: 10
     }
@@ -110,24 +115,10 @@ export default {
       return items || []
     }
   },
-  created() {
-    this.fetchUserLabels()
-  },
   methods: {
     ...mapActions({
-      getUserLabels: 'users/getUserLabels',
       deleteLabel: 'labels/deleteLabel'
     }),
-    async fetchUserLabels() {
-      const userId = this.userId
-      const handler = this.$apiHandler
-        .build()
-        .setData({ params: [userId] })
-        .addOnResponse((response) => {
-          this.labels = response.getData()
-        })
-      await this.getUserLabels(handler)
-    },
     doDelete(label) {
       const handler = this.$apiHandler
         .build()

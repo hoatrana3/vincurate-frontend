@@ -73,14 +73,14 @@ export default {
   ],
   data() {
     return {
-      categories: [],
       page: 1,
       per: 10
     }
   },
   computed: {
     ...mapGetters({
-      userId: 'users/getCurrentUserId'
+      userId: 'users/getCurrentUserId',
+      categories: 'users/getUserCategories'
     }),
     fields() {
       return [{
@@ -117,9 +117,6 @@ export default {
       const handler = this.$apiHandler
         .build()
         .setData({ params: [userId] })
-        .addOnResponse((response) => {
-          this.categories = response.getData()
-        })
       await this.getUserCategories(handler)
     },
     doDelete(category) {

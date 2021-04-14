@@ -39,7 +39,7 @@ export default {
             'Your label is created, keep going!'
           )
           this.$helpers.initLabelCofigs()
-          this.$router.push(`/labels/my-labels`)
+          this.$router.push(`/labels/manage`)
         })
       await this.createLabel(handler)
     }

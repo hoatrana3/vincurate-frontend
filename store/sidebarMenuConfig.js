@@ -22,18 +22,11 @@ export const articleRoutes = ({ routes }) => [{
     id: 'featured_play_list'
   }
 }, {
-  label: 'My Labels',
-  route: routes.myLabels,
+  label: 'Manage My Labels',
+  route: routes.manageMyLabels,
   icon: {
     type: 'md-icon',
     id: 'label'
-  }
-}, {
-  label: 'My Label Sets',
-  route: routes.myLabelSets,
-  icon: {
-    type: 'md-icon',
-    id: 'folder_open'
   }
 }, {
   label: 'My Categories',
