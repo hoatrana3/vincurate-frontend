@@ -14,7 +14,7 @@
 <script>
 import { mapActions } from 'vuex'
 import Page from '@/components/Page'
-import LabelSetInfoForm from '@/components/LabelSet/LabelSetInfoForm'
+import LabelSetInfoForm from '@/components/Label/Set/LabelSetInfoForm'
 
 export default {
   components: { LabelSetInfoForm },

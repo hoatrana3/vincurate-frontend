@@ -17,7 +17,7 @@ import {
   PageHeader,
 } from 'vue-luma'
 import Page from '@/components/Page'
-import LabelSetInfo from '@/components/LabelSet/LabelSetInfo'
+import LabelSetInfo from '@/components/Label/Set/LabelSetInfo'
 
 export default {
   components: {
