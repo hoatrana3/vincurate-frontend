@@ -7,41 +7,40 @@
       class="mb-32pt" />
 
     <page-separator title="Basic information" />
-    <label-info-form @onSubmit="doCreateLabel" />
+    <label-set-info-form @onSubmit="doCreateLabelSet" />
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
 import Page from '@/components/Page'
-import LabelInfoForm from '@/components/Label/LabelInfoForm'
+import LabelSetInfoForm from '@/components/Label/Set/LabelSetInfoForm'
 
 export default {
-  components: { LabelInfoForm },
+  components: { LabelSetInfoForm },
   extends: Page,
   layout: 'boxed',
   data() {
     return {
-      title: 'New Label'
+      title: 'New Label Set'
     }
   },
   methods: {
     ...mapActions({
-      createLabel: 'labels/createLabel',
+      createLabelSet: 'labelSets/createLabelSet'
     }),
-    async doCreateLabel(data) {
+    async doCreateLabelSet(data) {
       const handler = this.$apiHandler
         .build()
         .setData({ data })
         .addOnResponse((response) => {
           this.$notify.success(
-            'Successfully create label!',
-            'Your label is created, keep going!'
+            'Successfully create label set!',
+            'Your label set is created, keep going!'
           )
-          this.$helpers.initLabelCofigs()
-          this.$router.push(`/labels/manage`)
+          this.$router.push('/labels/manage')
         })
-      await this.createLabel(handler)
+      await this.createLabelSet(handler)
     }
   }
 }

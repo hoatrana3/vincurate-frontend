@@ -7,65 +7,64 @@
       class="mb-32pt" />
 
     <page-separator title="Basic information" />
-    <label-info-form :init-label="label" @onSubmit="doUpdateLabel" />
+    <label-set-info-form :init-label-set="labelSet" @onSubmit="doUpdateLabelSet" />
   </div>
 </template>
 
 <script>
 import { mapActions } from 'vuex'
 import Page from '@/components/Page'
-import LabelInfoForm from '@/components/Label/LabelInfoForm'
+import LabelSetInfoForm from '@/components/Label/Set/LabelSetInfoForm'
 
 export default {
-  components: { LabelInfoForm },
+  components: { LabelSetInfoForm },
   extends: Page,
   layout: 'boxed',
   async asyncData({ store, params, $apiHandler, $notify, redirect }) {
-    let label = null
+    let labelSet = null
     const handler = $apiHandler
       .build()
       .setData({ params: [params.id] })
       .addOnResponse(response => {
-        label = response.getData()
+        labelSet = response.getData()
       })
       .addOnError((e) => {
         $notify.error(
-          'Label not found',
-          'We can not find the label you want'
+          'Label set not found',
+          'We can not find the label set you want'
         )
         redirect('/labels/manage')
       })
-    await store.dispatch('labels/fetchLabel', handler)
+    await store.dispatch('labelSets/fetchLabelSet', handler)
 
     return {
-      label
+      labelSet
     }
   },
   data() {
     return {
-      title: 'Edit Label'
+      title: 'Edit Label set'
     }
   },
   methods: {
     ...mapActions({
-      updateLabel: 'labels/updateLabel'
+      updateLabelSet: 'labelSets/updateLabelSet'
     }),
-    async doUpdateLabel({ name, shortcut, icon, color }) {
+    async doUpdateLabelSet({ name, labels }) {
       const handler = this.$apiHandler
         .build()
         .setData({
-          params: [this.label.id],
-          data: { name, shortcut, icon, color },
+          params: [this.labelSet.id],
+          data: { name, labels },
         })
         .addOnResponse((response) => {
           this.$notify.success(
-            'Successfully update label!',
-            'Your label is updated, keep going!'
+            'Successfully update label set!',
+            'Your label set is updated, keep going!'
           )
-          this.$helpers.setGlobalCssClasses([response.getData()])
           this.$router.push('/labels/manage')
         })
-      await this.updateLabel(handler)
+      await this.updateLabelSet(handler)
     }
   }
 }
