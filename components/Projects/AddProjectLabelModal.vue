@@ -149,7 +149,6 @@ export default {
       getUserLabelSets: 'users/getUserLabelSets'
     }),
     async fetchUserLabelInfos() {
-      console.log('hihihihii')
       const userId = this.userId
       const handler = this.$apiHandler
         .build()

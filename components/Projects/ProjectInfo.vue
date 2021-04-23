@@ -48,22 +48,30 @@
       <b-btn
         block
         :to="`/projects/${currentProject.id}/edit`"
-        variant="dark"
-        class="mb-2">
+        variant="dark">
         <md-icon v-text="'mode_edit'" class="mr-2" />
         Edit project
+      </b-btn>
+      <b-btn
+        block
+        :to="`/projects/${currentProject.id}/annotate`"
+        :disabled="currentProject.articles.length <= 0"
+        variant="primary"
+        class="mb-2">
+        <md-icon v-text="'art_track'" class="mr-2" />
+        Perform annotate
       </b-btn>
 
       <div class="d-flex align-items-center mb-2">
         <b-btn
-          variant="primary"
+          variant="warning"
           :to="`/projects/${currentProject.id}/upload-articles`"
           class="flex mr-2">
           <md-icon v-text="'file_upload'" class="mr-2" />
           Upload
         </b-btn>
         <b-btn
-          variant="info"
+          variant="light"
           :to="`/projects/${currentProject.id}/new-article`"
           class="flex">
           <md-icon v-text="'add'" class="mr-2" />

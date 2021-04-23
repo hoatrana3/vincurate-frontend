@@ -5,7 +5,7 @@
       label-class="form-label">
       <b-form-textarea
         v-model="article.content"
-        size="md"
+        size="lg"
         rows="10"
         max-rows="20"
         disabled />
@@ -18,7 +18,7 @@
       <b-form-textarea
         v-model="translation"
         id="translation"
-        size="md"
+        size="lg"
         rows="10"
         max-rows="20"
         placeholder="Your translation here" />
@@ -52,8 +52,6 @@ export default {
     article: {
       immediate: true,
       handler(val) {
-        console.log(this.forNew)
-        console.log(val)
         if (!this.forNew && val && val.translation) {
           this.translation = val.translation.content
         }
