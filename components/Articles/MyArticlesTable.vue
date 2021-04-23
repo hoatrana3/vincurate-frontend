@@ -52,10 +52,7 @@
           <b-dd-item :to="`/articles/${data.item.id}/details`">Details</b-dd-item>
           <b-dd-item :to="`/articles/${data.item.id}/edit-basic`">Edit</b-dd-item>
           <b-dd-item :to="`/articles/${data.item.id}`">Guest view</b-dd-item>
-          <b-dd-divider />
-          <b-dd-item :to="`/articles/${data.item.id}/labeling`">Labeling</b-dd-item>
-          <b-dd-item :to="`/articles/${data.item.id}/classify`">Classify</b-dd-item>
-          <b-dd-item :to="`/articles/${data.item.id}/translate`">Translate</b-dd-item>
+          <b-dd-item :to="`/projects/${data.item.project.id}/annotate/${data.item.id}`">Annotate</b-dd-item>
           <b-dd-divider />
           <b-dd-item variant="danger" @click="() => doDelete(data.item)">Delete</b-dd-item>
         </b-dd>

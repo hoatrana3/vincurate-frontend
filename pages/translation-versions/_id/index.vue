@@ -78,9 +78,6 @@ export default {
   created() {
     this.info = cloneDeep(this.currentTranslationVersion)
   },
-  mounted() {
-    console.log(this.currentTranslationVersion)
-  },
   methods: {
     ...mapActions({
       applyTranslationVersionInfo: 'translationVersions/applyTranslationVersion'

@@ -213,7 +213,6 @@ export default {
       )
     },
     removeCategory(item) {
-      console.log(item)
       const index = this.categories.findIndex(l => l.id === item.id)
       if (index >= 0) this.categories.splice(index, 1)
     },

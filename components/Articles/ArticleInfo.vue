@@ -72,52 +72,39 @@
       </b-btn>
       <b-btn
         block
+        :to="`/projects/${currentArticle.project.id}/annotate/${currentArticle.id}`"
+        variant="primary"
+        class="mb-2">
+        <md-icon v-text="'art_track'" class="mr-2" />
+        Annotate article
+      </b-btn>
+      <div class="d-flex align-items-center mb-2">
+        <b-btn
+          variant="warning"
+          exact
+          :to="`/articles/${currentArticle.id}`"
+          class="flex mr-2">
+          <md-icon v-text="'remove_red_eye'" class="mr-2" />
+          Guest view
+        </b-btn>
+        <b-dropdown
+          variant="light"
+          class="flex">
+          <template #button-content>
+            <md-icon v-text="'file_download'" class="mr-2" />
+            Download
+          </template>
+          <b-dropdown-item @click="() => downloadArticle('FORMAT_JSONL')">JSONL format</b-dropdown-item>
+        </b-dropdown>
+      </div>
+      <b-btn
+        block
         variant="accent"
-        @click="doDelete">
+        @click="doDelete"
+        class="mb-4">
         <md-icon v-text="'delete'" class="mr-2" />
         Delete
       </b-btn>
-      <b-btn
-        v-if="$helpers.isSeqLabelProject(currentArticle.project)"
-        block
-        :to="`/articles/${currentArticle.id}/labeling`"
-        variant="primary">
-        <md-icon v-text="'label'" class="mr-2" />
-        Labeling
-      </b-btn>
-      <b-btn
-        v-if="$helpers.isDocClassProject(currentArticle.project)"
-        block
-        variant="primary"
-        :to="`/articles/${currentArticle.id}/classify`">
-        <md-icon v-text="'filter_list'" class="mr-2" />
-        Classify
-      </b-btn>
-      <b-btn
-        v-if="$helpers.isSeqTransProject(currentArticle.project)"
-        block
-        variant="primary"
-        :to="`/articles/${currentArticle.id}/translate`">
-        <md-icon v-text="'translate'" class="mr-2" />
-        Translate
-      </b-btn>
-      <b-btn
-        block
-        variant="light"
-        :to="`/articles/${currentArticle.id}`">
-        <md-icon v-text="'remove_red_eye'" class="mr-2" />
-        Guest view
-      </b-btn>
-      <b-dropdown
-        block
-        variant="light"
-        class="mt-2 mb-4">
-        <template #button-content>
-          <md-icon v-text="'file_download'" class="mr-2" />
-          Download
-        </template>
-        <b-dropdown-item @click="() => downloadArticle('FORMAT_JSONL')">JSONL format</b-dropdown-item>
-      </b-dropdown>
 
       <page-separator title="Uploaded by" />
       <div class="card">
