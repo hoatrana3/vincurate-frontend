@@ -7,7 +7,7 @@
 </template>
 
 <script>
-import Page from '~/components/Page'
+import Page from '@/components/Page'
 import { LumaSignupPage } from 'vue-luma'
 import { mapActions } from 'vuex'
 

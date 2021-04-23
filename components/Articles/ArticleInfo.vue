@@ -16,7 +16,7 @@
             class="mr-3"
             label-class="form-label">
             <span class="text-black-70">
-              <b-link :to="`/projects/${currentArticle.project.id}`">{{ currentArticle.project.title }}</b-link>
+              <b-link :to="`/user/projects/${currentArticle.project.id}`">{{ currentArticle.project.title }}</b-link>
             </span>
           </b-form-group>
         </div>
@@ -65,14 +65,14 @@
     <div class="col-md-4">
       <b-btn
         block
-        :to="`/articles/${currentArticle.id}/edit-basic`"
+        :to="`/user/articles/${currentArticle.id}/edit-basic`"
         variant="dark">
         <md-icon v-text="'mode_edit'" class="mr-2" />
         Edit article
       </b-btn>
       <b-btn
         block
-        :to="`/projects/${currentArticle.project.id}/annotate/${currentArticle.id}`"
+        :to="`/user/projects/${currentArticle.project.id}/annotate/${currentArticle.id}`"
         variant="primary"
         class="mb-2">
         <md-icon v-text="'art_track'" class="mr-2" />
@@ -82,7 +82,7 @@
         <b-btn
           variant="warning"
           exact
-          :to="`/articles/${currentArticle.id}`"
+          :to="`/guest/articles/${currentArticle.id}`"
           class="flex mr-2">
           <md-icon v-text="'remove_red_eye'" class="mr-2" />
           Guest view
@@ -172,7 +172,7 @@ export default {
             'Your article is deleted'
           )
 
-          this.$router.push('/articles/my-articles')
+          this.$router.push('/user/articles/my-articles')
         })
       this.deleteArticle(handler)
     }

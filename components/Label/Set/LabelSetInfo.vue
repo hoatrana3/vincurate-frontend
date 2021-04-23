@@ -2,7 +2,7 @@
   <div>
     <div class="d-flex justify-content-end mb-3">
       <b-btn
-        :to="`/labels/sets/${currentLabelSet.id}/edit`"
+        :to="`/user/labels/sets/${currentLabelSet.id}/edit`"
         class="mr-2"
         variant="dark">
         <md-icon v-text="'mode_edit'" class="mr-2" />
@@ -75,7 +75,7 @@ export default {
             'Your label set is deleted'
           )
 
-          this.$router.push('/labels/manage')
+          this.$router.push('/user/labels/manage')
         })
       this.deleteLabelSet(handler)
     }

@@ -47,14 +47,14 @@
     <div class="col-md-4">
       <b-btn
         block
-        :to="`/projects/${currentProject.id}/edit`"
+        :to="`/user/projects/${currentProject.id}/edit`"
         variant="dark">
         <md-icon v-text="'mode_edit'" class="mr-2" />
         Edit project
       </b-btn>
       <b-btn
         block
-        :to="`/projects/${currentProject.id}/annotate`"
+        :to="`/user/projects/${currentProject.id}/annotate`"
         :disabled="currentProject.articles.length <= 0"
         variant="primary"
         class="mb-2">
@@ -65,14 +65,14 @@
       <div class="d-flex align-items-center mb-2">
         <b-btn
           variant="warning"
-          :to="`/projects/${currentProject.id}/upload-articles`"
+          :to="`/user/projects/${currentProject.id}/upload-articles`"
           class="flex mr-2">
           <md-icon v-text="'file_upload'" class="mr-2" />
           Upload
         </b-btn>
         <b-btn
           variant="light"
-          :to="`/projects/${currentProject.id}/new-article`"
+          :to="`/user/projects/${currentProject.id}/new-article`"
           class="flex">
           <md-icon v-text="'add'" class="mr-2" />
           Create
@@ -179,7 +179,7 @@ export default {
             'Your project is deleted'
           )
 
-          this.$router.push('/projects/my-projects')
+          this.$router.push('/user/projects/my-projects')
         })
       this.deleteProject(handler)
     }

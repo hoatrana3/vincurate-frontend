@@ -7,7 +7,7 @@
       <div class="flex">
         <b-link
           class="card-title mb-8pt"
-          :to="`/articles/${article.id}`">
+          :to="`/guest/articles/${article.id}`">
           {{ articleTitle }}
         </b-link>
         <p class="text-70 mb-0" v-html="article.description" />

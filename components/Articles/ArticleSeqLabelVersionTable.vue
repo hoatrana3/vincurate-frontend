@@ -55,8 +55,8 @@
             <md-icon class='icon-24pt'>more_vert</md-icon>
           </template>
 
-          <b-dd-item :to="`/seq-label-versions/${id}`">Review</b-dd-item>
-          <b-dd-item :to="`/seq-label-versions/${id}/edit`">Edit</b-dd-item>
+          <b-dd-item :to="`/user/seq-label-versions/${id}`">Review</b-dd-item>
+          <b-dd-item :to="`/user/seq-label-versions/${id}/edit`">Edit</b-dd-item>
         </b-dd>
       </template>
     </b-table>

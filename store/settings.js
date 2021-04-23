@@ -61,6 +61,10 @@ export const getters = {
         name: 'home',
         params: { layout }
       },
+      explore: {
+        name: 'explore',
+        params: { layout }
+      },
       login: {
         name: 'auth-login',
         params: { layout }
@@ -69,12 +73,8 @@ export const getters = {
         name: 'auth-signup',
         params: { layout }
       },
-      articlesExplore: {
-        name: 'articles-explore',
-        params: { layout }
-      },
       myArticles: {
-        name: 'articles-my-articles',
+        name: 'user-articles-my-articles',
         params: { layout }
       },
       editAccount: {
@@ -82,19 +82,19 @@ export const getters = {
         params: { layout }
       },
       myProjects: {
-        name: 'projects-my-projects',
+        name: 'user-projects-my-projects',
         params: { layout }
       },
       addProject: {
-        name: 'projects-new',
+        name: 'user-projects-new',
         params: { layout }
       },
       manageMyLabels: {
-        name: 'labels-manage',
+        name: 'user-labels-manage',
         params: { layout }
       },
       myCategories: {
-        name: 'categories-my-categories',
+        name: 'user-categories-my-categories',
         params: { layout }
       },
       adminManageUsers: {

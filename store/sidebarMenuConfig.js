@@ -7,7 +7,7 @@ export const generalRoutes = ({ routes }) => [{
   }
 }, {
   label: 'Explore Articles',
-  route: routes.articlesExplore,
+  route: routes.explore,
   icon: {
     type: 'md-icon',
     id: 'local_library'

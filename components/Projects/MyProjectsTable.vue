@@ -37,12 +37,12 @@
             <md-icon class="icon-24pt">more_vert</md-icon>
           </template>
 
-          <b-dd-item :to="`/projects/${data.item.id}`">Details</b-dd-item>
-          <b-dd-item :to="`/projects/${data.item.id}/edit`">Edit</b-dd-item>
-          <b-dd-item :to="`/projects/${data.item.id}/upload-articles`">Upload</b-dd-item>
+          <b-dd-item :to="`/user/projects/${data.item.id}`">Details</b-dd-item>
+          <b-dd-item :to="`/user/projects/${data.item.id}/edit`">Edit</b-dd-item>
+          <b-dd-item :to="`/user/projects/${data.item.id}/upload-articles`">Upload</b-dd-item>
           <b-dd-item
             v-if="data.item.articles.length > 0"
-            :to="`/projects/${data.item.id}/annotate`">
+            :to="`/user/projects/${data.item.id}/annotate`">
             Annotate
           </b-dd-item>
           <b-dd-divider />
