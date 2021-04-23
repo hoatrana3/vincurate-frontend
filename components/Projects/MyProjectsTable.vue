@@ -22,6 +22,10 @@
         {{ data.item.articles.length }}
       </template>
 
+      <template #cell(yourRole)="data">
+        {{ $helpers.currentUserRoleInProject(data.item) }}
+      </template>
+
       <template #cell(createdAt)="data">
         {{ $helpers.formatTimeAgo(data.value) }}
       </template>
@@ -113,6 +117,9 @@ export default {
       }, {
         key: 'articlesCount',
         label: 'Articles Count'
+      }, {
+        key: 'yourRole',
+        label: 'Your Role'
       }, {
         key: 'createdAt',
         label: 'Created At'

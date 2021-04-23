@@ -10,6 +10,7 @@
       Save for reviewing
     </b-btn>
     <b-btn
+      v-if="$helpers.isCurrentUserApprover(article.project) || $helpers.isCurrentUserProjectAdmin(article.project)"
       variant="accent"
       @click="doSaveDirectly">
       Save to origin data

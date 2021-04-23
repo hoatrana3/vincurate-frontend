@@ -21,9 +21,13 @@ export default ($context) => ({
   currentUserRoleInProject(project) {
     const {store} = $context
     const currentUser = store.getters['users/getCurrentUser']
-    if (project.owner === currentUser.id) return this.PROJECT_ROLES.PROJECT_ADMIN
 
-    const role = project.roles.find(r => r.user.id === currentUser.id)
+    console.log(project)
+    console.log(currentUser)
+
+    if (project.owner.id === currentUser.id) return this.PROJECT_ROLES.PROJECT_ADMIN
+
+    const role = project.roles.find(r => r.user.id === currentUser.id || r.user === currentUser.id)
     return role ? role.role : null
   },
   isCurrentUserProjectAdmin(project) {

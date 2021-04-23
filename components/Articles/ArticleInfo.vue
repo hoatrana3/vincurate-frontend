@@ -63,48 +63,63 @@
       </template>
     </div>
     <div class="col-md-4">
-      <b-btn
-        block
-        :to="`/user/articles/${currentArticle.id}/edit-basic`"
-        variant="dark">
-        <md-icon v-text="'mode_edit'" class="mr-2" />
-        Edit article
-      </b-btn>
-      <b-btn
-        block
-        :to="`/user/projects/${currentArticle.project.id}/annotate/${currentArticle.id}`"
-        variant="primary"
-        class="mb-2">
-        <md-icon v-text="'art_track'" class="mr-2" />
-        Annotate article
-      </b-btn>
-      <div class="d-flex align-items-center mb-2">
+      <div class="mb-4">
         <b-btn
-          variant="warning"
-          exact
-          :to="`/guest/articles/${currentArticle.id}`"
-          class="flex mr-2">
-          <md-icon v-text="'remove_red_eye'" class="mr-2" />
-          Guest view
+          v-if="$helpers.isCurrentUserApprover(currentArticle.project) || $helpers.isCurrentUserProjectAdmin(currentArticle.project)"
+          block
+          :to="`/user/articles/${currentArticle.id}/edit-basic`"
+          variant="dark">
+          <md-icon v-text="'mode_edit'" class="mr-2" />
+          Edit article
         </b-btn>
-        <b-dropdown
-          variant="light"
-          class="flex">
-          <template #button-content>
-            <md-icon v-text="'file_download'" class="mr-2" />
-            Download
-          </template>
-          <b-dropdown-item @click="() => downloadArticle('FORMAT_JSONL')">JSONL format</b-dropdown-item>
-        </b-dropdown>
+        <b-btn
+          block
+          :to="`/user/projects/${currentArticle.project.id}/annotate/${currentArticle.id}`"
+          variant="primary"
+          class="mb-2">
+          <md-icon v-text="'art_track'" class="mr-2" />
+          Annotate article
+        </b-btn>
+        <div class="d-flex align-items-center mb-2">
+          <b-btn
+            variant="warning"
+            exact
+            :to="`/guest/articles/${currentArticle.id}`"
+            class="flex mr-2">
+            <md-icon v-text="'remove_red_eye'" class="mr-2" />
+            Guest view
+          </b-btn>
+          <b-dropdown
+            variant="light"
+            class="flex">
+            <template #button-content>
+              <md-icon v-text="'file_download'" class="mr-2" />
+              Download
+            </template>
+            <b-dropdown-item @click="() => downloadArticle('FORMAT_JSONL')">JSONL format</b-dropdown-item>
+          </b-dropdown>
+        </div>
+        <b-btn
+          v-if="$helpers.isCurrentUserProjectAdmin(currentArticle.project)"
+          block
+          variant="accent"
+          @click="doDelete">
+          <md-icon v-text="'delete'" class="mr-2" />
+          Delete
+        </b-btn>
       </div>
-      <b-btn
-        block
-        variant="accent"
-        @click="doDelete"
-        class="mb-4">
-        <md-icon v-text="'delete'" class="mr-2" />
-        Delete
-      </b-btn>
+
+      <page-separator title="Your Role" />
+      <div class="card">
+        <div class="card-body flex text-center d-flex flex-column align-items-center justify-content-center">
+          <h3 class="text-accent">
+            {{ $helpers.currentUserRoleInProject(currentArticle.project) }}
+          </h3>
+          <p class="card-subtitle text-black-70">
+            {{ roleDescription }}
+          </p>
+        </div>
+      </div>
 
       <page-separator title="Uploaded by" />
       <div class="card">
@@ -148,6 +163,17 @@ export default {
     articleTitle() {
       const title = this.currentArticle.title
       return !title || !title.length ? 'No Title Article' : title
+    },
+    roleDescription() {
+      const roles = this.$helpers.PROJECT_ROLES
+      switch (this.$helpers.currentUserRoleInProject(this.currentArticle.project)) {
+        case roles.PROJECT_ADMIN:
+          return 'You have fully permission to do everything to this article!'
+        case roles.APPROVER:
+          return 'You can directly update article data and review annotation versions in this article!'
+        case roles.ANNOTATOR:
+          return 'You can only annotate this article and create annotation versions!'
+      }
     }
   },
   methods: {

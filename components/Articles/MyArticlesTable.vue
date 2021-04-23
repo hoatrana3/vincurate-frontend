@@ -22,16 +22,12 @@
         <div v-html="data.item.description" />
       </template>
 
-      <template #cell(seqLabelVersionCount)="data">
-        {{ data.item.seqLabelVersions.length }}
-      </template>
-
-      <template #cell(categoryVersionCount)="data">
-        {{ data.item.categoryVersions.length }}
-      </template>
-
       <template #cell(project)="{item: {project: {id, title}}}">
         <b-link :to="`/user/projects/${id}`">{{ title }}</b-link>
+      </template>
+
+      <template #cell(yourRole)="data">
+        {{ $helpers.currentUserRoleInProject(data.item.project) }}
       </template>
 
       <template #cell(createdAt)="data">
@@ -119,14 +115,11 @@ export default {
         thClass: 'text-right',
         tdClass: 'text-right'
       }, {
-        key: 'seqLabelVersionCount',
-        label: 'Labeling Versions Count'
-      }, {
-        key: 'categoryVersionCount',
-        label: 'Category Versions Count'
-      }, {
         key: 'project',
         label: 'Project'
+      }, {
+        key: 'yourRole',
+        label: 'Your Role'
       }, {
         key: 'createdAt',
         label: 'Created At'
