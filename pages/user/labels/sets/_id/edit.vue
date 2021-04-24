@@ -62,7 +62,7 @@ export default {
             'Successfully update label set!',
             'Your label set is updated, keep going!'
           )
-          this.$router.push('/user/labels/manage')
+          this.$router.push(`/user/labels/sets/${this.labelSet.id}`)
         })
       await this.updateLabelSet(handler)
     }

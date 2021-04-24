@@ -1,9 +1,16 @@
 <template>
   <div>
-    <div class="d-flex justify-content-end mb-3">
+    <div class="d-flex mb-3">
+      <b-btn
+        :to="`/user/labels/manage`"
+        class="mr-2"
+        variant="light">
+        <md-icon v-text="'arrow_back_ios'" class="mr-auto" />
+        Back to Manage
+      </b-btn>
       <b-btn
         :to="`/user/labels/sets/${currentLabelSet.id}/edit`"
-        class="mr-2"
+        class="mr-2 ml-auto"
         variant="dark">
         <md-icon v-text="'mode_edit'" class="mr-2" />
         Edit

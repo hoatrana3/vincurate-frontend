@@ -1,6 +1,6 @@
 <template>
   <div>
-    <b-modal v-model="isOpen" hide-footer hide-header centered>
+    <b-modal v-model="isOpen" hide-footer hide-header centered no-close-on-backdrop>
       <b-form-group
         label="Label Set"
         label-for="label-set"
@@ -51,7 +51,7 @@
       </div>
     </b-modal>
 
-    <new-label-modal />
+    <new-label-modal @onCreated="fetchUserLabelInfos" />
   </div>
 </template>
 
@@ -61,18 +61,6 @@ import NewLabelModal from '@/components/Label/NewLabelModal'
 
 export default {
   components: { NewLabelModal },
-  props: {
-    onClose: {
-      type: Function,
-      default: () => {
-      }
-    },
-    onSubmit: {
-      type: Function,
-      default: () => {
-      }
-    }
-  },
   data() {
     return {
       labelSetId: null,

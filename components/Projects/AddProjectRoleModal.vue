@@ -1,5 +1,5 @@
 <template>
-  <b-modal v-model="isOpen" hide-footer hide-header centered>
+  <b-modal v-model="isOpen" hide-footer hide-header centered no-close-on-backdrop>
     <b-form-group
       label="User"
       label-for="user"
@@ -37,18 +37,6 @@
 import { mapGetters, mapMutations } from 'vuex'
 
 export default {
-  props: {
-    onClose: {
-      type: Function,
-      default: () => {
-      }
-    },
-    onSubmit: {
-      type: Function,
-      default: () => {
-      }
-    }
-  },
   data() {
     return {
       userId: null,

@@ -28,7 +28,6 @@ export default {
   methods: {
     ...mapActions({
       createCategory: 'categories/createCategory',
-      getAllCategories: 'categories/getAllCategories'
     }),
     async doCreateCategory(data) {
       const handler = this.$apiHandler

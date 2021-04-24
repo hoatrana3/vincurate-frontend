@@ -116,7 +116,6 @@ export default {
       })
     await store.dispatch('projects/fetchProject', handler)
 
-    console.log(project)
     const _handler = $apiHandler
       .build()
       .setData({ params: [params.articleId || project.articles[0].id] })

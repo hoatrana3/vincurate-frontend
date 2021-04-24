@@ -1,41 +1,36 @@
 <template>
-  <b-modal v-model="isOpen" hide-footer hide-header centered>
-    <b-form-group
-      label="Category"
-      label-for="category"
-      label-class="form-label">
-      <v-select
-        id="category"
-        v-model="categoryId"
-        placeholder="Select category"
-        :options="categoryOptions"
-        :reduce="item => item.value"
-        :clearable="false"
-        class="custom-v-select" />
-    </b-form-group>
-    <div class="d-flex justify-content-end">
-      <b-button class="mr-3" variant="outline-danger" @click="hideModal">Close</b-button>
-      <b-button :disabled="!categoryId" variant="primary" @click="submit">Submit</b-button>
-    </div>
-  </b-modal>
+  <div>
+    <b-modal v-model="isOpen" hide-footer hide-header centered no-close-on-backdrop>
+      <b-form-group
+        label="Category"
+        label-for="category"
+        label-class="form-label">
+        <v-select
+          id="category"
+          v-model="categoryId"
+          placeholder="Select category"
+          :options="categoryOptions"
+          :reduce="item => item.value"
+          :clearable="false"
+          class="custom-v-select" />
+      </b-form-group>
+      <div class="d-flex justify-content-end">
+        <b-button class="mr-auto" variant="outline-light" @click="() => setOpenNewCategoryModal(true)">Create new
+        </b-button>
+        <b-button class="mr-3" variant="outline-danger" @click="hideModal">Close</b-button>
+        <b-button :disabled="!categoryId" variant="primary" @click="submit">Submit</b-button>
+      </div>
+    </b-modal>
+    <new-category-modal @onCreated="fetchUserCategories" />
+  </div>
 </template>
 
 <script>
-import { mapGetters, mapMutations } from 'vuex'
+import { mapActions, mapGetters, mapMutations } from 'vuex'
+import NewCategoryModal from '@/components/Category/NewCategoryModal'
 
 export default {
-  props: {
-    onClose: {
-      type: Function,
-      default: () => {
-      }
-    },
-    onSubmit: {
-      type: Function,
-      default: () => {
-      }
-    }
-  },
+  components: { NewCategoryModal },
   data() {
     return {
       categoryId: null,
@@ -45,10 +40,14 @@ export default {
   computed: {
     ...mapGetters({
       isOpenProjectCategoryModal: 'projects/isOpenProjectCategoryModal',
-      allCategories: 'categories/getAllCategories'
+      userId: 'users/getCurrentUserId',
+      userCategories: 'users/getUserCategories',
     }),
     categoryOptions() {
-      const options = this.allCategories.map(category => category.value).sort((c1, c2) => c1.localeCompare(c2))
+      const options = this.userCategories.map(category => ({
+        label: category.value,
+        value: category.id
+      })).sort((o1, o2) => o1.label.localeCompare(o2.label))
 
       return [
         { label: 'Select All', value: -1 },
@@ -64,18 +63,32 @@ export default {
       }
     }
   },
+  created() {
+    this.fetchUserCategories()
+  },
   methods: {
     ...mapMutations({
-      setIsOpen: 'projects/setOpenAddProjectCategoryModal'
+      setIsOpen: 'projects/setOpenAddProjectCategoryModal',
+      setOpenNewCategoryModal: 'categories/setOpenNewCategoryModal'
     }),
+    ...mapActions({
+      getUserCategories: 'users/getUserCategories',
+    }),
+    async fetchUserCategories() {
+      const userId = this.userId
+      const handler = this.$apiHandler
+        .build()
+        .setData({ params: [userId] })
+      await this.getUserCategories(handler)
+    },
     hideModal() {
       this.isOpen = false
       this.$emit('onClose')
     },
     submit() {
       let categories = []
-      if (this.categoryId === -1) categories = this.allCategories
-      else categories = [this.allCategories.find(l => l.id === this.categoryId)]
+      if (this.categoryId === -1) categories = this.userCategories
+      else categories = [this.userCategories.find(l => l.id === this.categoryId)]
 
       this.categoryId = null
       this.isOpen = false

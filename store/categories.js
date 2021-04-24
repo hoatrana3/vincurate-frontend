@@ -2,18 +2,25 @@ import ResponseWrapper from '@/api/ResponseWrapper'
 import CustomError from '@/api/CustomError'
 
 export const state = () => ({
-  allCategories: []
+  allCategories: [],
+  openNewCategoryModal: false,
 })
 
 export const getters = {
   getAllCategories(state) {
     return state.allCategories
+  },
+   isOpenNewCategoryModal(state) {
+    return state.openNewCategoryModal
   }
 }
 
 export const mutations = {
   setAllCategories(state, val) {
     state.allCategories = val
+  },
+  setOpenNewCategoryModal(state, val) {
+    state.openNewCategoryModal = val
   }
 }
 
