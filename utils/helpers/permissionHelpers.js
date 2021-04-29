@@ -1,51 +1,25 @@
-const guestPerms = [
+const guestRoutes = [
   '',
   '/',
   '/home',
   '/articles',
   '/articles/:id',
-  '/articles/explore',
+  '/explore',
   '/auth/login',
   '/auth/signup'
 ]
-const userPerms = [
-  ...guestPerms,
-  '/articles/upload',
-  '/articles/my-articles',
-  '/user/edit-account',
-  '/articles/:id/details',
-  '/articles/:id?/details',
-  '/articles/:id/edit-basic',
-  '/articles/:id?edit-basic',
-  '/articles/:id/labeling',
-  '/articles/:id?/labeling',
-  '/labels/manage',
-  '/labels/:id/edit',
-  '/labels/:id?/edit',
-  '/seq-label-versions/:id',
-  '/seq-label-versions/:id/edit',
-  '/seq-label-versions/:id?/edit',
-  '/projects/my-projects',
-  '/projects/new',
-  '/projects/:id',
-  '/projects/:id/edit',
-  '/projects/:id?/edit',
-  '/projects/:id/upload-articles',
-  '/projects/:id?/upload-articles',
-]
-const permissions = {
-  guest: guestPerms,
-  user: userPerms
+const inheritDomains = {
+  user: ['guest'],
+  admin: ['guest', 'user']
 }
 
 export default () => ({
-  permissions,
-  roleHasPermission(role, path) {
-    if (!role || !role.length) return false
+  hasPermission(path, role) {
     if (!path || !path.length) return false
-    if (role === 'admin') return true
-    if (!permissions.hasOwnProperty(role)) return false
-    return permissions[role].includes(path)
+    if (!role || !role.length) return guestRoutes.includes(path)
+    if (guestRoutes.includes(path)) return true
+
+    const routeRole = path.split('/')[1]
+    return role === routeRole || inheritDomains[role].includes(routeRole)
   }
 })
-

@@ -26,6 +26,19 @@ export default async function(
 
     store.dispatch('users/logout')
   }
+  const checkUserPermission = () => {
+    const user = store.getters['users/getCurrentUser']
+
+    if (!user.isActive)
+      noPermissionHandle()
+    else {
+      const role = user.role
+      const path = route.matched[0].path || route.path
+
+      if (!$helpers.hasPermission(path, role)) noPermissionHandle()
+      else redirectIfInAuth()
+    }
+  }
   let isLoggedIn = store.getters['users/isLoggedIn']
 
   if (!isLoggedIn) {
@@ -50,22 +63,11 @@ export default async function(
         .addOnError(noPermissionHandle)
 
       await store.dispatch('users/getUser', handler)
+      checkUserPermission()
     } else {
       const path = route.matched[0].path || route.path
-      if (!path.includes('auth') && !$helpers.permissions.guest.includes(path))
+      if (!path.includes('auth') && !$helpers.hasPermission(path))
         noPermissionHandle()
     }
-  } else {
-    const user = store.getters['users/getCurrentUser']
-
-    if (!user.isActive)
-      noPermissionHandle()
-    else {
-      const role = user.role
-      const path = route.matched[0].path || route.path
-
-      if (!$helpers.roleHasPermission(role, path)) noPermissionHandle()
-      else redirectIfInAuth()
-    }
-  }
+  } else checkUserPermission()
 }

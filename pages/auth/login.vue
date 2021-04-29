@@ -8,7 +8,7 @@
 
 <script>
 import { mapActions } from 'vuex'
-import Page from '~/components/Page'
+import Page from '@/components/Page'
 import { LumaLoginPage } from 'vue-luma'
 
 export default {

@@ -45,48 +45,65 @@
         no-actions />
     </div>
     <div class="col-md-4">
-      <b-btn
-        block
-        :to="`/projects/${currentProject.id}/edit`"
-        variant="dark">
-        <md-icon v-text="'mode_edit'" class="mr-2" />
-        Edit project
-      </b-btn>
-      <b-btn
-        block
-        :to="`/projects/${currentProject.id}/annotate`"
-        :disabled="currentProject.articles.length <= 0"
-        variant="primary"
-        class="mb-2">
-        <md-icon v-text="'art_track'" class="mr-2" />
-        Perform annotate
-      </b-btn>
-
-      <div class="d-flex align-items-center mb-2">
+      <div class="mb-4">
         <b-btn
-          variant="warning"
-          :to="`/projects/${currentProject.id}/upload-articles`"
-          class="flex mr-2">
-          <md-icon v-text="'file_upload'" class="mr-2" />
-          Upload
+          v-if="$helpers.isCurrentUserApprover(currentProject) || $helpers.isCurrentUserProjectAdmin(currentProject)"
+          block
+          :to="`/user/projects/${currentProject.id}/edit`"
+          variant="dark">
+          <md-icon v-text="'mode_edit'" class="mr-2" />
+          Edit project
         </b-btn>
         <b-btn
-          variant="light"
-          :to="`/projects/${currentProject.id}/new-article`"
-          class="flex">
-          <md-icon v-text="'add'" class="mr-2" />
-          Create
+          block
+          :to="`/user/projects/${currentProject.id}/annotate`"
+          :disabled="currentProject.articles.length <= 0"
+          variant="primary"
+          class="mb-2">
+          <md-icon v-text="'art_track'" class="mr-2" />
+          Perform annotate
+        </b-btn>
+
+        <div
+          v-if="$helpers.isCurrentUserApprover(currentProject) || $helpers.isCurrentUserProjectAdmin(currentProject)"
+          class="d-flex align-items-center mb-2">
+          <b-btn
+            variant="warning"
+            :to="`/user/projects/${currentProject.id}/upload-articles`"
+            class="flex mr-2">
+            <md-icon v-text="'file_upload'" class="mr-2" />
+            Upload
+          </b-btn>
+          <b-btn
+            variant="light"
+            :to="`/user/projects/${currentProject.id}/new-article`"
+            class="flex">
+            <md-icon v-text="'add'" class="mr-2" />
+            Create
+          </b-btn>
+        </div>
+
+        <b-btn
+          v-if="$helpers.isCurrentUserProjectAdmin(currentProject)"
+          block
+          variant="accent"
+          @click="doDelete">
+          <md-icon v-text="'delete'" class="mr-2" />
+          Delete
         </b-btn>
       </div>
 
-      <b-btn
-        block
-        variant="accent"
-        class="mb-4"
-        @click="doDelete">
-        <md-icon v-text="'delete'" class="mr-2" />
-        Delete
-      </b-btn>
+      <page-separator title="Your Role" />
+      <div class="card">
+        <div class="card-body flex text-center d-flex flex-column align-items-center justify-content-center">
+          <h3 class="text-accent">
+            {{ $helpers.currentUserRoleInProject(currentProject) }}
+          </h3>
+          <p class="card-subtitle text-black-70">
+            {{ roleDescription }}
+          </p>
+        </div>
+      </div>
 
       <page-separator title="Owner" />
       <div class="card">
@@ -163,6 +180,17 @@ export default {
         ...r.user,
         role: r.role
       }))
+    },
+    roleDescription() {
+      const roles = this.$helpers.PROJECT_ROLES
+      switch (this.$helpers.currentUserRoleInProject(this.currentProject)) {
+        case roles.PROJECT_ADMIN:
+          return 'You have fully permission to do everything to this project!'
+        case roles.APPROVER:
+          return 'You can directly update project data and review annotation versions in this project!'
+        case roles.ANNOTATOR:
+          return 'You can only annotate the articles in this project and create annotation versions!'
+      }
     }
   },
   methods: {
@@ -179,7 +207,7 @@ export default {
             'Your project is deleted'
           )
 
-          this.$router.push('/projects/my-projects')
+          this.$router.push('/user/projects/my-projects')
         })
       this.deleteProject(handler)
     }

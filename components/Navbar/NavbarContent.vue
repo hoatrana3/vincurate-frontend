@@ -30,7 +30,7 @@
           Home
         </b-nav-item>
         <b-nav-item
-          :to="routeTo(routes.articlesExplore)"
+          :to="routeTo(routes.explore)"
           exact>
           Explore
         </b-nav-item>

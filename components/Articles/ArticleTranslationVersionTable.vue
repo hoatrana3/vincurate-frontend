@@ -51,8 +51,12 @@
             <md-icon class="icon-24pt">more_vert</md-icon>
           </template>
 
-          <b-dd-item :to="`/translation-versions/${id}`">Review</b-dd-item>
-          <b-dd-item :to="`/translation-versions/${id}/edit`">Edit</b-dd-item>
+          <b-dd-item
+            v-if="$helpers.isCurrentUserApprover(currentArticle.project) || $helpers.isCurrentUserProjectAdmin(currentArticle.project)"
+            :to="`/user/translation-versions/${id}`">
+            Review
+          </b-dd-item>
+          <b-dd-item :to="`/user/translation-versions/${id}/edit`">Edit</b-dd-item>
         </b-dd>
       </template>
     </b-table>
@@ -79,6 +83,7 @@ import {
   MdIcon
 } from 'vue-luma'
 import CustomPager from '@/components/General/CustomPager'
+import { mapGetters } from 'vuex'
 
 export default {
   components: {
@@ -102,6 +107,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      currentArticle: 'articles/getCurrentArticle'
+    }),
     fields() {
       const fields = [{
         key: 'index',

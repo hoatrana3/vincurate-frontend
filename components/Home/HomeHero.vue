@@ -39,7 +39,7 @@ export default {
   },
   methods: {
     searchByInput() {
-      this.$router.push(`/articles/explore?q=${this.searchInput}`)
+      this.$router.push(`/explore?q=${this.searchInput}`)
     }
   }
 }

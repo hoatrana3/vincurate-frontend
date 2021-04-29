@@ -1,5 +1,5 @@
 <template>
-  <b-modal v-model="isOpen" hide-footer hide-header centered>
+  <b-modal v-model="isOpen" hide-footer hide-header centered no-close-on-backdrop>
     <b-form-group
       label="User"
       label-for="user"
@@ -37,18 +37,6 @@
 import { mapGetters, mapMutations } from 'vuex'
 
 export default {
-  props: {
-    onClose: {
-      type: Function,
-      default: () => {
-      }
-    },
-    onSubmit: {
-      type: Function,
-      default: () => {
-      }
-    }
-  },
   data() {
     return {
       userId: null,
@@ -58,10 +46,12 @@ export default {
   computed: {
     ...mapGetters({
       isOpenProjectRoleModal: 'projects/isOpenProjectRoleModal',
-      allUsers: 'users/getAllUsers'
+      allUsers: 'users/getAllUsers',
+      currentUser: 'users/getCurrentUser'
     }),
     userOptions() {
-      return this.allUsers.map(user => ({
+      const users = this.allUsers.filter(u => u.id !== this.currentUser.id)
+      return users.map(user => ({
         label: user.name,
         value: user.id
       })).sort((o1, o2) => o1.label.localeCompare(o2.label))
@@ -75,7 +65,7 @@ export default {
       },
       set(val) {
         this.setIsOpen(val)
-      },
+      }
     }
   },
   methods: {

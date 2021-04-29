@@ -1,29 +1,44 @@
 <template>
-  <b-tabs
-    v-model="tabIndex"
-    pills>
-    <b-tab
-      v-if="$helpers.isSeqLabelProject(article.project)"
-      title="Sequence Labeling">
-      <div class="pt-4">
-        <article-seq-label-tab :article="article" />
-      </div>
-    </b-tab>
-    <b-tab
-      v-if="$helpers.isDocClassProject(article.project)"
-      title="Document Category">
-      <div class="pt-4">
-        <article-category-tab :article="article" />
-      </div>
-    </b-tab>
-    <b-tab
-      v-if="$helpers.isSeqTransProject(article.project)"
-      title="Document Translation">
-      <div class="pt-4">
-        <article-translation-tab :article="article" />
-      </div>
-    </b-tab>
-  </b-tabs>
+  <b-card>
+    <b-tabs
+      v-model="tabIndex">
+      <b-tab v-if="$helpers.isSeqLabelProject(article.project)">
+        <template #title>
+          <div class="d-flex align-items-center">
+            <md-icon v-text="'label_important'" class="mr-1" />
+            <span>Sequence Labeling</span>
+          </div>
+        </template>
+        <div class="pt-4">
+          <article-seq-label-tab :article="article" />
+        </div>
+      </b-tab>
+      <b-tab v-if="$helpers.isDocClassProject(article.project)">
+        <template #title>
+          <div class="d-flex align-items-center">
+            <md-icon v-text="'class'" class="mr-1" />
+            <span>Document Category</span>
+          </div>
+        </template>
+        <div class="pt-4">
+          <article-category-tab :article="article" />
+        </div>
+      </b-tab>
+      <b-tab
+        v-if="$helpers.isSeqTransProject(article.project)"
+        title="Document Translation">
+        <template #title>
+          <div class="d-flex align-items-center">
+            <md-icon v-text="'translate'" class="mr-1" />
+            <span>Document Translation</span>
+          </div>
+        </template>
+        <div class="pt-4">
+          <article-translation-tab :article="article" />
+        </div>
+      </b-tab>
+    </b-tabs>
+  </b-card>
 </template>
 
 <script>
@@ -37,7 +52,7 @@ export default {
     article: {
       type: Object,
       required: true
-    },
+    }
   },
   data() {
     return {
@@ -46,7 +61,7 @@ export default {
   },
   watch: {
     tabIndex() {
-      this.$router.push(`/projects/${this.article.project.id}/annotate/${this.article.id}?tab=${this.tabIndex}`)
+      this.$router.push(`${this.$route.path}?tab=${this.tabIndex}`)
     }
   },
   created() {

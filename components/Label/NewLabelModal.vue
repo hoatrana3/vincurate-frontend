@@ -1,5 +1,5 @@
 <template>
-  <b-modal v-model="isOpen" hide-footer hide-header centered>
+  <b-modal v-model="isOpen" hide-footer hide-header centered no-close-on-backdrop>
     <div class="row">
       <div class="col-md-6">
         <b-form-group
@@ -51,18 +51,6 @@
 import { mapGetters, mapMutations, mapActions } from 'vuex'
 
 export default {
-  props: {
-    onClose: {
-      type: Function,
-      default: () => {
-      }
-    },
-    onSubmit: {
-      type: Function,
-      default: () => {
-      }
-    }
-  },
   data() {
     return {
       name: '',
@@ -74,17 +62,6 @@ export default {
     ...mapGetters({
       isOpenNewLabelModal: 'labels/isOpenNewLabelModal'
     }),
-    labelOptions() {
-      const options = this.allLabels.map(label => ({
-        label: `${label.name} | ${label.value}`,
-        value: label.id
-      })).sort((o1, o2) => o1.label.localeCompare(o2.label))
-
-      return [
-        { label: 'Select All', value: -1 },
-        ...options
-      ]
-    },
     isOpen: {
       get() {
         return this.isOpenNewLabelModal
@@ -92,17 +69,6 @@ export default {
       set(val) {
         this.setIsOpen(val)
       }
-    }
-  },
-  watch: {
-    labelId(val) {
-      if (!val || val === -1) {
-        this.color = ''
-        return
-      }
-
-      const label = this.allLabels.find(l => l.id === val)
-      this.color = label.color
     }
   },
   methods: {
@@ -136,6 +102,7 @@ export default {
           this.$helpers.initLabelCofigs()
           this.name = this.color = this.value = ''
           this.isOpen = false
+          this.$emit('onCreated')
         })
       await this.createLabel(handler)
     }
