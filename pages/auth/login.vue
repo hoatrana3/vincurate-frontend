@@ -3,13 +3,15 @@
     :title="title"
     :brand="$store.state.brand"
     :auth-with-google="false"
-    :on-submit-handler="onSubmitHandler" />
+    :on-submit-handler="onSubmitHandler"
+    :logo="logo" />
 </template>
 
 <script>
 import { mapActions } from 'vuex'
 import Page from '@/components/Page'
 import { LumaLoginPage } from 'vue-luma'
+import logo from '~/static/images/logo.svg'
 
 export default {
   components: {
@@ -22,9 +24,9 @@ export default {
       title: 'Login'
     }
   },
-  async asyncData() {
-    return {
-      title: 'Login'
+  computed: {
+    logo() {
+      return logo
     }
   },
   methods: {

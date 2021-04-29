@@ -3,13 +3,15 @@
     :title="title"
     :brand="$store.state.brand"
     :auth-with-google="false"
-    :on-submit-handler="onSubmitHandler" />
+    :on-submit-handler="onSubmitHandler"
+    :logo="logo" />
 </template>
 
 <script>
 import Page from '@/components/Page'
 import { LumaSignupPage } from 'vue-luma'
 import { mapActions } from 'vuex'
+import logo from '~/static/images/logo.svg'
 
 export default {
   components: {
@@ -20,6 +22,11 @@ export default {
   data() {
     return {
       title: 'Sign Up'
+    }
+  },
+  computed: {
+    logo() {
+      return logo
     }
   },
   methods: {
