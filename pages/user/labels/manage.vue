@@ -28,7 +28,7 @@
             <b-btn
               block
               variant="primary"
-              to="/labels/sets/new">
+              to="/user/labels/sets/new">
               <md-icon v-text="'add'" class="mr-2" />
               Add new set
             </b-btn>
@@ -150,7 +150,7 @@ export default {
   },
   data() {
     return {
-      title: 'My Label Sets',
+      title: 'Manage My Labels',
       searchInput: '',
       currentPage: 1,
       perPage: 12

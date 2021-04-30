@@ -93,9 +93,14 @@ export default {
       return results
     }
   },
-  created() {
-    this.content = this.article.content
-    this.annotations = cloneDeep(this.article.annotations)
+  watch: {
+    article: {
+      immediate: true,
+      handler(val) {
+        this.content = val.content
+        this.annotations = cloneDeep(val.annotations)
+      }
+    }
   },
   methods: {
     getTextCustomClass(text) {

@@ -25,7 +25,7 @@
               class="col-12">
               <page-separator title="Translation" />
               <b-card class="stack stack--1">
-                <div>{{ currentArticle.translation.content }}</div>
+                <span class="font-size-16pt">{{ currentArticle.translation.content }}</span>
               </b-card>
             </div>
           </div>

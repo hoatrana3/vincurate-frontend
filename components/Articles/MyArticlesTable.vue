@@ -15,7 +15,7 @@
       </template>
 
       <template #cell(title)="data">
-        {{ !data.length ? 'No Article Title' : data }}
+        {{ data.item.title }}
       </template>
 
       <template #cell(description)="data">
@@ -93,7 +93,7 @@ export default {
     return {
       articles: [],
       page: 1,
-      per: 10
+      per: 5
     }
   },
   computed: {

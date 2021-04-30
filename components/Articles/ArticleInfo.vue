@@ -6,7 +6,7 @@
         label="Article title"
         label-class="form-label">
         <h2 class="text-primary text-capitalize font-weight-bold">
-          {{ articleTitle }}
+          {{ currentArticle.title }}
         </h2>
       </b-form-group>
       <div class="row mb-32pt">
@@ -160,10 +160,6 @@ export default {
     ...mapGetters({
       currentArticle: 'articles/getCurrentArticle'
     }),
-    articleTitle() {
-      const title = this.currentArticle.title
-      return !title || !title.length ? 'No Title Article' : title
-    },
     roleDescription() {
       const roles = this.$helpers.PROJECT_ROLES
       switch (this.$helpers.currentUserRoleInProject(this.currentArticle.project)) {

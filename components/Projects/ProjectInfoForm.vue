@@ -124,6 +124,7 @@
 </template>
 
 <script>
+import cloneDeep from 'lodash/cloneDeep'
 import { mapGetters, mapMutations } from 'vuex'
 import ProjectRolesTable from '@/components/Projects/ProjectRolesTable'
 import AddProjectRoleModal from '@/components/Projects/AddProjectRoleModal'
@@ -175,10 +176,10 @@ export default {
       handler(val) {
         if (!this.forNew) {
           this.projectTitle = val.title
-          this.roles = this.currentProjectRoles
-          this.labels = this.currentProject.labels
-          this.categories = this.currentProject.categories
-          this.types = this.currentProject.types
+          this.roles = cloneDeep(this.currentProjectRoles)
+          this.labels = cloneDeep(this.currentProject.labels)
+          this.categories = cloneDeep(this.currentProject.categories)
+          this.types = cloneDeep(this.currentProject.types)
         }
       }
     }

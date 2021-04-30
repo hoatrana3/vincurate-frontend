@@ -39,7 +39,8 @@ export default {
   },
   methods: {
     searchByInput() {
-      this.$router.push(`/explore?q=${this.searchInput}`)
+      if (this.searchInput.length)
+        this.$router.push(`/explore?q=${this.searchInput}`)
     }
   }
 }

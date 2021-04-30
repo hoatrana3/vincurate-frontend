@@ -3,7 +3,7 @@ const guestRoutes = [
   '/',
   '/home',
   '/articles',
-  '/articles/:id',
+  '/guest/articles/:id',
   '/explore',
   '/auth/login',
   '/auth/signup'

@@ -88,7 +88,7 @@ export default {
   data() {
     return {
       page: 1,
-      per: 5
+      per: 3
     }
   },
   computed: {

@@ -23,10 +23,12 @@
               <md-icon class="icon-24pt">more_vert</md-icon>
             </template>
 
-            <b-dd-item :to="`/user/articles/${article.id}/edit-basic`">Edit</b-dd-item>
+            <b-dd-item
+              v-if="$helpers.currentUserRoleInProject(article.project)"
+              :to="`/user/articles/${article.id}`">
+              Manage
+            </b-dd-item>
             <b-dd-item @click.prevent="downloadArticle">Download data</b-dd-item>
-            <b-dd-divider />
-            <b-dd-item variant="danger">Delete</b-dd-item>
           </b-dd>
         </li>
       </ul>

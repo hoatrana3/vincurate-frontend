@@ -17,9 +17,9 @@
       <b-form-textarea
         v-model="info.content"
         id="content"
-        size="md"
-        rows="10"
-        max-rows="20"
+        size="lg"
+        rows="15"
+        max-rows="25"
         placeholder="Content of article" />
       <template
         v-if="!forNew"

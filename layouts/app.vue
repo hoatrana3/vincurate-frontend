@@ -4,13 +4,6 @@
     :drawer-layout-class="drawerLayoutClass"
     :container-class="containerClass"
     :drawer-align="mainDrawerAlign"
-    :sidebar-type="sidebarType"
-    :sidebar-variant="sidebarVariant"
-    :sidebar-brand="$store.state.brand"
-    :sidebar-search="sidebarSearch"
-    sidebar-search-form-class="search-form--black"
-    :sidebar-brand-class="sidebarBrandClass"
-    :sidebar-menu="$store.getters['sidebarMenuConfig/layoutMenu']"
     :sub-layout="subLayout"
     :sub-layout-has-scrolling-region="subLayoutHasScrollingRegion"
     :sub-layout-drawer="subLayoutDrawer"
@@ -41,14 +34,21 @@
         :navbar-content-container-class="navbarContainerClass" />
     </template>
     <!-- Replace Sidebar Component -->
-    <!-- <template v-slot:sidebar>
-      Replace Sidebar Component
-    </template> -->
+    <template v-slot:sidebar>
+      <sidebar
+        :sidebar-search="sidebarSearch"
+        sidebar-search-form-class="search-form--black"
+        :sidebar-brand="$store.state.brand"
+        :sidebar-brand-class="sidebarBrandClass"
+        :sidebar-type="sidebarType"
+        :sidebar-variant="sidebarVariant"
+        :sidebar-menu="sidebarMenu" />
+    </template>
 
     <!-- Replace Sidebar Content -->
-    <template v-slot:sidebar-content="{sidebar}">
-      <sidebar-content :sidebar="sidebar" />
-    </template>
+    <!--    <template v-slot:sidebar-content="{sidebar}">-->
+    <!--      <sidebar-content :sidebar="sidebar" />-->
+    <!--    </template>-->
 
     <!-- Page Content -->
     <nuxt />
@@ -103,6 +103,7 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import { AppLayout } from 'vue-luma'
 import AppSettings from '~/components/Settings'
 
@@ -112,14 +113,14 @@ import sidebarConfigMixin from '~/mixins/sidebar-config'
 import layoutConfigMixin from '~/mixins/layout-config'
 import subLayoutMixin from '~/mixins/sub-layout'
 
-import SidebarContent from '@/components/Sidebar/SidebarContent'
 import NavbarContent from '@/components/Navbar/NavbarContent'
+import Sidebar from '~/components/Sidebar/Sidebar'
 
 export default {
   components: {
+    Sidebar,
     AppLayout,
     AppSettings,
-    SidebarContent,
     NavbarContent
   },
   mixins: [
@@ -135,6 +136,9 @@ export default {
     }
   },
   computed: {
+    ...mapGetters({
+      sidebarMenu: 'sidebarMenuConfig/layoutMenu'
+    }),
     bodyClass() {
       return null
     },
@@ -149,7 +153,7 @@ export default {
     },
     sidebarConfigKey() {
       return this.mainDrawerSidebar
-    }
+    },
   },
   created() {
     this.$root.$on('luma::guest', guest => this.guest = guest)

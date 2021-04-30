@@ -29,7 +29,7 @@ export default async function(
   const checkUserPermission = () => {
     const user = store.getters['users/getCurrentUser']
 
-    if (!user.isActive)
+    if (!user || !user.isActive)
       noPermissionHandle()
     else {
       const role = user.role
@@ -53,7 +53,7 @@ export default async function(
         .setData({ params: [userId] })
         .addOnResponse((response) => {
           const user = response.getData()
-          if (!user.isActive)
+          if (!user || !user.isActive)
             noPermissionHandle()
           else {
             store.commit('users/setCurrentUser', response.getData())

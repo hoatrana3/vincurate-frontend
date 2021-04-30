@@ -1,11 +1,11 @@
 <template>
   <div>
     <div class="flex">
-      <h1 class="h2 measure-lead-max mb-16pt" v-text="articleTitle" />
+      <h1 class="h2 measure-lead-max mb-16pt" v-text="article.title" />
       <div class="d-flex align-items-center">
         <fmv-avatar
           :to="routeTo(routes.instructorProfile)"
-          src="/images/people/50/guy-6.jpg"
+          src="/images/fakeavatar.png"
           alt="author"
           size="sm"
           circle
@@ -47,11 +47,5 @@ export default {
       required: true
     }
   },
-  computed: {
-    articleTitle() {
-      const title = this.article.title
-      return !title || !title.length ? 'No Title Article' : title
-    }
-  }
 }
 </script>

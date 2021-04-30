@@ -9,13 +9,13 @@
       <div class="col-md-6">
         <page-separator title="Origin Content" />
         <b-card class="stack stack--2">
-          {{ currentTranslationVersion.article.content }}
+          <span class="font-size-20pt">{{ currentTranslationVersion.article.content }}</span>
         </b-card>
       </div>
       <div class="col-md-6">
         <page-separator title="Translated Content" />
         <b-card class="stack stack--2">
-          {{ currentTranslationVersion.translation.content }}
+          <span class="font-size-20pt">{{ currentTranslationVersion.translation.content }}</span>
         </b-card>
       </div>
       <div class="col-md-12 d-flex align-items-center flex-column">

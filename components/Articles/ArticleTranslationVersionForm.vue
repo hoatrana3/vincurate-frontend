@@ -52,6 +52,8 @@ export default {
     article: {
       immediate: true,
       handler(val) {
+        this.translation = ''
+
         if (!this.forNew && val && val.translation) {
           this.translation = val.translation.content
         }

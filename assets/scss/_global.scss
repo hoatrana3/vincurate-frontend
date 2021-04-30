@@ -1,6 +1,8 @@
-#drawer-layout-content {
+#drawer-layout-content,
+#header-layout-content {
   display: flex;
   flex-direction: column;
+  min-height: 100vh;
 
   & > div:last-child {
     margin-top: auto; // TODO: No more tricky css like this for footer

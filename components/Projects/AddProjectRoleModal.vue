@@ -34,6 +34,7 @@
 </template>
 
 <script>
+import cloneDeep from 'lodash/cloneDeep'
 import { mapGetters, mapMutations } from 'vuex'
 
 export default {
@@ -77,7 +78,7 @@ export default {
       this.$emit('onClose')
     },
     submit() {
-      const user = this.allUsers.find(u => u.id === this.userId)
+      const user = cloneDeep(this.allUsers.find(u => u.id === this.userId))
       user.role = this.role
       this.userId = null
       this.isOpen = false

@@ -19,15 +19,6 @@
         </div>
         <div class="col-md-4">
           <b-form-group
-            label="Owner"
-            label-class="form-label">
-            <b-link to="#">
-              {{ currentProject.owner.name }}
-            </b-link>
-          </b-form-group>
-        </div>
-        <div class="col-md-4">
-          <b-form-group
             label="Your Role"
             label-class="form-label">
             <span class="text-black-70">
@@ -35,7 +26,7 @@
             </span>
           </b-form-group>
         </div>
-        <div class="col-md-12">
+        <div class="col-md-4">
           <b-form-group
             label="Project types"
             label-class="form-label">

@@ -59,7 +59,7 @@ export default {
     article: {
       immediate: true,
       handler(val) {
-        this.selectedCategories = val.categories
+        this.selectedCategories = [...val.categories]
       }
     }
   },

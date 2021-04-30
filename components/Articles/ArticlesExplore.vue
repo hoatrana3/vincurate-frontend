@@ -91,7 +91,7 @@ export default {
     additionalRequired: {
       type: Boolean,
       default: true
-    }
+    },
   },
   data() {
     return {
@@ -113,7 +113,7 @@ export default {
       return this.$route.query.q || ''
     },
     shownConceptLabels() {
-      if (!this.project) return this.allConceptLabels
+      if (!this.project) return this.allConceptLabels.filter(l => l.isSystem)
       return this.project.labels
     }
   },

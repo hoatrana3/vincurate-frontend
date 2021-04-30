@@ -87,7 +87,7 @@ export default {
       }
     },
     headerImage() {
-      return '/images/newspaper-2253408_1920.jpg'
+      return '/images/home-header.jpg'
     },
     headerContentClass() {
       if (this.$root.layoutName === 'fixed') {

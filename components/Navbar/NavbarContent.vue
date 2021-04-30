@@ -11,7 +11,7 @@
         no-link
         class="navbar-brand-icon mr-0 mr-lg-8pt">
         <b-img
-          :src="brandImage"
+          :src="logo"
           class="img-fluid"
           width="40"
           :alt="navbarBrand" />
@@ -111,6 +111,7 @@
 <script>
 import { mapGetters } from 'vuex'
 import { NavbarFullContentSample } from 'vue-luma'
+import logo from '~/static/images/logo.svg'
 
 export default {
   name: 'NavbarContent',
@@ -119,7 +120,10 @@ export default {
     ...mapGetters({
       isLoggedIn: 'users/isLoggedIn',
       currentUser: 'users/getCurrentUser'
-    })
+    }),
+    logo() {
+      return logo
+    }
   },
   methods: {
     userLogout() {
