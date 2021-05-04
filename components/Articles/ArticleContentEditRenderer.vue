@@ -4,7 +4,7 @@
       class="font-size-16pt text-justify static-concepts-container"
       :data-concepts="selectedConcepts.join(', ')">
       <span
-        v-for="(text, index) in preformatTexts"
+        v-for="(text, index) in preformatTexts(mArticle)"
         :key="`${text.text}-${$moment().unix()}-${index}`"
         :offset-start="text.offsetStart"
         :class="getTextCustomClass(text)"><!--
@@ -48,6 +48,9 @@ export default {
     ...mapGetters({
       onlyShowDiff: 'seqLabelVersions/getOnlyShowDiff'
     }),
+    annotations() {
+      return this.mArticle.annotations
+    },
     diffAnnotations() {
       return this.annotations.filter(anno => {
         return this.compAnnotations.findIndex(_anno => _anno.offsetStart === anno.offsetStart && _anno.offsetEnd === anno.offsetEnd) < 0

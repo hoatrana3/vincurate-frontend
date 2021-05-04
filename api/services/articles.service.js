@@ -3,7 +3,7 @@ import {
   CREATE_ARTICLE_SEQ_LABEL_VERSION, CREATE_ARTICLE_TRANSLATION_VERSION,
   DELETE_ARTICLE,
   EXPORT_ARTICLE,
-  GET_ARTICLE,
+  GET_ARTICLE, GET_ARTICLE_LABELING_SUGGESTIONS,
   GET_NEXT_OLDER_ARTICLE,
   SEARCH_ARTICLES, UPDATE_ARTICLE,
   UPDATE_ARTICLE_ANNOTATIONS, UPDATE_ARTICLE_CATEGORIES, UPDATE_ARTICLE_TRANSLATION,
@@ -56,5 +56,8 @@ export default ($axios) => ({
   },
   createArticleTranslationVersion({ params, data }) {
     return $axios.post(CREATE_ARTICLE_TRANSLATION_VERSION.get(params), data)
+  },
+  fetchArticleLabelingSuggestion ({ params }) {
+    return $axios.get(GET_ARTICLE_LABELING_SUGGESTIONS.get(params))
   },
 })

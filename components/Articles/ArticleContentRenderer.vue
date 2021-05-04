@@ -1,11 +1,11 @@
 <template>
   <div
-    class="font-size-16pt text-justify static-concepts-container"
+    class="font-size-16pt text-justify static-concepts-container article-content-renderer"
     :data-concepts="selectedConcepts.join(', ')">
     <template
       v-if="$helpers.isSeqLabelProject(article.project)">
       <span
-        v-for="(text, index) in preformatTexts"
+        v-for="(text, index) in preformatTexts(mArticle)"
         :key="`${text.text}-${$moment().unix()}-${index}`"
         :offset-start="text.offsetStart"
         :class="getTextCustomClass(text)"><!--
@@ -17,8 +17,9 @@
     --></span>
     </template>
     <template v-else>
-      {{content}}
+      {{ content }}
     </template>
+    <slot name="content-footer" />
   </div>
 </template>
 
@@ -32,6 +33,11 @@ export default {
       type: Object,
       required: true
     },
+    overlayArticle: {
+      type: Object,
+      default: () => {
+      }
+    },
     editable: {
       type: Boolean,
       default: false
@@ -43,19 +49,46 @@ export default {
   },
   data() {
     return {
-      content: '',
-      annotations: []
+      mArticle: null,
+      mOverlayArticle: null
     }
   },
   computed: {
     ...mapGetters({
       selectedConcepts: 'articles/getSelectedConcepts',
       pickedFilters: 'articles/getPickedFilters'
-    }),
-    preformatTexts() {
+    })
+  },
+  watch: {
+    article: {
+      immediate: true,
+      handler(val) {
+        if (val)
+          this.mArticle = {
+            annotations: cloneDeep(val.annotations),
+            content: val.content
+          }
+      }
+    },
+    overlayArticle: {
+      immediate: true,
+      handler(val) {
+        if (val)
+          this.mOverlayArticle = {
+            annotations: cloneDeep(val.annotations),
+            content: val.content
+          }
+      }
+    }
+  },
+  methods: {
+    preformatTexts(article) {
+      if (!article) return []
+
+      const { annotations, content } = article
       const results = []
-      const annos = cloneDeep(this.annotations).sort((a1, a2) => a1.offsetEnd - a2.offsetEnd)
-      const desc = this.content
+      const annos = cloneDeep(annotations).sort((a1, a2) => a1.offsetEnd - a2.offsetEnd)
+      const desc = content
       let contentIndex = 0
       let annoIndex = 0
 
@@ -91,18 +124,7 @@ export default {
       }
 
       return results
-    }
-  },
-  watch: {
-    article: {
-      immediate: true,
-      handler(val) {
-        this.content = val.content
-        this.annotations = cloneDeep(val.annotations)
-      }
-    }
-  },
-  methods: {
+    },
     getTextCustomClass(text) {
       const indexFilter = this.pickedFilters.findIndex(f => f.text.toLowerCase().trim() === text.text.toLowerCase().trim())
       const conceptClass = text.annotation ? `has-concept concept-${text.value}` : ''
@@ -113,14 +135,14 @@ export default {
       return [conceptClass, filterClass, editableClass, forceActiveClass].filter(i => i.length).join(' ')
     },
     removeTextAnnotation(text) {
-      const index = this.annotations.findIndex(a => a.offsetStart === text.annotation.offsetStart && a.offsetEnd === text.annotation.offsetEnd)
-      if (index >= 0) this.annotations.splice(index, 1)
+      const index = this.mArticle.annotations.findIndex(a => a.offsetStart === text.annotation.offsetStart && a.offsetEnd === text.annotation.offsetEnd)
+      if (index >= 0) this.mArticle.annotations.splice(index, 1)
     },
     addTextAnnotation(annotation) {
-      this.annotations.push(annotation)
+      this.mArticle.annotations.push(annotation)
     },
     getAnnotations() {
-      return this.annotations
+      return this.mArticle.annotations
     }
   }
 }

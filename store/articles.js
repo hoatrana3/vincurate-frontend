@@ -110,6 +110,23 @@ export const actions = {
 
     return await handler.setOnRequest(onRequest).execute()
   },
+  async fetchArticleLabelingSuggesting({ commit, dispatch }, handler) {
+    const onRequest = async () => {
+      const rawData = await this.$articlesService.fetchArticleLabelingSuggestion(handler.data)
+      const response = new ResponseWrapper(rawData)
+
+      if (response.isError()) {
+        throw new CustomError(
+          'Failed to fetch article labeling suggestions',
+          response.getMessage()
+        )
+      }
+
+      return response
+    }
+
+    return await handler.setOnRequest(onRequest).execute()
+  },
   async fetchNextOlderArticle({ commit, dispatch }, handler) {
     const onRequest = async () => {
       const rawData = await this.$articlesService.fetchNextOlderArticle(
