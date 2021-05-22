@@ -8,7 +8,8 @@
         v-for="(text, index) in preformatTexts(mArticle)"
         :key="`${text.text}-${$moment().unix()}-${index}`"
         :offset-start="text.offsetStart"
-        :class="getTextCustomClass(text)"><!--
+        :class="getTextCustomClass(text)"
+        @mouseup="() => $emit('contentSelected')"><!--
       -->{{ text.text }}<!--
       --><i
         v-if="editable && text.value.length"
@@ -19,7 +20,6 @@
     <template v-else>
       {{ content }}
     </template>
-    <slot name="content-footer" />
   </div>
 </template>
 
@@ -33,11 +33,6 @@ export default {
       type: Object,
       required: true
     },
-    overlayArticle: {
-      type: Object,
-      default: () => {
-      }
-    },
     editable: {
       type: Boolean,
       default: false
@@ -50,7 +45,6 @@ export default {
   data() {
     return {
       mArticle: null,
-      mOverlayArticle: null
     }
   },
   computed: {
@@ -70,16 +64,6 @@ export default {
           }
       }
     },
-    overlayArticle: {
-      immediate: true,
-      handler(val) {
-        if (val)
-          this.mOverlayArticle = {
-            annotations: cloneDeep(val.annotations),
-            content: val.content
-          }
-      }
-    }
   },
   methods: {
     preformatTexts(article) {
@@ -140,6 +124,9 @@ export default {
     },
     addTextAnnotation(annotation) {
       this.mArticle.annotations.push(annotation)
+    },
+    removeTextAnnotationByIndex(index) {
+      this.mArticle.annotations.splice(index, 1)
     },
     getAnnotations() {
       return this.mArticle.annotations

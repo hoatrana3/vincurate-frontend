@@ -1,35 +1,12 @@
-.article-content-card {
-  //position: relative;
+.suggestion-list {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  flex: 1;
+  gap: 5px;
 
-  .suggestion-card {
-    position: fixed;
-    top: 0;
-    left: 0;
-    border-radius: $border-radius;
-    box-shadow: $box-shadow;
-    padding: 10px 15px;
-    background-color: white;
-    min-width: 150px;
-    opacity: 0;
-    pointer-events: none;
-    transition: $transition-base;
-
-    &.is-active {
-      opacity: 1;
-      pointer-events: auto;
-    }
+  .suggestion-item {
+    white-space: nowrap;
+    text-transform: none;
   }
-}
-
-.cursor-tracker {
-  position: fixed;
-  z-index: 10;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-
-  display: block;
-  background-color: black;
-  width: 150px;
-  height: 50px;
 }

@@ -27,6 +27,7 @@
     "material-design-kit": "^2.2.0",
     "nuxt-i18n": "^6.15.1",
     "ui-huma": "file:vendor/ui-huma",
+    "v-click-outside": "^3.1.2",
     "vue-fragment": "^1.5.2",
     "vue-luma": "file:vendor/vue-luma",
     "vue-select": "^3.11.2",

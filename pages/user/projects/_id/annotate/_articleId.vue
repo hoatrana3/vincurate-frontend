@@ -19,6 +19,14 @@
         </div>
         <div class="col-md-4">
           <b-form-group
+            label="Article Title"
+            class="mr-5"
+            label-class="form-label">
+            <b-link :to="`/user/articles/${currentArticle.id}`">{{ currentArticle.title }}</b-link>
+          </b-form-group>
+        </div>
+        <div class="col-md-4">
+          <b-form-group
             label="Your Role"
             label-class="form-label">
             <span class="text-black-70">
@@ -26,7 +34,7 @@
             </span>
           </b-form-group>
         </div>
-        <div class="col-md-4">
+        <div class="col-md-12">
           <b-form-group
             label="Project types"
             label-class="form-label">
