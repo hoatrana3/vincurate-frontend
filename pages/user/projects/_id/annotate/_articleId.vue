@@ -153,7 +153,7 @@ export default {
   },
   methods: {
     getArticleAnnotateLink(article) {
-      return article ? `/projects/${this.currentProject.id}/annotate/${article.id}?tab=${this.$route.query.tab || 0}` : '#'
+      return article ? `/user/projects/${this.currentProject.id}/annotate/${article.id}?tab=${this.$route.query.tab || 0}` : '#'
     },
     goNavigateIndex() {
       const navIdx = parseInt(this.currentNavigation)
