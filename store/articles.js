@@ -78,9 +78,9 @@ export const actions = {
       const response = new ResponseWrapper(rawData)
 
       if (response.isError()) {
-        throw new CustomError(
-          'Failed to search articles',
-          'Somethings went wrong wile fetching articles!'
+        this.$notify.warning(
+          'There is nothing',
+          'No articles found, please try again later!'
         )
       } else {
         commit('setSearchResults', response.getData())
