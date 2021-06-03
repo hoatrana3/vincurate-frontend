@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 const pkg = require('./package')
 const webpack = require('webpack')
 
