@@ -13,10 +13,6 @@ module.exports = {
 
   ssr: false,
 
-  server: {
-    port: process.env.PORT || 8000 // default: 3000
-  },
-
   /*
   ** Headers of the page
   */
