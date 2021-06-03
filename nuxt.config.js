@@ -9,7 +9,7 @@ const numberFormats = i18nConfig.numberFormats
 const locales = i18nConfig.locales
 
 module.exports = {
-  target: 'static',
+  // target: 'static',
 
   ssr: false,
 
