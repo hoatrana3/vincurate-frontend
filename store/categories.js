@@ -32,7 +32,7 @@ export const actions = {
 
       if (response.isError()) {
         throw new CustomError(
-          'Failed to get all categorys',
+          'Failed to get all categories',
           response.getMessage()
         )
       } else {
