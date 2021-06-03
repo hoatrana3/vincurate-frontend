@@ -8,7 +8,7 @@
   "scripts": {
     "dev": "nuxt",
     "build": "nuxt build",
-    "start": "nuxt start --max_old_space_size=8192",
+    "start": "nuxt generate --max_old_space_size=8192 && nuxt start --max_old_space_size=8192",
     "generate": "nuxt generate",
     "lint:js": "eslint --ext .js,.vue --ignore-path .gitignore .",
     "lint:style": "stylelint **/*.{vue,css} --ignore-path .gitignore",
