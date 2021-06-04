@@ -28,6 +28,7 @@
     "lodash": "^4.17.21",
     "material-design-kit": "^2.2.0",
     "nuxt-i18n": "^6.15.1",
+    "reading-time": "^1.3.0",
     "ui-huma": "file:vendor/ui-huma",
     "v-click-outside": "^3.1.2",
     "vue-fragment": "^1.5.2",

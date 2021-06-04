@@ -22,7 +22,7 @@
             </small>
             <small
               class="text-50 mr-2"
-              v-text="'2 min read'" />
+              v-text="articleReadingTime" />
           </div>
         </div>
       </div>
@@ -35,6 +35,7 @@ import { FmvAvatar } from 'fmv-avatar'
 import {
   routeToMixin
 } from 'vue-luma'
+import readingTime from 'reading-time'
 
 export default {
   components: {
@@ -47,5 +48,10 @@ export default {
       required: true
     }
   },
+  computed: {
+    articleReadingTime() {
+      return readingTime(this.article.content).text
+    }
+  }
 }
 </script>

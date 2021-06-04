@@ -24,9 +24,6 @@
         variant="flush text-black-70"
         right>
         <b-dropdown-item active>All Categories</b-dropdown-item>
-        <b-dropdown-item>News</b-dropdown-item>
-        <b-dropdown-item>Researchs</b-dropdown-item>
-        <b-dropdown-item>Others</b-dropdown-item>
       </b-dropdown>
     </div>
 
@@ -45,7 +42,9 @@
           </div>
         </div>
       </div>
-      <div class="col-md-3">
+      <div
+        v-if="totalCount > 0"
+        class="col-md-3">
         <concepts-picker :concept-labels="shownConceptLabels" />
       </div>
     </div>
@@ -91,7 +90,7 @@ export default {
     additionalRequired: {
       type: Boolean,
       default: true
-    },
+    }
   },
   data() {
     return {
@@ -107,7 +106,7 @@ export default {
     ...mapGetters({
       searchResults: 'articles/getSearchResults',
       selectedConcepts: 'articles/getSelectedConcepts',
-      allConceptLabels: 'labels/getAllLabels',
+      allConceptLabels: 'labels/getAllLabels'
     }),
     searchQuery() {
       return this.$route.query.q || ''

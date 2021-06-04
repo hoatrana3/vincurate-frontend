@@ -23,13 +23,14 @@
         </b-link>
         <small>- {{ $helpers.formatTimeAgo(article.createdAt) }}</small>
       </div>
-      <span class="text-muted"><small>{{ article.category }}</small></span>
+      <span class="text-muted"><small v-text="articleReadingTime" /></span>
     </div>
   </div>
 </template>
 
 <script>
 import { routeToMixin } from 'vue-luma'
+import readingTime from 'reading-time'
 
 export default {
   name: 'MiniArticleCard',
@@ -40,5 +41,10 @@ export default {
       required: true
     }
   },
+  computed: {
+    articleReadingTime() {
+      return readingTime(this.article.content).text
+    }
+  }
 }
 </script>

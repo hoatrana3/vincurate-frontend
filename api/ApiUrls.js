@@ -1,7 +1,7 @@
 import ApiUrl from './ApiUrl'
 
-export const BASE_URL = 'https://vincurate-backend.herokuapp.com'
-// export const BASE_URL = process.env.BASE_URL || 'http://localhost:3000'
+// export const BASE_URL = 'https://vincurate-backend.herokuapp.com'
+export const BASE_URL = process.env.BASE_URL || 'http://localhost:3000'
 export const BASE_API_V1_URL = process.env.BASE_URL_VER_1 || `${BASE_URL}/v1`
 
 export const GET_ALL_USERS = ApiUrl.build(`${BASE_API_V1_URL}/users/all`)
