@@ -157,7 +157,9 @@
       <page-separator title="Project Articles" />
       <articles-explore
         :project="currentProject"
-        :additional-query="currentProject.id" />
+        :additional-query="currentProject.id"
+        :default-per-page="3"
+        auto-scroll />
     </div>
   </div>
 </template>

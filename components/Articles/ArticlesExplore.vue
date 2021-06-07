@@ -32,6 +32,7 @@
         class="col-md-9 row static-concepts-container"
         :data-concepts="selectedConcepts.join(', ')">
         <div class="col-12">
+          <div ref="articleExploreScroll" />
           <div
             v-for="article in articles"
             :key="article.id"
@@ -50,14 +51,15 @@
     </div>
 
     <custom-pager
+      v-if="totalCount > perPage"
       v-model="currentPage"
       :rows="totalCount"
       :per-page="perPage" />
-
   </div>
 </template>
 
 <script>
+import isEmpty from 'lodash/isEmpty'
 import CustomPager from '@/components/General/CustomPager'
 import ConceptsPicker from '@/components/Articles/ConceptsPicker'
 import MiniArticleCard from '@/components/Articles/MiniArticleCard'
@@ -90,6 +92,14 @@ export default {
     additionalRequired: {
       type: Boolean,
       default: true
+    },
+    defaultPerPage: {
+      type: Number,
+      default: 10,
+    },
+    autoScroll: {
+      type: Boolean,
+      default: false,
     }
   },
   data() {
@@ -98,7 +108,7 @@ export default {
       articles: [],
       totalCount: null,
       currentPage: 1,
-      perPage: 10,
+      perPage: this.defaultPerPage,
       searchInput: ''
     }
   },
@@ -110,6 +120,14 @@ export default {
     }),
     searchQuery() {
       return this.$route.query.q || ''
+    },
+    pageQuery() {
+      const page = this.$route.query.page
+      return page ? parseInt(page) : this.currentPage
+    },
+    perPageQuery() {
+      const per = this.$route.query.per
+      return per ? parseInt(per) : this.perPage
     },
     shownConceptLabels() {
       if (!this.project) return this.allConceptLabels.filter(l => l.isSystem)
@@ -138,11 +156,11 @@ export default {
       if (this.additionalQuery)
         q = `${this.additionalQuery} ${this.additionalRequired ? 'AND' : 'OR'} ${q}`
 
-      const page = this.currentPage
-      const per = this.perPage
+      const page = this.pageQuery
+      const per = this.perPageQuery
 
-      if (this.currentPage !== page) this.currentPage = page
-      if (this.perPage !== per) this.perPage = per
+      if (page && this.currentPage !== page) this.currentPage = page
+      if (per && this.perPage !== per) this.perPage = per
 
       const handler = this.$apiHandler
         .build()
@@ -152,8 +170,16 @@ export default {
 
       await this.searchArticles(handler)
 
-      this.articles = this.searchResults.articles
-      this.totalCount = this.searchResults.total
+      if (this.searchResults) {
+        this.articles = this.searchResults.articles
+        this.totalCount = this.searchResults.total
+
+        if (this.autoScroll && !isEmpty(this.$route.query)) {
+          this.$nextTick(() => {
+            this.$refs.articleExploreScroll.scrollIntoView(true)
+          })
+        }
+      }
     },
     handlePageChange() {
       this.$router.push(

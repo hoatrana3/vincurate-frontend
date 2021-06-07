@@ -4,7 +4,8 @@
     :brand="$store.state.brand"
     :auth-with-google="false"
     :on-submit-handler="onSubmitHandler"
-    :logo="logo" />
+    :logo="logo"
+    signup-description="Not yet a member?" />
 </template>
 
 <script>

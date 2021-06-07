@@ -1,3 +1,7 @@
+html, body {
+  scroll-behavior: smooth;
+}
+
 #drawer-layout-content,
 #header-layout-content {
   display: flex;
